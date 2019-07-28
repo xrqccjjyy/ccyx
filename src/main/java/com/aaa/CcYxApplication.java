@@ -14,10 +14,10 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @MapperScan("com.aaa.project.*.*.mapper")
 //@EnableCaching
-public class DouDouApplication
+public class CcYxApplication
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(DouDouApplication.class, args);
+        SpringApplication.run(CcYxApplication.class, args);
     }
 }

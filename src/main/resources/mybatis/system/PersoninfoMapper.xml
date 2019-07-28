@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.personinfo.mapper.PersoninfoMapper">
+    
+    <resultMap type="Personinfo" id="PersoninfoResult">
+        <result property="personid"    column="personid"    />
+        <result property="personname"    column="personname"    />
+        <result property="personareaid"    column="personareaid"    />
+        <result property="personage"    column="personage"    />
+        <result property="personaddress"    column="personaddress"    />
+    </resultMap>
+	
+	<sql id="selectPersoninfoVo">
+        select personid, personname, personareaid, personage, personaddress from personinfo
+    </sql>
+	
+    <select id="selectPersoninfoList" parameterType="Personinfo" resultMap="PersoninfoResult">
+        SELECT personid,personname,areaname,personage,personaddress FROM personinfo INNER JOIN areainfo ON personareaid = areaid
+        <where>  
+            <if test="personid != null "> and personid = #{personid}</if>
+             <if test="personname != null  and personname != '' "> and personname = #{personname}</if>
+             <if test="personareaid != null "> and personareaid = #{personareaid}</if>
+             <if test="personage != null "> and personage = #{personage}</if>
+             <if test="personaddress != null  and personaddress != '' "> and personaddress = #{personaddress}</if>
+         </where>
+    </select>
+    
+    <select id="selectPersoninfoById" parameterType="Integer" resultMap="PersoninfoResult">
+        <include refid="selectPersoninfoVo"/>
+        where personid = #{personid}
+    </select>
+        
+    <insert id="insertPersoninfo" parameterType="Personinfo">
+        insert into personinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="personid != null  ">personid,</if>
+			<if test="personname != null  and personname != ''  ">personname,</if>
+			<if test="personareaid != null  ">personareaid,</if>
+			<if test="personage != null  ">personage,</if>
+			<if test="personaddress != null  and personaddress != ''  ">personaddress,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="personid != null  ">#{personid},</if>
+			<if test="personname != null  and personname != ''  ">#{personname},</if>
+			<if test="personareaid != null  ">#{personareaid},</if>
+			<if test="personage != null  ">#{personage},</if>
+			<if test="personaddress != null  and personaddress != ''  ">#{personaddress},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updatePersoninfo" parameterType="Personinfo">
+        update personinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="personname != null  and personname != ''  ">personname = #{personname},</if>
+            <if test="personareaid != null  ">personareaid = #{personareaid},</if>
+            <if test="personage != null  ">personage = #{personage},</if>
+            <if test="personaddress != null  and personaddress != ''  ">personaddress = #{personaddress},</if>
+        </trim>
+        where personid = #{personid}
+    </update>
+
+	<delete id="deletePersoninfoById" parameterType="Integer">
+        delete from personinfo where personid = #{personid}
+    </delete>
+	
+    <delete id="deletePersoninfoByIds" parameterType="String">
+        delete from personinfo where personid in 
+        <foreach item="personid" collection="array" open="(" separator="," close=")">
+            #{personid}
+        </foreach>
+    </delete>
+    
+</mapper>

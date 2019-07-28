@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-personinfo-edit" th:object="${personinfo}">
+            <input id="personid" name="personid" th:field="*{personid}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">人员名称：</label>
+				<div class="col-sm-8">
+					<input id="personname" name="personname" th:field="*{personname}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">户口所在地：</label>
+				<div class="col-sm-8">
+                	<select id="personareaid" name="personareaid" class="form-control" >
+                		<option th:each="areaList:${areainfoList}"  th:value="${areaList.areaid}" th:text="${areaList.areaname}"></option>
+                </select>
+
+               </div>
+
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">人员年龄：</label>
+				<div class="col-sm-8">
+					<input id="personage" name="personage" th:field="*{personage}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">家庭地址：</label>
+				<div class="col-sm-8">
+					<input id="personaddress" name="personaddress" th:field="*{personaddress}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/personinfo"
+		$("#form-personinfo-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-personinfo-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

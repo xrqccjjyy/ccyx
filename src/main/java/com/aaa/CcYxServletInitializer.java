@@ -8,11 +8,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * 
  * @author teacherChen
  */
-public class DouDouServletInitializer extends SpringBootServletInitializer
+public class CcYxServletInitializer extends SpringBootServletInitializer
 {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
     {
-        return application.sources(DouDouApplication.class);
+        return application.sources(CcYxApplication.class);
     }
 }
