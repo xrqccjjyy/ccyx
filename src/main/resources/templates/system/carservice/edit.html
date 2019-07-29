@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-carservice-edit" th:object="${carservice}">
+            <input id="carserviceid" name="carserviceid" th:field="*{carserviceid}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">套餐价格：</label>
+				<div class="col-sm-8">
+					<input id="carsereviceprice" name="carsereviceprice" th:field="*{carsereviceprice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">套餐内容：</label>
+				<div class="col-sm-8">
+					<input id="carservicename" name="carservicename" th:field="*{carservicename}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商家id：</label>
+				<div class="col-sm-8">
+					<input id="shopid" name="shopid" th:field="*{shopid}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/carservice"
+		$("#form-carservice-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-carservice-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

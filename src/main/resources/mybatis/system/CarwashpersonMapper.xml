@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.carwashperson.mapper.CarwashpersonMapper">
+    
+    <resultMap type="Carwashperson" id="CarwashpersonResult">
+        <result property="washpersonpid"    column="washpersonpid"    />
+        <result property="washpersonphone"    column="washpersonphone"    />
+        <result property="washpersonname"    column="washpersonname"    />
+        <result property="shopid"    column="shopid"    />
+        <result property="washpersonstatus"    column="washpersonstatus"    />
+    </resultMap>
+	
+	<sql id="selectCarwashpersonVo">
+        select washpersonpid, washpersonphone, washpersonname, shopid, washpersonstatus from carwashperson
+    </sql>
+	
+    <select id="selectCarwashpersonList" parameterType="Carwashperson" resultMap="CarwashpersonResult">
+        <include refid="selectCarwashpersonVo"/>
+        <where>  
+            <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
+             <if test="washpersonphone != null  and washpersonphone != '' "> and washpersonphone = #{washpersonphone}</if>
+             <if test="washpersonname != null  and washpersonname != '' "> and washpersonname = #{washpersonname}</if>
+             <if test="shopid != null "> and shopid = #{shopid}</if>
+             <if test="washpersonstatus != null  and washpersonstatus != '' "> and washpersonstatus = #{washpersonstatus}</if>
+         </where>
+    </select>
+    
+    <select id="selectCarwashpersonById" parameterType="Integer" resultMap="CarwashpersonResult">
+        <include refid="selectCarwashpersonVo"/>
+        where washpersonpid = #{washpersonpid}
+    </select>
+        
+    <insert id="insertCarwashperson" parameterType="Carwashperson">
+        insert into carwashperson
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="washpersonpid != null  ">washpersonpid,</if>
+			<if test="washpersonphone != null  and washpersonphone != ''  ">washpersonphone,</if>
+			<if test="washpersonname != null  and washpersonname != ''  ">washpersonname,</if>
+			<if test="shopid != null  ">shopid,</if>
+			<if test="washpersonstatus != null  and washpersonstatus != ''  ">washpersonstatus,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="washpersonpid != null  ">#{washpersonpid},</if>
+			<if test="washpersonphone != null  and washpersonphone != ''  ">#{washpersonphone},</if>
+			<if test="washpersonname != null  and washpersonname != ''  ">#{washpersonname},</if>
+			<if test="shopid != null  ">#{shopid},</if>
+			<if test="washpersonstatus != null  and washpersonstatus != ''  ">#{washpersonstatus},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateCarwashperson" parameterType="Carwashperson">
+        update carwashperson
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="washpersonphone != null  and washpersonphone != ''  ">washpersonphone = #{washpersonphone},</if>
+            <if test="washpersonname != null  and washpersonname != ''  ">washpersonname = #{washpersonname},</if>
+            <if test="shopid != null  ">shopid = #{shopid},</if>
+            <if test="washpersonstatus != null  and washpersonstatus != ''  ">washpersonstatus = #{washpersonstatus},</if>
+        </trim>
+        where washpersonpid = #{washpersonpid}
+    </update>
+
+	<delete id="deleteCarwashpersonById" parameterType="Integer">
+        delete from carwashperson where washpersonpid = #{washpersonpid}
+    </delete>
+	
+    <delete id="deleteCarwashpersonByIds" parameterType="String">
+        delete from carwashperson where washpersonpid in 
+        <foreach item="washpersonpid" collection="array" open="(" separator="," close=")">
+            #{washpersonpid}
+        </foreach>
+    </delete>
+    
+</mapper>

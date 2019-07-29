@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.orders.mapper.OrdersMapper">
+    
+    <resultMap type="Orders" id="OrdersResult">
+        <result property="orderid"    column="orderid"    />
+        <result property="ordernumber"    column="ordernumber"    />
+        <result property="ordertime"    column="ordertime"    />
+        <result property="washtime"    column="washtime"    />
+        <result property="cabinetcode"    column="cabinetcode"    />
+        <result property="chestsite"    column="chestsite"    />
+        <result property="orderstatus"    column="orderstatus"    />
+        <result property="usercarid"    column="usercarid"    />
+        <result property="shopid"    column="shopid"    />
+        <result property="userid"    column="userid"    />
+        <result property="washpersonpid"    column="washpersonpid"    />
+    </resultMap>
+	
+	<sql id="selectOrdersVo">
+        select orderid, ordernumber, ordertime, washtime, cabinetcode, chestsite, orderstatus, usercarid, shopid, userid, washpersonpid from orders
+    </sql>
+	
+    <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        <where>  
+            <if test="orderid != null "> and orderid = #{orderid}</if>
+             <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
+             <if test="ordertime != null "> and ordertime = #{ordertime}</if>
+             <if test="washtime != null "> and washtime = #{washtime}</if>
+             <if test="cabinetcode != null  and cabinetcode != '' "> and cabinetcode = #{cabinetcode}</if>
+             <if test="chestsite != null  and chestsite != '' "> and chestsite = #{chestsite}</if>
+             <if test="orderstatus != null  and orderstatus != '' "> and orderstatus = #{orderstatus}</if>
+             <if test="usercarid != null "> and usercarid = #{usercarid}</if>
+             <if test="shopid != null "> and shopid = #{shopid}</if>
+             <if test="userid != null "> and userid = #{userid}</if>
+             <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
+         </where>
+    </select>
+    
+    <select id="selectOrdersById" parameterType="Integer" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        where orderid = #{orderid}
+    </select>
+        
+    <insert id="insertOrders" parameterType="Orders">
+        insert into orders
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderid != null  ">orderid,</if>
+			<if test="ordernumber != null  and ordernumber != ''  ">ordernumber,</if>
+			<if test="ordertime != null  ">ordertime,</if>
+			<if test="washtime != null  ">washtime,</if>
+			<if test="cabinetcode != null  and cabinetcode != ''  ">cabinetcode,</if>
+			<if test="chestsite != null  and chestsite != ''  ">chestsite,</if>
+			<if test="orderstatus != null  and orderstatus != ''  ">orderstatus,</if>
+			<if test="usercarid != null  ">usercarid,</if>
+			<if test="shopid != null  ">shopid,</if>
+			<if test="userid != null  ">userid,</if>
+			<if test="washpersonpid != null  ">washpersonpid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderid != null  ">#{orderid},</if>
+			<if test="ordernumber != null  and ordernumber != ''  ">#{ordernumber},</if>
+			<if test="ordertime != null  ">#{ordertime},</if>
+			<if test="washtime != null  ">#{washtime},</if>
+			<if test="cabinetcode != null  and cabinetcode != ''  ">#{cabinetcode},</if>
+			<if test="chestsite != null  and chestsite != ''  ">#{chestsite},</if>
+			<if test="orderstatus != null  and orderstatus != ''  ">#{orderstatus},</if>
+			<if test="usercarid != null  ">#{usercarid},</if>
+			<if test="shopid != null  ">#{shopid},</if>
+			<if test="userid != null  ">#{userid},</if>
+			<if test="washpersonpid != null  ">#{washpersonpid},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateOrders" parameterType="Orders">
+        update orders
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ordernumber != null  and ordernumber != ''  ">ordernumber = #{ordernumber},</if>
+            <if test="ordertime != null  ">ordertime = #{ordertime},</if>
+            <if test="washtime != null  ">washtime = #{washtime},</if>
+            <if test="cabinetcode != null  and cabinetcode != ''  ">cabinetcode = #{cabinetcode},</if>
+            <if test="chestsite != null  and chestsite != ''  ">chestsite = #{chestsite},</if>
+            <if test="orderstatus != null  and orderstatus != ''  ">orderstatus = #{orderstatus},</if>
+            <if test="usercarid != null  ">usercarid = #{usercarid},</if>
+            <if test="shopid != null  ">shopid = #{shopid},</if>
+            <if test="userid != null  ">userid = #{userid},</if>
+            <if test="washpersonpid != null  ">washpersonpid = #{washpersonpid},</if>
+        </trim>
+        where orderid = #{orderid}
+    </update>
+
+	<delete id="deleteOrdersById" parameterType="Integer">
+        delete from orders where orderid = #{orderid}
+    </delete>
+	
+    <delete id="deleteOrdersByIds" parameterType="String">
+        delete from orders where orderid in 
+        <foreach item="orderid" collection="array" open="(" separator="," close=")">
+            #{orderid}
+        </foreach>
+    </delete>
+    
+</mapper>

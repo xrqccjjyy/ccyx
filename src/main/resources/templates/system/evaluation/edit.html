@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-evaluation-edit" th:object="${evaluation}">
+            <input id="clientid" name="clientid" th:field="*{clientid}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">评价信息：</label>
+				<div class="col-sm-8">
+					<input id="clientmessage" name="clientmessage" th:field="*{clientmessage}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投诉信息：</label>
+				<div class="col-sm-8">
+					<input id="complain" name="complain" th:field="*{complain}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">洗车人员id：</label>
+				<div class="col-sm-8">
+					<input id="washpersonpid" name="washpersonpid" th:field="*{washpersonpid}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/evaluation"
+		$("#form-evaluation-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-evaluation-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

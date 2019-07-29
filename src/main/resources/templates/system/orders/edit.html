@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-orders-edit" th:object="${orders}">
+            <input id="orderid" name="orderid" th:field="*{orderid}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单编号：</label>
+				<div class="col-sm-8">
+					<input id="ordernumber" name="ordernumber" th:field="*{ordernumber}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单时间：</label>
+				<div class="col-sm-8">
+					<input id="ordertime" name="ordertime" th:field="*{ordertime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">洗车时间：</label>
+				<div class="col-sm-8">
+					<input id="washtime" name="washtime" th:field="*{washtime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">钥匙柜取件码：</label>
+				<div class="col-sm-8">
+					<input id="cabinetcode" name="cabinetcode" th:field="*{cabinetcode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">柜子位置信息：</label>
+				<div class="col-sm-8">
+					<input id="chestsite" name="chestsite" th:field="*{chestsite}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单状态：</label>
+				<div class="col-sm-8">
+					<input id="orderstatus" name="orderstatus" th:field="*{orderstatus}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">车辆信息id：</label>
+				<div class="col-sm-8">
+					<input id="usercarid" name="usercarid" th:field="*{usercarid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商家id：</label>
+				<div class="col-sm-8">
+					<input id="shopid" name="shopid" th:field="*{shopid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户id：</label>
+				<div class="col-sm-8">
+					<input id="userid" name="userid" th:field="*{userid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">洗车人员id：</label>
+				<div class="col-sm-8">
+					<input id="washpersonpid" name="washpersonpid" th:field="*{washpersonpid}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/orders"
+		$("#form-orders-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-orders-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

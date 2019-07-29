@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.orderhistory.mapper.OrderhistoryMapper">
+    
+    <resultMap type="Orderhistory" id="OrderhistoryResult">
+        <result property="orderhistoryid"    column="orderhistoryid"    />
+        <result property="ordernumber"    column="ordernumber"    />
+        <result property="orderstatus"    column="orderstatus"    />
+    </resultMap>
+	
+	<sql id="selectOrderhistoryVo">
+        select orderhistoryid, ordernumber, orderstatus from orderhistory
+    </sql>
+	
+    <select id="selectOrderhistoryList" parameterType="Orderhistory" resultMap="OrderhistoryResult">
+        <include refid="selectOrderhistoryVo"/>
+        <where>  
+            <if test="orderhistoryid != null "> and orderhistoryid = #{orderhistoryid}</if>
+             <if test="ordernumber != null "> and ordernumber = #{ordernumber}</if>
+             <if test="orderstatus != null  and orderstatus != '' "> and orderstatus = #{orderstatus}</if>
+         </where>
+    </select>
+    
+    <select id="selectOrderhistoryById" parameterType="Integer" resultMap="OrderhistoryResult">
+        <include refid="selectOrderhistoryVo"/>
+        where orderhistoryid = #{orderhistoryid}
+    </select>
+        
+    <insert id="insertOrderhistory" parameterType="Orderhistory">
+        insert into orderhistory
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderhistoryid != null  ">orderhistoryid,</if>
+			<if test="ordernumber != null  ">ordernumber,</if>
+			<if test="orderstatus != null  and orderstatus != ''  ">orderstatus,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderhistoryid != null  ">#{orderhistoryid},</if>
+			<if test="ordernumber != null  ">#{ordernumber},</if>
+			<if test="orderstatus != null  and orderstatus != ''  ">#{orderstatus},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateOrderhistory" parameterType="Orderhistory">
+        update orderhistory
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ordernumber != null  ">ordernumber = #{ordernumber},</if>
+            <if test="orderstatus != null  and orderstatus != ''  ">orderstatus = #{orderstatus},</if>
+        </trim>
+        where orderhistoryid = #{orderhistoryid}
+    </update>
+
+	<delete id="deleteOrderhistoryById" parameterType="Integer">
+        delete from orderhistory where orderhistoryid = #{orderhistoryid}
+    </delete>
+	
+    <delete id="deleteOrderhistoryByIds" parameterType="String">
+        delete from orderhistory where orderhistoryid in 
+        <foreach item="orderhistoryid" collection="array" open="(" separator="," close=")">
+            #{orderhistoryid}
+        </foreach>
+    </delete>
+    
+</mapper>

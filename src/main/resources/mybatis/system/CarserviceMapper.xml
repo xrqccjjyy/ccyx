@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.carservice.mapper.CarserviceMapper">
+    
+    <resultMap type="Carservice" id="CarserviceResult">
+        <result property="carserviceid"    column="carserviceid"    />
+        <result property="carsereviceprice"    column="carsereviceprice"    />
+        <result property="carservicename"    column="carservicename"    />
+        <result property="shopid"    column="shopid"    />
+    </resultMap>
+	
+	<sql id="selectCarserviceVo">
+        select carserviceid, carsereviceprice, carservicename, shopid from carservice
+    </sql>
+	
+    <select id="selectCarserviceList" parameterType="Carservice" resultMap="CarserviceResult">
+        <include refid="selectCarserviceVo"/>
+        <where>  
+            <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
+             <if test="carsereviceprice != null "> and carsereviceprice = #{carsereviceprice}</if>
+             <if test="carservicename != null  and carservicename != '' "> and carservicename = #{carservicename}</if>
+             <if test="shopid != null "> and shopid = #{shopid}</if>
+         </where>
+    </select>
+    
+    <select id="selectCarserviceById" parameterType="Integer" resultMap="CarserviceResult">
+        <include refid="selectCarserviceVo"/>
+        where carserviceid = #{carserviceid}
+    </select>
+        
+    <insert id="insertCarservice" parameterType="Carservice">
+        insert into carservice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="carserviceid != null  ">carserviceid,</if>
+			<if test="carsereviceprice != null  ">carsereviceprice,</if>
+			<if test="carservicename != null  and carservicename != ''  ">carservicename,</if>
+			<if test="shopid != null  ">shopid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="carserviceid != null  ">#{carserviceid},</if>
+			<if test="carsereviceprice != null  ">#{carsereviceprice},</if>
+			<if test="carservicename != null  and carservicename != ''  ">#{carservicename},</if>
+			<if test="shopid != null  ">#{shopid},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateCarservice" parameterType="Carservice">
+        update carservice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="carsereviceprice != null  ">carsereviceprice = #{carsereviceprice},</if>
+            <if test="carservicename != null  and carservicename != ''  ">carservicename = #{carservicename},</if>
+            <if test="shopid != null  ">shopid = #{shopid},</if>
+        </trim>
+        where carserviceid = #{carserviceid}
+    </update>
+
+	<delete id="deleteCarserviceById" parameterType="Integer">
+        delete from carservice where carserviceid = #{carserviceid}
+    </delete>
+	
+    <delete id="deleteCarserviceByIds" parameterType="String">
+        delete from carservice where carserviceid in 
+        <foreach item="carserviceid" collection="array" open="(" separator="," close=")">
+            #{carserviceid}
+        </foreach>
+    </delete>
+    
+</mapper>
