@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.customer.mapper.CustomerMapper">
+    
+    <resultMap type="Customer" id="CustomerResult">
+        <result property="userid"    column="userid"    />
+        <result property="username"    column="username"    />
+        <result property="userphone"    column="userphone"    />
+        <result property="usercarid"    column="usercarid"    />
+    </resultMap>
+	
+	<sql id="selectCustomerVo">
+        select userid, username, userphone, usercarid from customer
+    </sql>
+	
+    <select id="selectCustomerList" parameterType="Customer" resultMap="CustomerResult">
+        <include refid="selectCustomerVo"/>
+        <where>  
+            <if test="userid != null "> and userid = #{userid}</if>
+             <if test="username != null  and username != '' "> and username = #{username}</if>
+             <if test="userphone != null  and userphone != '' "> and userphone = #{userphone}</if>
+             <if test="usercarid != null "> and usercarid = #{usercarid}</if>
+         </where>
+    </select>
+    
+    <select id="selectCustomerById" parameterType="Integer" resultMap="CustomerResult">
+        <include refid="selectCustomerVo"/>
+        where userid = #{userid}
+    </select>
+        
+    <insert id="insertCustomer" parameterType="Customer">
+        insert into customer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userid != null  ">userid,</if>
+			<if test="username != null  and username != ''  ">username,</if>
+			<if test="userphone != null  and userphone != ''  ">userphone,</if>
+			<if test="usercarid != null  ">usercarid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userid != null  ">#{userid},</if>
+			<if test="username != null  and username != ''  ">#{username},</if>
+			<if test="userphone != null  and userphone != ''  ">#{userphone},</if>
+			<if test="usercarid != null  ">#{usercarid},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateCustomer" parameterType="Customer">
+        update customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null  and username != ''  ">username = #{username},</if>
+            <if test="userphone != null  and userphone != ''  ">userphone = #{userphone},</if>
+            <if test="usercarid != null  ">usercarid = #{usercarid},</if>
+        </trim>
+        where userid = #{userid}
+    </update>
+
+	<delete id="deleteCustomerById" parameterType="Integer">
+        delete from customer where userid = #{userid}
+    </delete>
+	
+    <delete id="deleteCustomerByIds" parameterType="String">
+        delete from customer where userid in 
+        <foreach item="userid" collection="array" open="(" separator="," close=")">
+            #{userid}
+        </foreach>
+    </delete>
+    
+</mapper>
