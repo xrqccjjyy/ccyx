@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+	<form class="form-horizontal m-t" id="signupForm">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">订单编号：</label>
+			<div class="form-control-static" th:text="${orderList.ordernumber} ">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">下单时间：</label>
+			<div class="form-control-static" th:text="${orderList.ordertime} ">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">洗车时间：</label>
+			<div class="form-control-static" th:text="${orderList.washtime}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">取件码：</label>
+			<div class="form-control-static" th:text="${orderList.cabinetcode}">
+			</div>
+		</div>
+		<div class="form-group">
+        	<label class="col-sm-2 control-label">钥匙柜位置：</label>
+        	<div class="form-control-static" th:text="${orderList.chestsite}">
+        	</div>
+        </div>
+        <div class="form-group">
+              <label class="col-sm-2 control-label">订单状态：</label>
+              <div class="form-control-static" th:text="${orderList.orderstatus}">
+           </div>
+        </div>
+	</form>
+    </div>
+    <div th:include="include :: footer"></div>
+
+
+</body>
+</html>

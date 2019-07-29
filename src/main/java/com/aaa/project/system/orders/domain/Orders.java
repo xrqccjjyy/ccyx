@@ -1,5 +1,6 @@
 package com.aaa.project.system.orders.domain;
 
+import com.aaa.project.system.customer.domain.Customer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.aaa.framework.web.domain.BaseEntity;
@@ -37,8 +38,96 @@ public class Orders extends BaseEntity
 	private Integer userid;
 	/** 洗车人员id */
 	private Integer washpersonpid;
+	/** 套餐id */
+	private Integer carserviceid;
 
-	public void setOrderid(Integer orderid) 
+	private String  username;
+	private String userphone;
+	private String  usercarnumber;
+	private String usercarbrandname;
+	private String usercarcolor;
+	private String  usercarlocation;
+	private String carservicename;
+	private String shopaddress;
+	private String washpersonname;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUserphone() {
+		return userphone;
+	}
+
+	public void setUserphone(String userphone) {
+		this.userphone = userphone;
+	}
+
+	public String getUsercarnumber() {
+		return usercarnumber;
+	}
+
+	public void setUsercarnumber(String usercarnumber) {
+		this.usercarnumber = usercarnumber;
+	}
+
+	public String getUsercarbrandname() {
+		return usercarbrandname;
+	}
+
+	public void setUsercarbrandname(String usercarbrandname) {
+		this.usercarbrandname = usercarbrandname;
+	}
+
+	public String getUsercarcolor() {
+		return usercarcolor;
+	}
+
+	public void setUsercarcolor(String usercarcolor) {
+		this.usercarcolor = usercarcolor;
+	}
+
+	public String getUsercarlocation() {
+		return usercarlocation;
+	}
+
+	public void setUsercarlocation(String usercarlocation) {
+		this.usercarlocation = usercarlocation;
+	}
+
+	public String getCarservicename() {
+		return carservicename;
+	}
+
+	public void setCarservicename(String carservicename) {
+		this.carservicename = carservicename;
+	}
+
+	public String getShopaddress() {
+		return shopaddress;
+	}
+
+	public void setShopaddress(String shopaddress) {
+		this.shopaddress = shopaddress;
+	}
+
+	public String getWashpersonname() {
+		return washpersonname;
+	}
+
+	public void setWashpersonname(String washpersonname) {
+		this.washpersonname = washpersonname;
+	}
+
+	public void setOrderid(Integer orderid)
 	{
 		this.orderid = orderid;
 	}
@@ -137,6 +226,15 @@ public class Orders extends BaseEntity
 	{
 		return washpersonpid;
 	}
+	public void setCarserviceid(Integer carserviceid) 
+	{
+		this.carserviceid = carserviceid;
+	}
+
+	public Integer getCarserviceid() 
+	{
+		return carserviceid;
+	}
 
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -151,6 +249,7 @@ public class Orders extends BaseEntity
             .append("shopid", getShopid())
             .append("userid", getUserid())
             .append("washpersonpid", getWashpersonpid())
+            .append("carserviceid", getCarserviceid())
             .toString();
     }
 }

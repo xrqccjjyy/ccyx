@@ -123,5 +123,17 @@ public class OrdersController extends BaseController
 	{		
 		return toAjax(ordersService.deleteOrdersByIds(ids));
 	}
+
+
+	/**
+	 * 订单详情
+	 * */
+	@RequiresPermissions("system:orders:detail")
+	@GetMapping("/detail/{orderid}")
+	public String detail(@PathVariable("orderid") Integer orderid, ModelMap mmap)
+	{
+		mmap.put("orderList", ordersService.selectOrdersById(orderid));
+		return prefix + "/detail";
+	}
 	
 }

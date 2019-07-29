@@ -16,14 +16,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shopid"    column="shopid"    />
         <result property="userid"    column="userid"    />
         <result property="washpersonpid"    column="washpersonpid"    />
+        <result property="carserviceid"    column="carserviceid"    />
+
     </resultMap>
 	
 	<sql id="selectOrdersVo">
-        select orderid, ordernumber, ordertime, washtime, cabinetcode, chestsite, orderstatus, usercarid, shopid, userid, washpersonpid from orders
+        select orderid, ordernumber, ordertime, washtime, cabinetcode, chestsite, orderstatus, usercarid, shopid, userid, washpersonpid, carserviceid from orders
     </sql>
 	
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
-        <include refid="selectOrdersVo"/>
+        SELECT orderid,
+        ordernumber ,
+        username ,
+        userphone ,
+        ordertime ,
+        washtime ,
+        cabinetcode,
+        usercarnumber ,
+        usercarbrandname ,
+        usercarcolor ,
+        usercarlocation ,
+        chestsite ,
+        carservicename ,
+        shopaddress ,
+        washpersonname ,
+        orderstatus
+        FROM orders, usercar, customer, carwashperson, carservice, shop
+        WHERE orders.usercarid = usercar.usercarid
+        AND customer.userid = orders.userid
+        AND carservice.carserviceid = orders.carserviceid
+        AND orders.washpersonpid = carwashperson.washpersonpid
+        GROUP BY ordernumber DESC
         <where>  
             <if test="orderid != null "> and orderid = #{orderid}</if>
              <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
@@ -36,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="shopid != null "> and shopid = #{shopid}</if>
              <if test="userid != null "> and userid = #{userid}</if>
              <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
+             <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
          </where>
     </select>
     
@@ -58,6 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="shopid != null  ">shopid,</if>
 			<if test="userid != null  ">userid,</if>
 			<if test="washpersonpid != null  ">washpersonpid,</if>
+			<if test="carserviceid != null  ">carserviceid,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="orderid != null  ">#{orderid},</if>
@@ -71,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="shopid != null  ">#{shopid},</if>
 			<if test="userid != null  ">#{userid},</if>
 			<if test="washpersonpid != null  ">#{washpersonpid},</if>
+			<if test="carserviceid != null  ">#{carserviceid},</if>
          </trim>
     </insert>
 	 
@@ -87,6 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopid != null  ">shopid = #{shopid},</if>
             <if test="userid != null  ">userid = #{userid},</if>
             <if test="washpersonpid != null  ">washpersonpid = #{washpersonpid},</if>
+            <if test="carserviceid != null  ">carserviceid = #{carserviceid},</if>
         </trim>
         where orderid = #{orderid}
     </update>
