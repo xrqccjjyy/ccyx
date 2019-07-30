@@ -29,7 +29,7 @@ import com.aaa.common.utils.poi.ExcelUtil;
 @RequestMapping("/system/typeinfo")
 public class TypeinfoController extends BaseController
 {
-	  
+
 
     private String prefix = "system/typeinfo";
 	
