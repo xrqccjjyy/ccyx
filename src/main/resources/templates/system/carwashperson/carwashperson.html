@@ -58,6 +58,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:carwashperson:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:carwashperson:remove')}]];
+        var datas = [[${@dict.getType('sys_normal_disable')}]];
         var prefix = ctx + "system/carwashperson";
 
         $(function() {
@@ -96,7 +97,10 @@
 				{
 					field : 'washpersonstatus', 
 					title : '洗车人员状态',
-					sortable: true
+					sortable: true,
+                   /* formatter: function(value, row, index) {
+                    	return $.table.selectDictLabel(datas, value);
+                    }*/
 				},
 		        {
 		            title: '操作',

@@ -79,5 +79,10 @@ public class OrdersServiceImpl implements IOrdersService
 	{
 		return ordersMapper.deleteOrdersByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public int updateOrdersStatus(Orders orders) {
+		return ordersMapper.updateOrdersStatus(orders);
+	}
+
 }
