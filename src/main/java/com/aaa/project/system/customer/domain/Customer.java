@@ -23,7 +23,57 @@ public class Customer extends BaseEntity
 	/** 用户车辆信息id */
 	private Integer usercarid;
 
-	public void setUserid(Integer userid) 
+	private String usercarnumber;
+
+	private String usercarbrandname;
+
+	private String usercarphoto;
+
+	private String usercarcolor;
+
+	private String usercarlocation;
+
+	public String getUsercarnumber() {
+		return usercarnumber;
+	}
+
+	public void setUsercarnumber(String usercarnumber) {
+		this.usercarnumber = usercarnumber;
+	}
+
+	public String getUsercarbrandname() {
+		return usercarbrandname;
+	}
+
+	public void setUsercarbrandname(String usercarbrandname) {
+		this.usercarbrandname = usercarbrandname;
+	}
+
+	public String getUsercarphoto() {
+		return usercarphoto;
+	}
+
+	public void setUsercarphoto(String usercarphoto) {
+		this.usercarphoto = usercarphoto;
+	}
+
+	public String getUsercarcolor() {
+		return usercarcolor;
+	}
+
+	public void setUsercarcolor(String usercarcolor) {
+		this.usercarcolor = usercarcolor;
+	}
+
+	public String getUsercarlocation() {
+		return usercarlocation;
+	}
+
+	public void setUsercarlocation(String usercarlocation) {
+		this.usercarlocation = usercarlocation;
+	}
+
+	public void setUserid(Integer userid)
 	{
 		this.userid = userid;
 	}
@@ -60,12 +110,18 @@ public class Customer extends BaseEntity
 		return usercarid;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("userid", getUserid())
-            .append("username", getUsername())
-            .append("userphone", getUserphone())
-            .append("usercarid", getUsercarid())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "Customer{" +
+				"userid=" + userid +
+				", username='" + username + '\'' +
+				", userphone='" + userphone + '\'' +
+				", usercarid=" + usercarid +
+				", usercarnumber='" + usercarnumber + '\'' +
+				", usercarbrandname='" + usercarbrandname + '\'' +
+				", usercarphoto='" + usercarphoto + '\'' +
+				", usercarcolor='" + usercarcolor + '\'' +
+				", usercarlocation='" + usercarlocation + '\'' +
+				'}';
+	}
 }

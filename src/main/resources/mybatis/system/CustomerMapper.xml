@@ -16,7 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectCustomerList" parameterType="Customer" resultMap="CustomerResult">
-        <include refid="selectCustomerVo"/>
+        SELECT userid,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation
+        from customer LEFT JOIN usercar ON customer.usercarid=usercar.usercarid
         <where>  
             <if test="userid != null "> and userid = #{userid}</if>
              <if test="username != null  and username != '' "> and username = #{username}</if>
@@ -24,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="usercarid != null "> and usercarid = #{usercarid}</if>
          </where>
     </select>
-    
     <select id="selectCustomerById" parameterType="Integer" resultMap="CustomerResult">
         <include refid="selectCustomerVo"/>
         where userid = #{userid}
