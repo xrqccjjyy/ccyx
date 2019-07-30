@@ -139,6 +139,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where orderid = #{orderid}
     </update>
 
+    <update id="updateOrdersStatus" parameterType="Orders">
+        update orders SET orderstatus = '已接单'
+        where orderid = #{orderid}
+    </update>
+
 	<delete id="deleteOrdersById" parameterType="Integer">
         delete from orders where orderid = #{orderid}
     </delete>
