@@ -50,5 +50,15 @@ public interface ICarwashpersonService
      * @return 结果
      */
 	public int deleteCarwashpersonByIds(String ids);
-	
+
+
+	/**
+	 * 查询状态为‘空闲’的洗车人员
+	 * */
+	public List<Carwashperson> selectCarwashpersonStatus();
+
+	/**
+	 * 更新洗车人员的状态
+	 * */
+	public int updateCarwashpersonStatus(Carwashperson carwashperson);
 }

@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectCarwashpersonList" parameterType="Carwashperson" resultMap="CarwashpersonResult">
-        <include refid="selectCarwashpersonVo"/>
+        SELECT washpersonpid, washpersonname,washpersonphone,shopname,washpersonstatus FROM
+        shop INNER JOIN carwashperson ON shop.shopid = carwashperson.shopid
         <where>  
             <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
              <if test="washpersonphone != null  and washpersonphone != '' "> and washpersonphone = #{washpersonphone}</if>
@@ -27,6 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </where>
     </select>
     
+    <select id="selectCarwashpersonStatus" parameterType="Carwashperson" resultMap="CarwashpersonResult">
+        <include refid="selectCarwashpersonVo"/>
+        where washpersonstatus = '空闲'
+    </select>
+
     <select id="selectCarwashpersonById" parameterType="Integer" resultMap="CarwashpersonResult">
         <include refid="selectCarwashpersonVo"/>
         where washpersonpid = #{washpersonpid}
@@ -49,6 +55,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="washpersonstatus != null  and washpersonstatus != ''  ">#{washpersonstatus},</if>
          </trim>
     </insert>
+
+    <update id="updateCarwashpersonStatus" parameterType="Carwashperson">
+        update carwashperson SET washpersonstatus = '忙碌'
+        where washpersonpid = #{washpersonpid}
+    </update>
 	 
     <update id="updateCarwashperson" parameterType="Carwashperson">
         update carwashperson

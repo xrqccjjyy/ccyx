@@ -25,7 +25,18 @@ public class Carwashperson extends BaseEntity
 	/** 洗车人员状态 */
 	private String washpersonstatus;
 
-	public void setWashpersonpid(Integer washpersonpid) 
+	/**商家名*/
+	private String shopname;
+
+	public String getShopname() {
+		return shopname;
+	}
+
+	public void setShopname(String shopname) {
+		this.shopname = shopname;
+	}
+
+	public void setWashpersonpid(Integer washpersonpid)
 	{
 		this.washpersonpid = washpersonpid;
 	}
@@ -61,7 +72,9 @@ public class Carwashperson extends BaseEntity
 	{
 		return shopid;
 	}
-	public void setWashpersonstatus(String washpersonstatus) 
+
+
+	public void setWashpersonstatus(String washpersonstatus)
 	{
 		this.washpersonstatus = washpersonstatus;
 	}

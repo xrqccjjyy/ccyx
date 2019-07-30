@@ -2,6 +2,7 @@ package com.aaa.project.system.carwashperson.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.carwashperson.mapper.CarwashpersonMapper;
 import com.aaa.project.system.carwashperson.domain.Carwashperson;
@@ -79,5 +80,18 @@ public class CarwashpersonServiceImpl implements ICarwashpersonService
 	{
 		return carwashpersonMapper.deleteCarwashpersonByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 查询‘空闲’的洗车人员
+	 * */
+	@Override
+	public List<Carwashperson> selectCarwashpersonStatus() {
+		return carwashpersonMapper.selectCarwashpersonStatus();
+	}
+
+	@Override
+	public int updateCarwashpersonStatus(Carwashperson carwashperson) {
+		return carwashpersonMapper.updateCarwashpersonStatus(carwashperson);
+	}
+
 }

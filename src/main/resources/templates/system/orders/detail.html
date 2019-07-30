@@ -16,11 +16,48 @@
 			<div class="form-control-static" th:text="${orderList.ordertime} ">
 			</div>
 		</div>
+		 <div class="form-group">
+                              <label class="col-sm-2 control-label">客户名：</label>
+                              <div class="form-control-static" th:text="${orderList.username}">
+                           </div>
+                        </div>
+                <div class="form-group">
+                              <label class="col-sm-2 control-label">客户电话：</label>
+                              <div class="form-control-static" th:text="${orderList.userphone}">
+                           </div>
+                        </div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">洗车时间：</label>
 			<div class="form-control-static" th:text="${orderList.washtime}">
 			</div>
 		</div>
+
+        <div class="form-group">
+                      <label class="col-sm-2 control-label">车牌号：</label>
+                      <div class="form-control-static" th:text="${orderList.usercarnumber}">
+                   </div>
+                </div>
+        <div class="form-group">
+                      <label class="col-sm-2 control-label">车辆品牌：</label>
+                      <div class="form-control-static" th:text="${orderList.usercarbrandname}">
+                   </div>
+                </div>
+        <div class="form-group">
+                      <label class="col-sm-2 control-label">车辆颜色：</label>
+                      <div class="form-control-static" th:text="${orderList.usercarcolor}">
+                   </div>
+                </div>
+        <div class="form-group">
+                      <label class="col-sm-2 control-label">车辆位置：</label>
+                      <div class="form-control-static" th:text="${orderList.usercarlocation}">
+                   </div>
+                </div>
+
+        <div class="form-group">
+                              <label class="col-sm-2 control-label">套餐：</label>
+                              <div class="form-control-static" th:text="${orderList.carservicename}">
+                           </div>
+                        </div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">取件码：</label>
 			<div class="form-control-static" th:text="${orderList.cabinetcode}">
@@ -31,11 +68,20 @@
         	<div class="form-control-static" th:text="${orderList.chestsite}">
         	</div>
         </div>
+
+        <div class="form-group">
+                              <label class="col-sm-2 control-label">洗车人：</label>
+                              <div class="form-control-static" th:text="${orderList.washpersonname}">
+                           </div>
+                        </div>
+
         <div class="form-group">
               <label class="col-sm-2 control-label">订单状态：</label>
               <div class="form-control-static" th:text="${orderList.orderstatus}">
-           </div>
+              </div>
         </div>
+
+
 	</form>
     </div>
     <div th:include="include :: footer"></div>

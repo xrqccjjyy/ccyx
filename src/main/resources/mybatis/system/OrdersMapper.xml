@@ -64,8 +64,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectOrdersById" parameterType="Integer" resultMap="OrdersResult">
-        <include refid="selectOrdersVo"/>
-        where orderid = #{orderid}
+         SELECT orderid,
+        ordernumber ,
+        username ,
+        userphone ,
+        ordertime ,
+        washtime ,
+        cabinetcode,
+        usercarnumber ,
+        usercarbrandname ,
+        usercarcolor ,
+        usercarlocation ,
+        chestsite ,
+        carservicename ,
+        shopaddress ,
+        washpersonname ,
+        orderstatus
+        FROM orders, usercar, customer, carwashperson, carservice, shop
+        WHERE orders.usercarid = usercar.usercarid
+        AND customer.userid = orders.userid
+        AND carservice.carserviceid = orders.carserviceid
+        AND orders.washpersonpid = carwashperson.washpersonpid
+        AND orderid = #{orderid}
+        GROUP BY ordernumber DESC
     </select>
         
     <insert id="insertOrders" parameterType="Orders">

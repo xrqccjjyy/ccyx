@@ -1,9 +1,14 @@
 package com.aaa.project.system.orders.controller;
 
 import java.util.List;
+
+import com.aaa.project.system.carwashperson.domain.Carwashperson;
+import com.aaa.project.system.carwashperson.service.ICarwashpersonService;
+import org.apache.avro.Schema;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +38,9 @@ public class OrdersController extends BaseController
 	
 	@Autowired
 	private IOrdersService ordersService;
+
+	@Autowired
+	private ICarwashpersonService carwashpersonService;
 	
 	@RequiresPermissions("system:orders:view")
 	@GetMapping()
@@ -93,10 +101,13 @@ public class OrdersController extends BaseController
 	 * 修改订单
 	 */
 	@GetMapping("/edit/{orderid}")
-	public String edit(@PathVariable("orderid") Integer orderid, ModelMap mmap)
+	public String edit(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model,Carwashperson carwashperson)
 	{
 		Orders orders = ordersService.selectOrdersById(orderid);
+		List<Carwashperson>  list =carwashpersonService.selectCarwashpersonStatus();
+		model.addAttribute("carwashpersonList", list);
 		mmap.put("orders", orders);
+		carwashperson.setWashpersonstatus("忙碌中");
 	    return prefix + "/edit";
 	}
 	
@@ -107,8 +118,9 @@ public class OrdersController extends BaseController
 	@Log(title = "订单", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Orders orders)
-	{		
+	public AjaxResult editSave(Orders orders,Carwashperson carwashperson)
+	{
+		carwashpersonService.updateCarwashpersonStatus(carwashperson);
 		return toAjax(ordersService.updateOrders(orders));
 	}
 	
@@ -135,5 +147,32 @@ public class OrdersController extends BaseController
 		mmap.put("orderList", ordersService.selectOrdersById(orderid));
 		return prefix + "/detail";
 	}
+
+	/**
+	 * 指派洗车人员
+	 */
+	@GetMapping("/assigned/{orderid}")
+	public String assigned(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model)
+	{
+		Orders orders = ordersService.selectOrdersById(orderid);
+		List<Carwashperson>  list =carwashpersonService.selectCarwashpersonList(null);
+		model.addAttribute("carwashpersonList", list);
+		System.out.println(list.size()+"=====================================================");
+		mmap.put("orders", orders);
+		return prefix + "/assigned";
+	}
+
+	/**
+	 * 保存指派人员
+	 */
+	@RequiresPermissions("system:orders:assigned")
+	@Log(title = "订单", businessType = BusinessType.UPDATE)
+	@PostMapping("/assigned")
+	@ResponseBody
+	public AjaxResult assignedSave(Orders orders)
+	{
+		return toAjax(ordersService.updateOrders(orders));
+	}
+
 	
 }

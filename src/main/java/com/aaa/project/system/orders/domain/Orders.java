@@ -41,14 +41,23 @@ public class Orders extends BaseEntity
 	/** 套餐id */
 	private Integer carserviceid;
 
+	/**客户名*/
 	private String  username;
+	/**客户电话*/
 	private String userphone;
+	/**车牌号*/
 	private String  usercarnumber;
+	/**车品牌*/
 	private String usercarbrandname;
+	/**车颜色*/
 	private String usercarcolor;
+	/**车位置*/
 	private String  usercarlocation;
+	/**套餐*/
 	private String carservicename;
+	/**商家地址*/
 	private String shopaddress;
+	/**洗车人*/
 	private String washpersonname;
 
 	public static long getSerialVersionUID() {
