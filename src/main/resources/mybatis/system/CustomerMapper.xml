@@ -25,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="usercarid != null "> and usercarid = #{usercarid}</if>
          </where>
     </select>
-    
     <select id="selectCustomerById" parameterType="Integer" resultMap="CustomerResult">
         <include refid="selectCustomerVo"/>
         where userid = #{userid}
