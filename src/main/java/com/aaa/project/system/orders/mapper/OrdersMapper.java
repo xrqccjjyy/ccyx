@@ -58,5 +58,10 @@ public interface OrdersMapper
      * @return 结果
      */
 	public int deleteOrdersByIds(String[] orderids);
+
+	/**
+	 * 更改订单状态信息
+	 * */
+	public int updateOrdersStatus(Orders orders);
 	
 }

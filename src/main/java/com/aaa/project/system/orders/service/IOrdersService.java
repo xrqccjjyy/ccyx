@@ -50,5 +50,11 @@ public interface IOrdersService
      * @return 结果
      */
 	public int deleteOrdersByIds(String ids);
+
+
+	/**
+	 * 更改订单状态信息
+	 * */
+	public int updateOrdersStatus(Orders orders);
 	
 }

@@ -81,9 +81,10 @@
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
         var detailFlag = [[${@permission.hasPermi('system:orders:detail')}]];
-        //var editFlag = [[${@permission.hasPermi('system:orders:edit')}]];
-        var assignedFlag = [[${@permission.hasPermi('system:orders:assigned')}]];
-        var removeFlag = [[${@permission.hasPermi('system:orders:remove')}]];
+        var editFlag = [[${@permission.hasPermi('system:orders:edit')}]];
+       // var assignedFlag = [[${@permission.hasPermi('system:orders:assigned')}]];
+        var receiveFlag = [[${@permission.hasPermi('system:orders:receive')}]];
+       //var removeFlag = [[${@permission.hasPermi('system:orders:remove')}]];
         var prefix = ctx + "system/orders";
 
         $(function() {
@@ -92,7 +93,7 @@
                 createUrl: prefix + "/add",
                 detailUrl: prefix + "/detail/{id}",
                 updateUrl: prefix + "/edit/{id}",
-                assignedUrl: prefix + "/assigned/{id}",
+                //assignedUrl: prefix + "/assigned/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
                 modalName: "订单",
@@ -153,14 +154,20 @@
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="#" onclick="$.operate.detail(\'' + row.orderid + '\')"><i class="fa fa-search"></i>详细</a>&nbsp;');
-		            	actions.push('<a class="btn btn-success btn-xs ' + assignedFlag + '" href="#" onclick="$.operate.edit(\'' + row.orderid + '\')"><i class="fa fa-edit"></i>指派</a> &nbsp;');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.orderid + '\')"><i class="fa fa-remove"></i>删除</a>');
+		            	actions.push('<a class="btn btn-primary btn-xs ' + receiveFlag + '" href="#" onclick="receive(\'' + row.orderid + '\')"><i class="fa fa-check-square-o"></i>接单</a> &nbsp;');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.orderid + '\')"><i class="fa fa-edit"></i>指派</a> &nbsp;');
 						return actions.join('');
 		            }
 		        }]
             };
             $.table.init(options);
         });
+
+        /*接收订单弹窗*/
+        function receive(orderid) {
+        		    var url = prefix + '/receive/' + orderid;
+        		    $.modal.open("接单", url, '300', '150');
+        		}
     </script>
 </body>
 </html>
