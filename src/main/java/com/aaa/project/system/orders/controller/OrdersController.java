@@ -182,4 +182,38 @@ public class OrdersController extends BaseController {
     public AjaxResult receiveSave(Orders orders) {
         return toAjax(ordersService.updateOrdersStatus(orders));
     }
+
+    /**
+     * 拒收订单
+     */
+    @GetMapping("/reject/{orderid}")
+    public String reject(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap,Model model) {
+        Orders ordersr = ordersService.selectOrdersById(orderid);
+        Integer  orderid1 =  orders.getOrderid();
+        model.addAttribute("ordersid", orderid1);
+        mmap.put("ordersr", ordersr);
+        return prefix + "/reject";
+    }
+
+    /**
+     * 保存拒收的订单
+     * */
+    @RequiresPermissions("system:orders:reject")
+    @Log(title = "保存拒收的订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/reject")
+    @ResponseBody
+    public AjaxResult rejectSave(Orders orders) {
+        return toAjax(ordersService.updateOrdersStatusReject(orders));
+    }
+
+    /**
+     * 查询orders的id
+     * */
+    @RequiresPermissions("system:orders:orderFoid")
+    @PostMapping("/orderfoid")
+    @ResponseBody
+    public TableDataInfo orderFoid(@PathVariable("orderid") Integer orderid){
+        Orders orderFoid =  ordersService.selectOrdersFoId(orderid);
+        return getDataTable((List<Orders>) orderFoid);
+    }
 }

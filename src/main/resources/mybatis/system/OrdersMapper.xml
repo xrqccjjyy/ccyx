@@ -88,6 +88,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND orderid = #{orderid}
         GROUP BY ordernumber DESC
     </select>
+
+    <select id="selectOrdersFoId" resultType="Integer" >
+        SELECT  orderid FROM orders WHERE orderid = #{orderid}
+    </select>
         
     <insert id="insertOrders" parameterType="Orders">
         insert into orders
@@ -141,6 +145,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <update id="updateOrdersStatus" parameterType="Orders">
         update orders SET orderstatus = '已接单'
+        where orderid = #{orderid}
+    </update>
+
+    <update id="updateOrdersStatusReject" parameterType="Orders">
+        update orders SET orderstatus = '已拒单'
         where orderid = #{orderid}
     </update>
 
