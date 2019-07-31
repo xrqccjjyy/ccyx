@@ -25,7 +25,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
-        SELECT orderid,
+        SELECT o.*, washpersonname FROM
+        (SELECT orderid,
+        washpersonpid,
         ordernumber ,
         username ,
         userphone ,
@@ -37,16 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
-        carservicename ,
-        shopaddress ,
-        washpersonname ,
+        carservicename,
+        carsereviceprice,
+        shopaddress,
         orderstatus
-        FROM orders, usercar, customer, carwashperson, carservice, shop
+        FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
         AND customer.userid = orders.userid
         AND carservice.carserviceid = orders.carserviceid
-        AND orders.washpersonpid = carwashperson.washpersonpid
-        GROUP BY ordernumber DESC
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
         <where>  
             <if test="orderid != null "> and orderid = #{orderid}</if>
              <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
@@ -62,9 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
          </where>
     </select>
-    
+
+
     <select id="selectOrdersById" parameterType="Integer" resultMap="OrdersResult">
-         SELECT orderid,
+         SELECT o.*, washpersonname FROM
+        (SELECT orderid,
+        washpersonpid,
         ordernumber ,
         username ,
         userphone ,
@@ -76,17 +80,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
-        carservicename ,
-        shopaddress ,
-        washpersonname ,
+        carservicename,
+        carsereviceprice,
+        shopaddress,
         orderstatus
-        FROM orders, usercar, customer, carwashperson, carservice, shop
+        FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
         AND customer.userid = orders.userid
         AND carservice.carserviceid = orders.carserviceid
-        AND orders.washpersonpid = carwashperson.washpersonpid
-        AND orderid = #{orderid}
-        GROUP BY ordernumber DESC
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
     </select>
 
         

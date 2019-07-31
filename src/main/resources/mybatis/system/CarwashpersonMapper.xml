@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectCarwashpersonList" parameterType="Carwashperson" resultMap="CarwashpersonResult">
         SELECT washpersonpid, washpersonname,washpersonphone,shopname,washpersonstatus FROM
         shop INNER JOIN carwashperson ON shop.shopid = carwashperson.shopid
-        <where>  
+        <where>
             <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
              <if test="washpersonphone != null  and washpersonphone != '' "> and washpersonphone = #{washpersonphone}</if>
              <if test="washpersonname != null  and washpersonname != '' "> and washpersonname = #{washpersonname}</if>

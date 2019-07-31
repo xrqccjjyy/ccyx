@@ -24,6 +24,8 @@ public class Carwashperson extends BaseEntity
 	private Integer shopid;
 	/** 洗车人员状态 */
 	private String washpersonstatus;
+	/** 订单id */
+	private Integer orderid;
 
 	/**商家名*/
 	private String shopname;

@@ -85,7 +85,8 @@ public class CarwashpersonController extends BaseController
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Carwashperson carwashperson)
-	{		
+	{
+
 		return toAjax(carwashpersonService.insertCarwashperson(carwashperson));
 	}
 
