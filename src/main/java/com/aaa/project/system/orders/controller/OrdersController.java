@@ -206,14 +206,5 @@ public class OrdersController extends BaseController {
         return toAjax(ordersService.updateOrdersStatusReject(orders));
     }
 
-    /**
-     * 查询orders的id
-     * */
-    @RequiresPermissions("system:orders:orderFoid")
-    @PostMapping("/orderfoid")
-    @ResponseBody
-    public TableDataInfo orderFoid(@PathVariable("orderid") Integer orderid){
-        Orders orderFoid =  ordersService.selectOrdersFoId(orderid);
-        return getDataTable((List<Orders>) orderFoid);
-    }
+
 }

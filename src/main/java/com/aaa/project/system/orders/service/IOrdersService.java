@@ -65,9 +65,6 @@ public interface IOrdersService
 	 * */
 	public int updateOrdersStatusReject(Orders orders);
 
-	/**
-	 * 查询orders的id
-	 * */
-	public Orders selectOrdersFoId(Integer orderid);
+
 	
 }

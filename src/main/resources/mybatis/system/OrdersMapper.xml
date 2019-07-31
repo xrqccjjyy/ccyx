@@ -89,9 +89,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         GROUP BY ordernumber DESC
     </select>
 
-    <select id="selectOrdersFoId" resultType="Integer" >
-        SELECT  orderid FROM orders WHERE orderid = #{orderid}
-    </select>
         
     <insert id="insertOrders" parameterType="Orders">
         insert into orders

@@ -95,9 +95,6 @@ public class OrdersServiceImpl implements IOrdersService
 		return ordersMapper.updateOrdersStatusReject(orders);
 	}
 
-	@Override
-	public Orders selectOrdersFoId(Integer orderid) {
-		return ordersMapper.selectOrdersFoId(orderid);
-	}
+	
 
 }
