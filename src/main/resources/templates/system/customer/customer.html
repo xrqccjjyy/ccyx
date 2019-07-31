@@ -8,6 +8,7 @@
 		<div class="row">
 			<div class="col-sm-12 search-collapse">
 				<form id="formId">
+
 					<div class="select-list">
 						<ul>
 							<li>
@@ -19,7 +20,23 @@
 							</li>
 
 							<li>
-								用户车辆信息id：<input type="text" name="usercarid"/>
+								车牌号：<input type="text" name="usercarnumber"/>
+							</li>
+
+							<li>
+								车辆品牌：<input type="text" name="usercarbrandname"/>
+							</li>
+
+							<li>
+								车辆照片：<input type="text" name="usercarphoto"/>
+							</li>
+
+							<li>
+								车辆颜色：<input type="text" name="usercarcolor"/>
+							</li>
+
+							<li>
+								车辆停放位置：<input type="text" name="usercarlocation"/>
 							</li>
 
 							<li>
@@ -85,10 +102,31 @@
 					sortable: true
 				},
 				{
-					field : 'usercarid', 
-					title : '用户车辆信息id',
+					field : 'usercarnumber',
+					title : '车牌号',
 					sortable: true
 				},
+					{
+                        field : 'usercarbrandname',
+                        title : '车辆品牌',
+                        visible: false
+                    },
+                    {
+                        field : 'usercarphoto',
+                        title : '车辆照片',
+                        sortable: true
+                    },
+                    {
+                        field : 'usercarcolor',
+                        title : '车辆颜色',
+                        sortable: true
+                    },
+                    {
+                        field : 'usercarlocation',
+                        title : '车辆停放位置',
+                        sortable: true
+                    },
+
 		        {
 		            title: '操作',
 		            align: 'center',
