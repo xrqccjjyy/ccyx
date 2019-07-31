@@ -1,9 +1,14 @@
 package com.aaa.project.system.carwashperson.controller;
 
 import java.util.List;
+
+import com.aaa.project.system.shop.domain.Shop;
+import com.aaa.project.system.shop.service.IShopService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,8 @@ import com.aaa.framework.web.page.TableDataInfo;
 import com.aaa.framework.web.domain.AjaxResult;
 import com.aaa.common.utils.poi.ExcelUtil;
 
+import javax.jws.WebParam;
+
 /**
  * 洗车人员 信息操作处理
  * 
@@ -33,6 +40,9 @@ public class CarwashpersonController extends BaseController
 	
 	@Autowired
 	private ICarwashpersonService carwashpersonService;
+
+	@Autowired
+	private IShopService shopService;
 	
 	@RequiresPermissions("system:carwashperson:view")
 	@GetMapping()
@@ -72,8 +82,10 @@ public class CarwashpersonController extends BaseController
 	 * 新增洗车人员
 	 */
 	@GetMapping("/add")
-	public String add()
+	public String add(Model model)
 	{
+		List<Shop> shopList = shopService.selectShopList(null);
+		model.addAttribute("shopList",shopList);
 	    return prefix + "/add";
 	}
 	
@@ -84,7 +96,7 @@ public class CarwashpersonController extends BaseController
 	@Log(title = "洗车人员", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Carwashperson carwashperson)
+	public AjaxResult addSave(Carwashperson carwashperson, Model model)
 	{
 
 		return toAjax(carwashpersonService.insertCarwashperson(carwashperson));
@@ -94,8 +106,10 @@ public class CarwashpersonController extends BaseController
 	 * 修改洗车人员
 	 */
 	@GetMapping("/edit/{washpersonpid}")
-	public String edit(@PathVariable("washpersonpid") Integer washpersonpid, ModelMap mmap)
+	public String edit(@PathVariable("washpersonpid") Integer washpersonpid, ModelMap mmap,Model model,Shop shop)
 	{
+		List<Shop> shopList = shopService.selectShopList(shop);
+		model.addAttribute("shopList",shopList);
 		Carwashperson carwashperson = carwashpersonService.selectCarwashpersonById(washpersonpid);
 		mmap.put("carwashperson", carwashperson);
 	    return prefix + "/edit";
