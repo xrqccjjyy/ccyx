@@ -58,6 +58,8 @@
                               <div class="form-control-static" th:text="${orderList.carservicename}">
                            </div>
                         </div>
+
+
 		<div class="form-group">
 			<label class="col-sm-2 control-label">取件码：</label>
 			<div class="form-control-static" th:text="${orderList.cabinetcode}">
@@ -70,10 +72,16 @@
         </div>
 
         <div class="form-group">
-                              <label class="col-sm-2 control-label">洗车人：</label>
-                              <div class="form-control-static" th:text="${orderList.washpersonname}">
-                           </div>
-                        </div>
+             <label class="col-sm-2 control-label">洗车人：</label>
+             <div class="form-control-static" th:text="${orderList.washpersonname}">
+               </div>
+         </div>
+
+         <div class="form-group">
+                 			<label class="col-sm-2 control-label">金额：</label>
+                 			<div class="form-control-static" th:text="${orderList.carsereviceprice}">
+                 			</div>
+                 </div>
 
         <div class="form-group">
               <label class="col-sm-2 control-label">订单状态：</label>
@@ -81,11 +89,13 @@
               </div>
         </div>
 
-
 	</form>
     </div>
     <div th:include="include :: footer"></div>
 
+<script type="text/javascript">
+
+</script>
 
 </body>
 </html>

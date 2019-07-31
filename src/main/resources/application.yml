@@ -1,7 +1,7 @@
 # 项目相关配置
 aaa:
   # 名称
-  name: DouDou
+  name: CCYX-SZ34-02
   # 版本
   version: 1.1.0
   # 版权年份
@@ -124,7 +124,7 @@ xss:
 # 代码生成
 gen: 
   # 作者
-  author: teacherChen
+  author: CCYX-SZ34-02
   # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
   packageName: com.aaa.project.system
   # 自动去除表前缀，默认是true
