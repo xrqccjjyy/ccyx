@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.orders.mapper.OrdersMapper;
 import com.aaa.project.system.orders.domain.Orders;
-import com.aaa.project.system.orders.service.IOrdersService;
 import com.aaa.common.support.Convert;
 
 /**
@@ -80,9 +79,25 @@ public class OrdersServiceImpl implements IOrdersService
 		return ordersMapper.deleteOrdersByIds(Convert.toStrArray(ids));
 	}
 
+	/**
+	 * 更改状态信息为'已接单'
+	 * */
 	@Override
 	public int updateOrdersStatus(Orders orders) {
 		return ordersMapper.updateOrdersStatus(orders);
+	}
+
+	/**
+	 * 更改状态信息为'已拒单'
+	 * */
+	@Override
+	public int updateOrdersStatusReject(Orders orders) {
+		return ordersMapper.updateOrdersStatusReject(orders);
+	}
+
+	@Override
+	public Orders selectOrdersFoId(Integer orderid) {
+		return ordersMapper.selectOrdersFoId(orderid);
 	}
 
 }

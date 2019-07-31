@@ -60,8 +60,19 @@ public interface OrdersMapper
 	public int deleteOrdersByIds(String[] orderids);
 
 	/**
-	 * 更改订单状态信息
+	 * 更改订单状态信息‘已接单’
 	 * */
 	public int updateOrdersStatus(Orders orders);
+
+	/**
+	 * 更改订单状态信息为‘已拒单’
+	 * */
+	public int updateOrdersStatusReject(Orders orders);
+
+
+	/**
+	 * 查询orders的id
+	 * */
+	public Orders selectOrdersFoId(Integer orderid);
 	
 }
