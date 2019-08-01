@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.debty.mapper.DebtyMapper">
+    
+    <resultMap type="Debty" id="DebtyResult">
+        <result property="debtyid"    column="debtyid"    />
+        <result property="income"    column="income"    />
+        <result property="loss"    column="loss"    />
+        <result property="shopid"    column="shopid"    />
+    </resultMap>
+	
+	<sql id="selectDebtyVo">
+        select debtyid, income, loss, shopid from debty
+    </sql>
+	
+    <select id="selectDebtyList" parameterType="Debty" resultMap="DebtyResult">
+        <include refid="selectDebtyVo"/>
+        <where>  
+            <if test="debtyid != null "> and debtyid = #{debtyid}</if>
+             <if test="income != null "> and income = #{income}</if>
+             <if test="loss != null "> and loss = #{loss}</if>
+             <if test="shopid != null "> and shopid = #{shopid}</if>
+         </where>
+    </select>
+    
+    <select id="selectDebtyById" parameterType="Integer" resultMap="DebtyResult">
+        <include refid="selectDebtyVo"/>
+        where debtyid = #{debtyid}
+    </select>
+        
+    <insert id="insertDebty" parameterType="Debty">
+        insert into debty
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="debtyid != null  ">debtyid,</if>
+			<if test="income != null  ">income,</if>
+			<if test="loss != null  ">loss,</if>
+			<if test="shopid != null  ">shopid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="debtyid != null  ">#{debtyid},</if>
+			<if test="income != null  ">#{income},</if>
+			<if test="loss != null  ">#{loss},</if>
+			<if test="shopid != null  ">#{shopid},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateDebty" parameterType="Debty">
+        update debty
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="income != null  ">income = #{income},</if>
+            <if test="loss != null  ">loss = #{loss},</if>
+            <if test="shopid != null  ">shopid = #{shopid},</if>
+        </trim>
+        where debtyid = #{debtyid}
+    </update>
+
+    <update id="updateDebtyMoney" parameterType="Debty">
+        UPDATE debty SET income = income +(SELECT SUM(carsereviceprice) FROM shop,carservice,orders
+        where shop.shopid = carservice.shopid
+        AND orders.carserviceid = carservice.carserviceid
+        AND orders.orderid = #{orderid})
+    </update>
+
+
+	<delete id="deleteDebtyById" parameterType="Integer">
+        delete from debty where debtyid = #{debtyid}
+    </delete>
+	
+    <delete id="deleteDebtyByIds" parameterType="String">
+        delete from debty where debtyid in 
+        <foreach item="debtyid" collection="array" open="(" separator="," close=")">
+            #{debtyid}
+        </foreach>
+    </delete>
+    
+</mapper>

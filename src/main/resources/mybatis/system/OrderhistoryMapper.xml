@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <insert id="insertOrderhistoryTable" parameterType="Orderhistory">
-        insert into orderhistory (ordernumber, historytime, orderstatus) VALUES (#{ordernumber},NOW(),#{orderstatus},)
+        insert into orderhistory (ordernumber, historytime, orderstatus) VALUES (#{ordernumber},NOW(),#{orderstatus})
     </insert>
 	 
     <update id="updateOrderhistory" parameterType="Orderhistory">

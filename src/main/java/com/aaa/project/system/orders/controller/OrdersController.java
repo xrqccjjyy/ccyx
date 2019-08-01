@@ -5,6 +5,8 @@ import java.util.List;
 import com.aaa.framework.config.DouDouConfig;
 import com.aaa.project.system.carwashperson.domain.Carwashperson;
 import com.aaa.project.system.carwashperson.service.ICarwashpersonService;
+import com.aaa.project.system.debty.domain.Debty;
+import com.aaa.project.system.debty.service.IDebtyService;
 import com.aaa.project.system.orderhistory.domain.Orderhistory;
 import com.aaa.project.system.orderhistory.service.IOrderhistoryService;
 import com.aaa.project.system.user.domain.User;
@@ -30,6 +32,8 @@ import com.aaa.framework.web.page.TableDataInfo;
 import com.aaa.framework.web.domain.AjaxResult;
 import com.aaa.common.utils.poi.ExcelUtil;
 
+import javax.ws.rs.Path;
+
 /**
  * 订单 信息操作处理
  *
@@ -47,7 +51,11 @@ public class OrdersController extends BaseController {
     @Autowired
     private ICarwashpersonService carwashpersonService;
 
+    @Autowired
     private IOrderhistoryService orderhistoryService;
+
+    @Autowired
+    private IDebtyService debtyService;
 
     @RequiresPermissions("system:orders:view")
     @GetMapping()
@@ -104,9 +112,12 @@ public class OrdersController extends BaseController {
      */
     @GetMapping("/edit/{orderid}")
     public String edit(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model, Carwashperson carwashperson) {
+
         Orders orders = ordersService.selectOrdersById(orderid);
+        //查询洗车人状态
         List<Carwashperson> list = carwashpersonService.selectCarwashpersonStatus();
         model.addAttribute("carwashpersonList", list);
+
         mmap.put("orders", orders);
         return prefix + "/edit";
     }
@@ -118,7 +129,18 @@ public class OrdersController extends BaseController {
     @Log(title = "订单", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Orders orders, Carwashperson carwashperson) {
+    public AjaxResult editSave( Orders orders, Carwashperson carwashperson) {
+
+        /*
+        * 将操作加入到历史记录表中
+        * */
+        Integer ordersid =  orders.getOrderid();
+        Orders ordera  = ordersService.selectOrdersById(ordersid);
+        String ordernumber =  ordera.getOrdernumber();
+        String orderstatus = "指派了洗车人员";
+        orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
+
+        //更新洗车人员状态
         carwashpersonService.updateCarwashpersonStatus(carwashperson);
         return toAjax(ordersService.updateOrders(orders));
     }
@@ -141,32 +163,17 @@ public class OrdersController extends BaseController {
     @RequiresPermissions("system:orders:detail")
     @GetMapping("/detail/{orderid}")
     public String detail(@PathVariable("orderid") Integer orderid, ModelMap mmap) {
+        /*
+         * 将操作加入到历史记录表中
+         * */
+        Orders orders  = ordersService.selectOrdersById(orderid);
+        String ordernumber =  orders.getOrdernumber();
+        String orderstatus = "查看了订单详情";
+        orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
+
         mmap.put("orderList", ordersService.selectOrdersById(orderid));
         return prefix + "/detail";
     }
-
-   /* *//**
-     * 指派洗车人员
-     *//*
-    @GetMapping("/assigned/{orderid}")
-    public String assigned(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model) {
-        Orders orders = ordersService.selectOrdersById(orderid);
-        List<Carwashperson> list = carwashpersonService.selectCarwashpersonList(null);
-        model.addAttribute("carwashpersonList", list);
-        mmap.put("orders", orders);
-        return prefix + "/assigned";
-    }
-
-    *//**
-     * 保存指派人员
-     *//*
-    @RequiresPermissions("system:orders:assigned")
-    @Log(title = "订单", businessType = BusinessType.UPDATE)
-    @PostMapping("/assigned")
-    @ResponseBody
-    public AjaxResult assignedSave(Orders orders) {
-        return toAjax(ordersService.updateOrders(orders));
-    }*/
 
 
     /**
@@ -186,6 +193,13 @@ public class OrdersController extends BaseController {
     @PostMapping("/receive/{orderid}")
     @ResponseBody
     public AjaxResult receiveSave(@PathVariable("orderid") Integer orderid,Model model) {
+        /*
+         * 将操作加入到历史记录表中
+         * */
+        Orders orders  = ordersService.selectOrdersById(orderid);
+        String ordernumber =  orders.getOrdernumber();
+        String orderstatus = "接收了订单";
+        orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
 
         return toAjax(ordersService.updateOrdersStatus(orderid));
     }
@@ -208,6 +222,13 @@ public class OrdersController extends BaseController {
     @PostMapping("/reject/{orderid}")
     @ResponseBody
     public AjaxResult rejectSave(@PathVariable("orderid") Integer orderid) {
+        /*
+         * 将操作加入到历史记录表中
+         * */
+        Orders orders  = ordersService.selectOrdersById(orderid);
+        String ordernumber =  orders.getOrdernumber();
+        String orderstatus = "拒收了订单";
+        orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
 
         return toAjax(ordersService.updateOrdersStatusReject(orderid));
     }
@@ -230,8 +251,17 @@ public class OrdersController extends BaseController {
     @Log(title = "保存签收的订单", businessType = BusinessType.UPDATE)
     @PostMapping("/confirm/{orderid}")
     @ResponseBody
-    public AjaxResult confirmSave(@PathVariable("orderid") Integer orderid,Orders orders) {
+    public AjaxResult confirmSave(@PathVariable("orderid") Integer orderid, Debty debty) {
+        /*
+         * 将操作加入到历史记录表中
+         * */
+        Orders orders  = ordersService.selectOrdersById(orderid);
+        String ordernumber =  orders.getOrdernumber();
+        String orderstatus = "签收了订单";
+        orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
 
+        //完成订单式，修改订单财务表金额
+        debtyService.updateDebtyMoney(debty);
         return toAjax(ordersService.updateOrdersStatusComfirm(orderid));
     }
 }

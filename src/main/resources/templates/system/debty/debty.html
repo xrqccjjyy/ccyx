@@ -11,15 +11,15 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								订单号：<input type="text" name="ordernumber"/>
+								收入：<input type="text" name="income"/>
 							</li>
 
 							<li>
-								：<input type="text" name="historytime"/>
+								亏损：<input type="text" name="loss"/>
 							</li>
 
 							<li>
-								订单状态：<input type="text" name="orderstatus"/>
+								商家id：<input type="text" name="shopid"/>
 							</li>
 
 							<li>
@@ -32,16 +32,16 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:orderhistory:add">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:debty:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:orderhistory:edit">
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:debty:edit">
 					<i class="fa fa-edit"></i> 修改
 				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:orderhistory:remove">
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:debty:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:orderhistory:export">
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:debty:export">
 						<i class="fa fa-download"></i> 导出
 				 </a>
 			</div>
@@ -52,9 +52,9 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:orderhistory:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:orderhistory:remove')}]];
-        var prefix = ctx + "system/orderhistory";
+        var editFlag = [[${@permission.hasPermi('system:debty:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:debty:remove')}]];
+        var prefix = ctx + "system/debty";
 
         $(function() {
             var options = {
@@ -63,39 +63,39 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
-                modalName: "订单历史记录/月",
+                modalName: "财务",
 				search: false,
 		        showExport: true,
                 columns: [{
 		            checkbox: true
 		        },
 				{
-					field : 'orderhistoryid', 
-					title : '订单历史记录id',
+					field : 'debtyid', 
+					title : '财务表id',
 					visible: false
 				},
 				{
-					field : 'ordernumber', 
-					title : '订单号',
+					field : 'income', 
+					title : '收入  (元)',
 					sortable: true
 				},
 				{
-					field : 'historytime', 
-					title : '操作时间',
+					field : 'loss', 
+					title : '亏损  (元)',
 					sortable: true
 				},
-				{
-					field : 'orderstatus', 
-					title : '订单状态',
+				/*{
+					field : 'shopid', 
+					title : '商家id',
 					sortable: true
-				},
+				},*/
 		        {
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.orderhistoryid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.orderhistoryid + '\')"><i class="fa fa-remove"></i>删除</a>');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.debtyid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.debtyid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]
