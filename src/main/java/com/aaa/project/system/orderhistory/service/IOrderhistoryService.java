@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * 订单历史记录/月 服务层
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-01
  */
 public interface IOrderhistoryService 
 {
@@ -50,5 +50,11 @@ public interface IOrderhistoryService
      * @return 结果
      */
 	public int deleteOrderhistoryByIds(String ids);
+
+
+	/**
+	 * 插入历史记录
+	 * */
+	public int insertOrderhistoryTable( String ordernumber,  String orderstatus);
 	
 }

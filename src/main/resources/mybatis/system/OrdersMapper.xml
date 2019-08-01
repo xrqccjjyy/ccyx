@@ -142,13 +142,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where orderid = #{orderid}
     </update>
 
-    <update id="updateOrdersStatus" parameterType="Orders">
+    <update id="updateOrdersStatus" parameterType="Integer">
         update orders SET orderstatus = '已接单'
         where orderid = #{orderid}
     </update>
 
-    <update id="updateOrdersStatusReject" parameterType="Orders">
+    <update id="updateOrdersStatusReject" parameterType="Integer">
         update orders SET orderstatus = '已拒单'
+        where orderid = #{orderid}
+    </update>
+
+    <update id="updateOrdersStatusComfirm" parameterType="Integer">
+        update orders SET orderstatus = '已完成'
         where orderid = #{orderid}
     </update>
 

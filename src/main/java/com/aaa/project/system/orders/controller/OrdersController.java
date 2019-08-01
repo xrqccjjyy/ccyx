@@ -5,11 +5,14 @@ import java.util.List;
 import com.aaa.framework.config.DouDouConfig;
 import com.aaa.project.system.carwashperson.domain.Carwashperson;
 import com.aaa.project.system.carwashperson.service.ICarwashpersonService;
+import com.aaa.project.system.orderhistory.domain.Orderhistory;
+import com.aaa.project.system.orderhistory.service.IOrderhistoryService;
 import com.aaa.project.system.user.domain.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.avro.Schema;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -43,6 +46,8 @@ public class OrdersController extends BaseController {
 
     @Autowired
     private ICarwashpersonService carwashpersonService;
+
+    private IOrderhistoryService orderhistoryService;
 
     @RequiresPermissions("system:orders:view")
     @GetMapping()
@@ -167,47 +172,66 @@ public class OrdersController extends BaseController {
     /**
      * 接收订单
      */
-    @GetMapping("/receive/{orderid}")
+   /* @GetMapping("/receive/{orderid}")
     public String receive(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap, Model model) {
-        Orders ordersa = ordersService.selectOrdersById(orderid);
-        String  a =  ordersa.getOrderstatus();
-        model.addAttribute("a",a);
-        System.out.println(a+"===============================================");
         mmap.put("ordersa", ordersa);
         return prefix + "/receive";
-    }
+    }*/
 
     /**
      * 保存接收的订单
      */
     @RequiresPermissions("system:orders:receive")
     @Log(title = "保存接收订单", businessType = BusinessType.UPDATE)
-    @PostMapping("/receive")
+    @PostMapping("/receive/{orderid}")
     @ResponseBody
-    public AjaxResult receiveSave(Orders orders) {
-        return toAjax(ordersService.updateOrdersStatus(orders));
+    public AjaxResult receiveSave(@PathVariable("orderid") Integer orderid,Model model) {
+
+        return toAjax(ordersService.updateOrdersStatus(orderid));
     }
 
     /**
      * 拒收订单
      */
-    @GetMapping("/reject/{orderid}")
+    /*@GetMapping("/reject/{orderid}")
     public String reject(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap,Model model) {
         Orders ordersr = ordersService.selectOrdersById(orderid);
         mmap.put("ordersr", ordersr);
         return prefix + "/reject";
-    }
+    }*/
 
     /**
      * 保存拒收的订单
      * */
     @RequiresPermissions("system:orders:reject")
     @Log(title = "保存拒收的订单", businessType = BusinessType.UPDATE)
-    @PostMapping("/reject")
+    @PostMapping("/reject/{orderid}")
     @ResponseBody
-    public AjaxResult rejectSave(Orders orders) {
-        return toAjax(ordersService.updateOrdersStatusReject(orders));
+    public AjaxResult rejectSave(@PathVariable("orderid") Integer orderid) {
+
+        return toAjax(ordersService.updateOrdersStatusReject(orderid));
     }
 
 
+    /**
+     * 确认签收订单
+     * */
+/*    @GetMapping("/confirm/{orderid}")
+    public String confirm(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap){
+        Orders ordersc =  ordersService.selectOrdersById(orderid);
+        mmap.put("ordersc", ordersc);
+        return prefix + "/confirm";
+    }*/
+
+    /**
+     * 保存签收的订单
+     */
+    @RequiresPermissions("system:orders:confirm")
+    @Log(title = "保存签收的订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/confirm/{orderid}")
+    @ResponseBody
+    public AjaxResult confirmSave(@PathVariable("orderid") Integer orderid,Orders orders) {
+
+        return toAjax(ordersService.updateOrdersStatusComfirm(orderid));
+    }
 }

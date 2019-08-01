@@ -11,8 +11,8 @@ import com.aaa.common.support.Convert;
 /**
  * 订单历史记录/月 服务层实现
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-01
  */
 @Service
 public class OrderhistoryServiceImpl implements IOrderhistoryService 
@@ -79,5 +79,10 @@ public class OrderhistoryServiceImpl implements IOrderhistoryService
 	{
 		return orderhistoryMapper.deleteOrderhistoryByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public int insertOrderhistoryTable(String ordernumber, String orderstatus) {
+		return orderhistoryMapper.insertOrderhistoryTable(ordernumber, orderstatus);
+	}
+
 }

@@ -3,12 +3,13 @@ package com.aaa.project.system.orderhistory.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.aaa.framework.web.domain.BaseEntity;
+import java.util.Date;
 
 /**
  * 订单历史记录/月表 orderhistory
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-01
  */
 public class Orderhistory extends BaseEntity
 {
@@ -17,7 +18,9 @@ public class Orderhistory extends BaseEntity
 	/** 订单历史记录id */
 	private Integer orderhistoryid;
 	/** 订单号 */
-	private Integer ordernumber;
+	private String ordernumber;
+	/**  */
+	private Date historytime;
 	/** 订单状态 */
 	private String orderstatus;
 
@@ -30,14 +33,23 @@ public class Orderhistory extends BaseEntity
 	{
 		return orderhistoryid;
 	}
-	public void setOrdernumber(Integer ordernumber) 
+	public void setOrdernumber(String ordernumber) 
 	{
 		this.ordernumber = ordernumber;
 	}
 
-	public Integer getOrdernumber() 
+	public String getOrdernumber() 
 	{
 		return ordernumber;
+	}
+	public void setHistorytime(Date historytime) 
+	{
+		this.historytime = historytime;
+	}
+
+	public Date getHistorytime() 
+	{
+		return historytime;
 	}
 	public void setOrderstatus(String orderstatus) 
 	{
@@ -53,6 +65,7 @@ public class Orderhistory extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("orderhistoryid", getOrderhistoryid())
             .append("ordernumber", getOrdernumber())
+            .append("historytime", getHistorytime())
             .append("orderstatus", getOrderstatus())
             .toString();
     }

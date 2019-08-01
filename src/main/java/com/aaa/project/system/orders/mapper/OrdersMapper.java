@@ -62,14 +62,16 @@ public interface OrdersMapper
 	/**
 	 * 更改订单状态信息‘已接单’
 	 * */
-	public int updateOrdersStatus(Orders orders);
+	public int updateOrdersStatus(Integer orderid);
 
 	/**
 	 * 更改订单状态信息为‘已拒单’
 	 * */
-	public int updateOrdersStatusReject(Orders orders);
+	public int updateOrdersStatusReject(Integer orderid);
 
-
-
+    /**
+	 * 更该订单状态信息为‘已完成’
+	 * */
+    public int updateOrdersStatusComfirm(Integer orderid);
 	
 }

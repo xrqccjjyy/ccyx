@@ -3,11 +3,10 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
-    
      <div class="container-div">
 		<div class="row">
 			<div class="col-sm-12 search-collapse">
-				<form id="formId">
+				<form id="formId" >
 					<div class="select-list">
 						<ul>
 							<li>
@@ -66,6 +65,7 @@
 				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:orders:edit">
 					<i class="fa fa-edit"></i> 修改订单
 				</a>
+
 				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:orders:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
@@ -86,11 +86,15 @@
         var detailFlag = [[${@permission.hasPermi('system:orders:detail')}]];
         var editFlag = [[${@permission.hasPermi('system:orders:edit')}]];
         // var assignedFlag = [[${@permission.hasPermi('system:orders:assigned')}]];
+        // var removeFlag = [[${@permission.hasPermi('system:orders:remove')}]];
         var receiveFlag = [[${@permission.hasPermi('system:orders:receive')}]];
+        var confirmFlag = [[${@permission.hasPermi('system:orders:confirm')}]];
         var rejectFlag = [[${@permission.hasPermi('system:orders:reject')}]];
-        //var status = [[${a}]];
-        //var removeFlag = [[${@permission.hasPermi('system:orders:remove')}]];
         var prefix = ctx + "system/orders";
+        var status = [[${a}]];
+
+        //var status = [[${a}]];
+
 
         $(function() {
             var options = {
@@ -161,7 +165,8 @@
 		            	actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="#" onclick="$.operate.detail(\'' + row.orderid + '\')"><i class="fa fa-search"></i>详细</a>&nbsp;');
 		            	actions.push('<a id="btn" class="btn btn-primary btn-xs ' + receiveFlag + '" href="#" onclick="receive(\'' + row.orderid + '\')"><i class="fa fa-check-square-o"></i>接单</a> &nbsp;');
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="assigned(\'' + row.orderid + '\')"><i class="fa fa-edit"></i>指派</a> &nbsp;');
-		            	actions.push('<a class="btn btn-danger btn-xs ' + rejectFlag + '" href="#" onclick="reject(\'' + row.orderid + '\')"><i class="fa fa-remove"></i>拒单</a> &nbsp;');
+		            	actions.push('<a class="btn btn-info btn-xs ' + confirmFlag + '" href="#" onclick="confirm(\'' + row.orderid + '\')"><i class="fa fa-check-square-o"></i>确认</a> &nbsp;');
+		            	actions.push('<a class="btn btn-danger btn-xs ' + rejectFlag + '" href="#" onclick="reject(\'' + row.orderid + '\')"><i class="fa fa-remove"></i>拒单</a> ');
 						return actions.join('');
 		            }
 		        }]
@@ -171,20 +176,49 @@
 
         /*接收订单弹窗*/
         function receive(orderid) {
-            var url = prefix + '/receive/' + orderid;
+          // var url = prefix + '/receive/' + orderid;
                 //console.log(status)
-        		    /*if (status){
+        		    /*if (status==''){
                       $("#btn").attr("disabled", true);
         		    }else{
-
         		    }*/
-            $.modal.open("接单", url, '300', '150');
+          // $.modal.open("接单", url, '300', '150');
+           console.log(status);
+          $.modal.confirm("确认接收该" + $.table._option.modalName + "吗？", function() {
+          				$.ajax({
+          					type : 'post',
+          					url: prefix + "/receive/" + orderid,
+          					success : function(result) {
+          						if (result.code == web_status.SUCCESS) {
+          		                	$.modal.msgSuccess(result.msg);
+          		                	//刷新表格
+          		                	$.table.refresh();
+          		                } else {
+          		                	$.modal.msgError(result.msg);
+          		                }
+          					}
+          				});
+          			});
+
           }
 
         /*拒收订单弹窗*/
          function reject(orderid) {
-             var url = prefix + '/reject/' +orderid;
-              $.modal.open("拒单", url, '300', '150');
+             $.modal.confirm("确认拒绝该" + $.table._option.modalName + "吗？", function() {
+                       				$.ajax({
+                       					type : 'post',
+                       					url: prefix + "/reject/" + orderid,
+                       					success : function(result) {
+                       						if (result.code == web_status.SUCCESS) {
+                       		                	$.modal.msgSuccess(result.msg);
+                       		                	//刷新表格
+                       		                	$.table.refresh();
+                       		                } else {
+                       		                	$.modal.msgError(result.msg);
+                       		                }
+                       					}
+                       				});
+                       			});
            }
 
         /*指派人员弹窗*/
@@ -192,6 +226,26 @@
              var url = prefix + '/edit/' + orderid;
              $.modal.open("指派", url, '800', '200');
            }
+
+        /*确认订单弹窗*/
+          function confirm(orderid){
+             $.modal.confirm("真的已完成该" + $.table._option.modalName + "吗？", function() {
+                       				$.ajax({
+                       					type : 'post',
+                       					url: prefix + "/confirm/" + orderid,
+                       					success : function(result) {
+                       						if (result.code == web_status.SUCCESS) {
+                       		                	$.modal.msgSuccess(result.msg);
+                       		                	//刷新表格
+                       		                	$.table.refresh();
+                       		                } else {
+                       		                	$.modal.msgError(result.msg);
+                       		                }
+                       					}
+                       				});
+                       		});
+          }
+
     </script>
 </body>
 </html>

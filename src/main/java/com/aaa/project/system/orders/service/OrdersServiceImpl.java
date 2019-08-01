@@ -83,18 +83,22 @@ public class OrdersServiceImpl implements IOrdersService
 	 * 更改状态信息为'已接单'
 	 * */
 	@Override
-	public int updateOrdersStatus(Orders orders) {
-		return ordersMapper.updateOrdersStatus(orders);
+	public int updateOrdersStatus(Integer orderid) {
+		return ordersMapper.updateOrdersStatus(orderid);
 	}
 
 	/**
 	 * 更改状态信息为'已拒单'
 	 * */
 	@Override
-	public int updateOrdersStatusReject(Orders orders) {
-		return ordersMapper.updateOrdersStatusReject(orders);
+	public int updateOrdersStatusReject(Integer orderid) {
+		return ordersMapper.updateOrdersStatusReject(orderid);
 	}
 
-	
+	@Override
+	public int updateOrdersStatusComfirm(Integer orderid) {
+		return ordersMapper.updateOrdersStatusComfirm(orderid);
+	}
+
 
 }

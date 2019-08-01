@@ -1,13 +1,15 @@
 package com.aaa.project.system.orderhistory.mapper;
 
 import com.aaa.project.system.orderhistory.domain.Orderhistory;
-import java.util.List;	
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 订单历史记录/月 数据层
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-01
  */
 public interface OrderhistoryMapper 
 {
@@ -58,5 +60,10 @@ public interface OrderhistoryMapper
      * @return 结果
      */
 	public int deleteOrderhistoryByIds(String[] orderhistoryids);
-	
+
+	/**
+	 * 插入历史记录
+	 * */
+	public int insertOrderhistoryTable(@Param("ordernumber") String ordernumber, @Param("orderstatus") String orderstatus);
+
 }
