@@ -9,10 +9,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="clientmessage"    column="clientmessage"    />
         <result property="complain"    column="complain"    />
         <result property="washpersonpid"    column="washpersonpid"    />
+        <result property="washpersonname"    column="washpersonname"    />
     </resultMap>
 	
 	<sql id="selectEvaluationVo">
-        select clientid, clientmessage, complain, washpersonpid from evaluation
+       /* select clientid, clientmessage, complain, washpersonpid from evaluation*/
+
+       select clientid,clientmessage,complain,washpersonname
+       from evaluation,carwashperson
+       where evaluation.clientid=carwashperson.washpersonpid
+
     </sql>
 	
     <select id="selectEvaluationList" parameterType="Evaluation" resultMap="EvaluationResult">

@@ -23,7 +23,18 @@ public class Evaluation extends BaseEntity
 	/** 洗车人员id */
 	private Integer washpersonpid;
 
-	public void setClientid(Integer clientid) 
+	/** 洗车人员姓名 */
+	private String washpersonname;
+
+	public String getWashpersonname() {
+		return washpersonname;
+	}
+
+	public void setWashpersonname(String washpersonname) {
+		this.washpersonname = washpersonname;
+	}
+
+	public void setClientid(Integer clientid)
 	{
 		this.clientid = clientid;
 	}
