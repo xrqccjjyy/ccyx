@@ -2,9 +2,11 @@ package com.aaa.project.system.orders.controller;
 
 import java.util.List;
 
+import com.aaa.framework.config.DouDouConfig;
 import com.aaa.project.system.carwashperson.domain.Carwashperson;
 import com.aaa.project.system.carwashperson.service.ICarwashpersonService;
 import com.aaa.project.system.user.domain.User;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.avro.Schema;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,8 +168,11 @@ public class OrdersController extends BaseController {
      * 接收订单
      */
     @GetMapping("/receive/{orderid}")
-    public String receive(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap) {
+    public String receive(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap, Model model) {
         Orders ordersa = ordersService.selectOrdersById(orderid);
+        String  a =  ordersa.getOrderstatus();
+        model.addAttribute("a",a);
+        System.out.println(a+"===============================================");
         mmap.put("ordersa", ordersa);
         return prefix + "/receive";
     }
@@ -189,8 +194,6 @@ public class OrdersController extends BaseController {
     @GetMapping("/reject/{orderid}")
     public String reject(@PathVariable("orderid") Integer orderid, Orders orders, ModelMap mmap,Model model) {
         Orders ordersr = ordersService.selectOrdersById(orderid);
-        Integer  orderid1 =  orders.getOrderid();
-        model.addAttribute("ordersid", orderid1);
         mmap.put("ordersr", ordersr);
         return prefix + "/reject";
     }
