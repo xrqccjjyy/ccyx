@@ -1,3 +1,4 @@
+/*
 package com.aaa.framework.config;
 
 import com.aaa.common.utils.redis.RedisCacheTransfer;
@@ -14,12 +15,14 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.util.HashSet;
 import java.util.Set;
 
+*/
 /**
  * @Author: 陈建
  * @Date: 2019/5/20 0020 10:00
  * redis相关配置
  * @Version 1.0
- */
+ *//*
+
 @Configuration
 @PropertySource("classpath:redis.properties")
 @ConfigurationProperties(prefix = "redis")
@@ -138,7 +141,8 @@ public class RedisConfig {
             JedisConnectionFactory jcf=new JedisConnectionFactory(getRedisClusterConfiguration(),getJedisPool());
             return jcf;
         }
-   /* //初始化单机版redis jedisConnectionFactory
+   */
+/* //初始化单机版redis jedisConnectionFactory
         @Bean("jedisConnectionFactory")
         public JedisConnectionFactory getjedisConnectionFactory(){
             JedisConnectionFactory jcf=new JedisConnectionFactory();
@@ -146,7 +150,8 @@ public class RedisConfig {
             jcf.setPort(port);
             jcf.setPoolConfig(getJedisPool());
             return jcf;
-        }*/
+        }*//*
+
         //使用中间类解决静态注入
         @Bean("redisCacheTransfer")
        public RedisCacheTransfer getRedisCacheTransfer(){
@@ -156,3 +161,4 @@ public class RedisConfig {
         }
 
 }
+*/

@@ -34,6 +34,30 @@ public class Debty extends BaseEntity
 	/**套餐价格*/
 	private BigDecimal carsereviceprice;
 
+	/**订单编号*/
+	private String ordernumber;
+
+	/**订单总数*/
+	private String total;
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getOrdernumber() {
+		return ordernumber;
+	}
+
+	public void setOrdernumber(String ordernumber) {
+		this.ordernumber = ordernumber;
+	}
+
+
+
 	public Integer getCarserviceid() {
 		return carserviceid;
 	}

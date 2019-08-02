@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import com.aaa.framework.web.controller.BaseController;
 import com.aaa.framework.web.page.TableDataInfo;
 import com.aaa.framework.web.domain.AjaxResult;
 import com.aaa.common.utils.poi.ExcelUtil;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 财务 信息操作处理
@@ -54,7 +57,18 @@ public class DebtyController extends BaseController
 		return getDataTable(list);
 	}
 	
-	
+	/**
+	 * 查询订单数量和总金额
+	 * */
+	@RequiresPermissions("system:debty:Statistical")
+	@PostMapping("/Statistical")
+	@ResponseBody
+	public TableDataInfo Statistical(){
+		List<Debty> debty =  debtyService.selectStatisticalTable();
+		return getDataTable(debty);
+	}
+
+
 	/**
 	 * 导出财务列表
 	 */

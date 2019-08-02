@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.debty.mapper.DebtyMapper;
 import com.aaa.project.system.debty.domain.Debty;
-import com.aaa.project.system.debty.service.IDebtyService;
 import com.aaa.common.support.Convert;
 
 /**
@@ -85,5 +84,17 @@ public class DebtyServiceImpl implements IDebtyService
 	{
 		return debtyMapper.deleteDebtyByIds(Convert.toStrArray(ids));
 	}
-	
+
+
+	/**
+	 * 查询订单数量和总金额
+	 * */
+	@Override
+	public List<Debty> selectStatisticalTable() {
+		return debtyMapper.selectStatisticalTable();
+	}
+
+
+
+
 }

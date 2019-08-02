@@ -56,5 +56,9 @@ public interface IDebtyService
      * @return 结果
      */
 	public int deleteDebtyByIds(String ids);
-	
+
+	/**
+	 * 查询订单数量和总金额
+	 * */
+	public List<Debty> selectStatisticalTable();
 }

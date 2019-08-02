@@ -26,6 +26,11 @@ public interface DebtyMapper
      * @return 财务集合
      */
 	public List<Debty> selectDebtyList(Debty debty);
+
+	/**
+	 * 查询订单数量和总金额
+	 * */
+	public List<Debty> selectStatisticalTable();
 	
 	/**
      * 新增财务
