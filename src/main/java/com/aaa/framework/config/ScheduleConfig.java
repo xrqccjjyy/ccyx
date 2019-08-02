@@ -1,3 +1,4 @@
+/*
 package com.aaa.framework.config;
 
 import org.springframework.context.annotation.Bean;
@@ -6,12 +7,14 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+*/
 /**
  * 定时任务配置
- * 
+ *
  * @author teacherChen
  *
- */
+ *//*
+
 //@Configuration
 public class ScheduleConfig
 {
@@ -56,3 +59,4 @@ public class ScheduleConfig
         return factory;
     }
 }
+*/
