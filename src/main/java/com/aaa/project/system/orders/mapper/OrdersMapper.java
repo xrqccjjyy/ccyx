@@ -65,6 +65,11 @@ public interface OrdersMapper
 	public int updateOrdersStatus(Integer orderid);
 
 	/**
+	 *
+	 *更改订单状态信息‘进行中’
+	 */
+	public int updateOrdersGoing(Integer orderid);
+	/**
 	 * 更改订单状态信息为‘已拒单’
 	 * */
 	public int updateOrdersStatusReject(Integer orderid);

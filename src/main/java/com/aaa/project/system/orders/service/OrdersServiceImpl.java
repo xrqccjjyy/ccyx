@@ -54,7 +54,15 @@ public class OrdersServiceImpl implements IOrdersService
 	{
 	    return ordersMapper.insertOrders(orders);
 	}
-	
+
+	/**
+	 * 更改状态信息为'进行中'
+	 * */
+	@Override
+	public int updateOrdersGoing(Integer orderid) {
+		return ordersMapper.updateOrdersGoing(orderid);
+	}
+
 	/**
      * 修改订单
      * 
@@ -86,6 +94,7 @@ public class OrdersServiceImpl implements IOrdersService
 	public int updateOrdersStatus(Integer orderid) {
 		return ordersMapper.updateOrdersStatus(orderid);
 	}
+
 
 	/**
 	 * 更改状态信息为'已拒单'

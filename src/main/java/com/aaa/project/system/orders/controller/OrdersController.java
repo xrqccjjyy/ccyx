@@ -116,6 +116,7 @@ public class OrdersController extends BaseController {
         Orders orders = ordersService.selectOrdersById(orderid);
         //查询洗车人状态
         List<Carwashperson> list = carwashpersonService.selectCarwashpersonStatus();
+        ordersService.updateOrdersGoing(orderid);
         model.addAttribute("carwashpersonList", list);
 
         mmap.put("orders", orders);
@@ -203,6 +204,9 @@ public class OrdersController extends BaseController {
 
         return toAjax(ordersService.updateOrdersStatus(orderid));
     }
+
+
+
 
     /**
      * 拒收订单

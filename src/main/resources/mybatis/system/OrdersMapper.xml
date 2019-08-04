@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         carservicename,
         carsereviceprice,
         shopaddress,
-        orderstatus
+        orderstatus,
+        orderevaluation
         FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
         AND customer.userid = orders.userid
@@ -146,6 +147,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update orders SET orderstatus = '已接单'
         where orderid = #{orderid}
     </update>
+
+    <update id="updateOrdersGoing" parameterType="Integer">
+        update orders SET orderstatus = '进行中'
+        where orderid = #{orderid}
+    </update>
+
 
     <update id="updateOrdersStatusReject" parameterType="Integer">
         update orders SET orderstatus = '已拒单'

@@ -67,6 +67,20 @@ public class Orders extends BaseEntity
 
 	private String carsereviceprice;
 
+	public String getOrderevaluation() {
+		return orderevaluation;
+	}
+
+	public void setOrderevaluation(String orderevaluation) {
+		this.orderevaluation = orderevaluation;
+	}
+
+	/**
+	 * 订单评价
+
+	 */
+	private String orderevaluation;
+
 	public String getCarsereviceprice() {
 		return carsereviceprice;
 	}
