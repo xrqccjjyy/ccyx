@@ -13,6 +13,16 @@ import java.util.List;
  */
 public interface IOrdersService 
 {
+
+	/**
+	 * 微信端查看订单详情
+	 */
+	Orders selectWxByid(String ordernumber);
+
+	/**
+	 * 微信端查看订单
+	 */
+	List<Orders> findAll(String washpersonname);
 	/**
      * 查询订单信息
      * 

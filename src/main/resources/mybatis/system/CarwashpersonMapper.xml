@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="selectCarwashpersonVo">
         select washpersonpid, washpersonphone, washpersonname, shopid, washpersonstatus from carwashperson
     </sql>
+
+    <select id="login" resultType="com.aaa.project.system.carwashperson.domain.Carwashperson" >
+        SELECT * FROM carwashperson WHERE washpersonphone=#{washpersonphone}
+    </select>
 	
     <select id="selectCarwashpersonList" parameterType="Carwashperson" resultMap="CarwashpersonResult">
         SELECT washpersonpid, washpersonname,washpersonphone,shopname,washpersonstatus FROM

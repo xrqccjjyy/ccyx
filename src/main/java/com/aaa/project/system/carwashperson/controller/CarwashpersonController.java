@@ -50,7 +50,7 @@ public class CarwashpersonController extends BaseController
 	{
 	    return prefix + "/carwashperson";
 	}
-	
+
 	/**
 	 * 查询洗车人员列表
 	 */
