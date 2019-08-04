@@ -91,7 +91,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
     </select>
 
-        
+    <select id="findAll" resultType="com.aaa.project.system.orders.domain.Orders">
+SELECT ordernumber,carservicename
+FROM carservice,orders,carwashperson
+WHERE carservice.carserviceid=orders.carserviceid
+AND orders.washpersonpid=carwashperson.washpersonpid
+AND carwashperson.washpersonname = #{washpersonname}
+AND orders.orderstatus='已接单'
+    </select>
+    <select id="selectWxByid" resultType="com.aaa.project.system.orders.domain.Orders">
+                 SELECT o.*, washpersonname FROM
+        (SELECT orderid,
+        washpersonpid,
+        ordernumber ,
+        username ,
+        userphone ,
+        ordertime ,
+        washtime ,
+        cabinetcode,
+        usercarnumber ,
+        usercarbrandname ,
+        usercarcolor ,
+        usercarlocation ,
+        chestsite ,
+        carservicename,
+        carsereviceprice,
+        shopaddress,
+        orderstatus
+        FROM orders, usercar, customer,  carservice, shop
+        WHERE orders.usercarid = usercar.usercarid
+        AND customer.userid = orders.userid
+        AND carservice.carserviceid = orders.carserviceid
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE ordernumber = #{ordernumber}
+    </select>
+
+
     <insert id="insertOrders" parameterType="Orders">
         insert into orders
 		<trim prefix="(" suffix=")" suffixOverrides=",">

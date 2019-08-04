@@ -2,6 +2,8 @@ package com.aaa.project.system.carwashperson.mapper;
 
 import com.aaa.project.system.carwashperson.domain.Carwashperson;
 import com.aaa.project.system.carwashperson.service.CarwashpersonServiceImpl;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,8 +13,15 @@ import java.util.List;
  * @author teacherChen
  * @date 2019-07-29
  */
-public interface CarwashpersonMapper 
+@Component
+@Mapper
+public interface CarwashpersonMapper
 {
+	/**
+	 * 微信登录验证
+	 */
+	Carwashperson login(String washpersonphone);
+
 	/**
      * 查询洗车人员信息
      * 

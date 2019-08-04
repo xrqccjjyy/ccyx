@@ -19,6 +19,30 @@ public class OrdersServiceImpl implements IOrdersService
 	@Autowired
 	private OrdersMapper ordersMapper;
 
+	@Override
+	public Orders selectWxByid(String ordernumber) {
+		Orders orders = new Orders();
+		orders.setOrdernumber(ordernumber);
+		Orders wxByid = ordersMapper.selectWxByid(ordernumber);
+		if(wxByid!=null){
+			return wxByid;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Orders> findAll(String washpersonname) {
+		Orders orders = new Orders();
+		orders.setWashpersonname(washpersonname);
+		List<Orders> list = ordersMapper.findAll(washpersonname);
+		if(list!=null){
+			return list;
+		}
+		return null;
+	}
+
+
+
 	/**
      * 查询订单信息
      * 
