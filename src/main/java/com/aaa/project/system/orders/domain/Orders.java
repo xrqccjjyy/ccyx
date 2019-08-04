@@ -28,8 +28,8 @@ public class Orders extends BaseEntity
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date ordertime;
 	/** 洗车时间 */
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "GMT+8")
 	private Date washtime;
 	/** 钥匙柜取件码 */
 	private String cabinetcode;

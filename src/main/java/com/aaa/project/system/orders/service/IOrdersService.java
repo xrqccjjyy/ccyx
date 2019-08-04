@@ -15,9 +15,14 @@ public interface IOrdersService
 {
 
 	/**
+	 * 洗车人员归还车辆
+	 */
+	public int  updateWx(String washpersonname);
+
+	/**
 	 * 微信端查看订单详情
 	 */
-	Orders selectWxByid(String ordernumber);
+	List<Orders> selectWxByid(String ordernumber);
 
 	/**
 	 * 微信端查看订单

@@ -92,13 +92,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
     </select>
 
+
     <select id="findAll" resultType="com.aaa.project.system.orders.domain.Orders">
-SELECT ordernumber,carservicename
-FROM carservice,orders,carwashperson
-WHERE carservice.carserviceid=orders.carserviceid
-AND orders.washpersonpid=carwashperson.washpersonpid
-AND carwashperson.washpersonname = #{washpersonname}
-AND orders.orderstatus='已接单'
+SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,
+carservicename,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation,carsereviceprice
+FROM orders,carservice,usercar,carwashperson,customer
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND orders.carserviceid=carservice.carserviceid
+AND orders.userid = customer.userid
+AND orders.usercarid = usercar.usercarid
+AND orders.orderstatus='进行中'
+AND carwashperson.washpersonname=#{washpersonname}
+
     </select>
     <select id="selectWxByid" resultType="com.aaa.project.system.orders.domain.Orders">
                  SELECT o.*, washpersonname FROM
@@ -198,7 +203,16 @@ AND orders.orderstatus='已接单'
         where orderid = #{orderid}
     </update>
 
-	<delete id="deleteOrdersById" parameterType="Integer">
+
+    <update id="updateWx"  >
+        UPDATE carwashperson,orders
+SET washpersonstatus='空闲',orderstatus='已完成',orders.washpersonpid=NULL
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND carwashperson.washpersonname=#{washpersonname}
+    </update>
+
+
+    <delete id="deleteOrdersById" parameterType="Integer">
         delete from orders where orderid = #{orderid}
     </delete>
 	
