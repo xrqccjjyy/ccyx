@@ -108,7 +108,7 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * 修改订单
+     * 分派洗车人员，并修改订单状态为进行中
      */
     @GetMapping("/edit/{orderid}")
     public String edit(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model, Carwashperson carwashperson) {
