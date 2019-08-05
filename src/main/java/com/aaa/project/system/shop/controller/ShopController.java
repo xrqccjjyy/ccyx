@@ -1,15 +1,17 @@
 package com.aaa.project.system.shop.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.aaa.common.exception.file.FileNameLengthLimitExceededException;
+import com.aaa.common.utils.file.FileUploadUtils;
+import com.aaa.framework.config.DouDouConfig;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.aaa.framework.aspectj.lang.annotation.Log;
 import com.aaa.framework.aspectj.lang.enums.BusinessType;
 import com.aaa.project.system.shop.domain.Shop;
@@ -18,6 +20,7 @@ import com.aaa.framework.web.controller.BaseController;
 import com.aaa.framework.web.page.TableDataInfo;
 import com.aaa.framework.web.domain.AjaxResult;
 import com.aaa.common.utils.poi.ExcelUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 商家 信息操作处理
@@ -84,8 +87,18 @@ public class ShopController extends BaseController
 	@Log(title = "商家", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Shop shop)
-	{		
+	public AjaxResult addSave(Shop shop,
+							  @RequestParam(name = "shopname") String shopname,
+							  @RequestParam(name = "file") MultipartFile file,
+							  @RequestParam(name = "shopaddress") String shopaddress,
+							  @RequestParam(name = "longLot") String longLot
+	) throws IOException {
+		shop.setShopname(shopname);
+		shop.setShopaddress(shopaddress);
+		shop.setLongLot(longLot);
+		String filePath = DouDouConfig.getProfile();
+		String fileName = FileUploadUtils.upload(filePath,file);
+		shop.setShoplicense(fileName);
 		return toAjax(shopService.insertShop(shop));
 	}
 
@@ -107,8 +120,20 @@ public class ShopController extends BaseController
 	@Log(title = "商家", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Shop shop)
-	{		
+	public AjaxResult editSave(Shop shop,
+							   @RequestParam(name = "shopid") Integer shopid,
+							   @RequestParam(name = "shopname") String shopname,
+							   @RequestParam(name = "file") MultipartFile file,
+							   @RequestParam(name = "shopaddress") String shopaddress,
+							   @RequestParam(name = "longLot") String longLot
+							   ) throws IOException {
+		shop.setShopid(shopid);
+		shop.setShopname(shopname);
+		shop.setShopaddress(shopaddress);
+		shop.setLongLot(longLot);
+		String filePath = DouDouConfig.getProfile();
+		String fileName = FileUploadUtils.upload(filePath,file);
+		shop.setShoplicense(fileName);
 		return toAjax(shopService.updateShop(shop));
 	}
 	

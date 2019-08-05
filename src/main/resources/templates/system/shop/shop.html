@@ -80,13 +80,17 @@
 				{
 					field : 'shoplicense', 
 					title : '营业执照',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+                            return '<a href="javascript:downloadFile(' + row.shopid + ')"><img style="width:30;height:30px;"  src="/profile/' + row.shoplicense + '"/></a>';
+                        }
+
 				},
-				{
+				/*{
 					field : 'shopidno', 
 					title : '身份证号',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'shopaddress', 
 					title : '商家地址',

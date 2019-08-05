@@ -6,6 +6,11 @@
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-shop-edit" th:object="${shop}">
             <input id="shopid" name="shopid" th:field="*{shopid}"  type="hidden">
+            <input id='lnglat' type="hidden" value='113.943886,22.53574'>
+            <div class="form-group">
+            				<label class="col-sm-3 control-label">请选取商家位置：</label>
+            				<div id="container" style="height: 200px"></div>
+            			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">商家名称：</label>
 				<div class="col-sm-8">
@@ -15,15 +20,15 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">营业执照：</label>
 				<div class="col-sm-8">
-					<input id="shoplicense" name="shoplicense" th:field="*{shoplicense}" class="form-control" type="text">
+					<input id="shoplicense" name="shoplicense" th:field="*{shoplicense}" class="form-control" type="file" accept="image/*">
 				</div>
 			</div>
-			<div class="form-group">	
+			<!--<div class="form-group">
 				<label class="col-sm-3 control-label">身份证号：</label>
 				<div class="col-sm-8">
 					<input id="shopidno" name="shopidno" th:field="*{shopidno}" class="form-control" type="text">
 				</div>
-			</div>
+			</div>-->
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">商家地址：</label>
 				<div class="col-sm-8">
@@ -39,6 +44,9 @@
 		</form>
     </div>
     <div th:include="include::footer"></div>
+
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=15a4294f6c6093661d10862e9b4f6e6e&plugin=AMap.Geocoder"></script>
     <script type="text/javascript">
 		var prefix = ctx + "system/shop"
 		$("#form-shop-edit").validate({
@@ -51,9 +59,84 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-shop-edit').serialize());
+	            uploadFile();
+	            //$.operate.save(prefix + "/edit", $('#form-shop-edit').serialize());
 	        }
 	    }
+
+	    function uploadFile() {
+                    var formData = new FormData();
+                    if ($('#shoplicense')[0].files[0] == null) {
+                        $.modal.alertWarning("请先选择文件路径");
+                        return false;
+                    }
+
+                    formData.append('shopid', $('#shopid').val());
+                    formData.append('shopname', $('#shopname').val());
+                    formData.append('file', $('#shoplicense')[0].files[0]);
+                    formData.append('shopaddress', $('#shopaddress').val());
+                    formData.append('longLot', $('#longLot').val());
+
+                    $.ajax({
+                        url: prefix + "/edit",
+                        type: 'post',
+                        cache: false,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        dataType: "json",
+                        success: function(result) {
+                            $.operate.successCallback(result);
+                        }
+                    });
+                }
+
+
+	      //高德地图接口
+                var map = new AMap.Map("container", {
+                    resizeEnable: true
+                });
+
+                var geocoder,marker;
+                function regeoCode() {
+                    if(!geocoder){
+                        geocoder = new AMap.Geocoder({
+                            city: "010", //城市设为北京，默认：“全国”
+                            radius: 1000 //范围，默认：500
+                        });
+                    }
+                    var lnglat  = document.getElementById('lnglat').value.split(',');
+                    if(!marker){
+                        marker = new AMap.Marker();
+                        map.add(marker);
+                    }
+                    marker.setPosition(lnglat);
+
+                    geocoder.getAddress(lnglat, function(status, result) {
+                        if (status === 'complete'&&result.regeocode) {
+
+                            var address = result.regeocode.formattedAddress;
+                            document.getElementById('shopaddress').value = address;
+                            document.getElementById('keycabinetcity').value = result.regeocode.addressComponent.city;
+                        }else{
+                            log.error('根据经纬度查询地址失败')
+                        }
+                    });
+                }
+
+                map.on('click',function(e){
+                    document.getElementById('lnglat').value = e.lnglat;
+                    regeoCode();
+                    document.getElementById('longLot').value = e.lnglat;
+                })
+
+                document.getElementById('lnglat').onkeydown = function(e) {
+                    if (e.keyCode === 13) {
+                        regeoCode();
+                        return false;
+                    }
+                    return true;
+                };
 	</script>
 </body>
 </html>

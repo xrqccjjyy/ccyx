@@ -1,12 +1,22 @@
 package com.aaa.project.system.shop.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.aaa.common.exception.file.FileNameLengthLimitExceededException;
+import com.aaa.common.utils.file.FileUploadUtils;
+import com.aaa.framework.config.FileUploadConfig;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.shop.mapper.ShopMapper;
 import com.aaa.project.system.shop.domain.Shop;
 import com.aaa.project.system.shop.service.IShopService;
 import com.aaa.common.support.Convert;
+import org.springframework.web.multipart.MultipartFile;
+
+import static com.aaa.common.utils.file.FileUploadUtils.upload;
+
 
 /**
  * 商家 服务层实现
@@ -19,6 +29,9 @@ public class ShopServiceImpl implements IShopService
 {
 	@Autowired
 	private ShopMapper shopMapper;
+
+	@Autowired
+	private FileUploadConfig config;
 
 	/**
      * 查询商家信息
@@ -51,8 +64,8 @@ public class ShopServiceImpl implements IShopService
      * @return 结果
      */
 	@Override
-	public int insertShop(Shop shop)
-	{
+	public int insertShop(Shop shop) {
+
 	    return shopMapper.insertShop(shop);
 	}
 	

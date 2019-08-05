@@ -1,6 +1,11 @@
 package com.aaa.project.system.shop.service;
 
+import com.aaa.common.exception.file.FileNameLengthLimitExceededException;
 import com.aaa.project.system.shop.domain.Shop;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,7 +38,7 @@ public interface IShopService
      * @param shop 商家信息
      * @return 结果
      */
-	public int insertShop(Shop shop);
+	public int insertShop(Shop shop) ;
 	
 	/**
      * 修改商家
