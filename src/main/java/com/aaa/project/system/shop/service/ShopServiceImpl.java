@@ -1,6 +1,8 @@
 package com.aaa.project.system.shop.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.shop.mapper.ShopMapper;
@@ -20,7 +22,17 @@ public class ShopServiceImpl implements IShopService
 	@Autowired
 	private ShopMapper shopMapper;
 
-	/**
+    @Override
+    public List<Map<String, Object>> selectAllShop() {
+        return shopMapper.selectAllShop();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectSearch(String shopname) {
+        return shopMapper.selectSearch(shopname);
+    }
+
+    /**
      * 查询商家信息
      * 
      * @param shopid 商家ID
