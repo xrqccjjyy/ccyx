@@ -15,9 +15,14 @@ public interface IOrdersService
 {
 
 	/**
+	 * 洗车人员归还车辆
+	 */
+	public int  updateWx(String washpersonname);
+
+	/**
 	 * 微信端查看订单详情
 	 */
-	Orders selectWxByid(String ordernumber);
+	List<Orders> selectWxByid(String ordernumber);
 
 	/**
 	 * 微信端查看订单
@@ -69,6 +74,11 @@ public interface IOrdersService
 	 * */
 	public int updateOrdersStatus(Integer orderid);
 
+	/**
+	 *
+	 *更改订单状态信息‘进行中’
+	 */
+	public int updateOrdersGoing(Integer orderid);
 
 	/**
 	 * 更改订单状态信息为‘已拒单’

@@ -17,6 +17,10 @@ import java.util.List;
 public interface OrdersMapper
 {
 	/**
+	 * 洗车人员归还车辆
+	 */
+	public int  updateWx(String washpersonname);
+	/**
 	 * 微信端查看订单详情
 	 */
 	public Orders selectWxByid(String ordernumber);
@@ -25,6 +29,7 @@ public interface OrdersMapper
 	 * 微信端查看订单
 	 */
 	List<Orders> findAll(String washpersonname);
+
 
 	/**
      * 查询订单信息
@@ -79,6 +84,11 @@ public interface OrdersMapper
 	 * */
 	public int updateOrdersStatus(Integer orderid);
 
+	/**
+	 *
+	 *更改订单状态信息‘进行中’
+	 */
+	public int updateOrdersGoing(Integer orderid);
 	/**
 	 * 更改订单状态信息为‘已拒单’
 	 * */

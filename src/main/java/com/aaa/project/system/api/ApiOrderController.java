@@ -18,6 +18,17 @@ public class ApiOrderController {
 
 
     /**
+     * 洗车人员归还车辆
+     */
+    @RequestMapping("/updateWx")
+    @ResponseBody
+    public int  updateWx(String washpersonname){
+        System.out.println(washpersonname);
+        int i = ordersServiceImpl.updateWx(washpersonname);
+        return i;
+    }
+
+    /**
      * 订单列表
      * @param washpersonname
      * @return
@@ -25,7 +36,9 @@ public class ApiOrderController {
     @RequestMapping("/findAll")
     @ResponseBody
     public List<Orders> findAll(String washpersonname){
+        System.out.println(washpersonname);
         List<Orders> list = ordersServiceImpl.findAll(washpersonname);
+        System.out.println(list);
         return list;
     }
 
@@ -35,8 +48,8 @@ public class ApiOrderController {
     @RequestMapping("/selectWxByid")
     @ResponseBody
     public List<Orders> selectWxByid(String ordernumber){
-        List<Orders> orders = (List<Orders>) ordersServiceImpl.selectWxByid(ordernumber);
-        System.out.println(orders);
+        List<Orders> orders = ordersServiceImpl.selectWxByid(ordernumber);
+
         return orders;
     }
 }

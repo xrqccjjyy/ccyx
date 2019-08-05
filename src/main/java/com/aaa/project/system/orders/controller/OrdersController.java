@@ -108,7 +108,7 @@ public class OrdersController extends BaseController {
     }
 
     /**
-     * 修改订单
+     * 分派洗车人员，并修改订单状态为进行中
      */
     @GetMapping("/edit/{orderid}")
     public String edit(@PathVariable("orderid") Integer orderid, ModelMap mmap, Model model, Carwashperson carwashperson) {
@@ -116,6 +116,7 @@ public class OrdersController extends BaseController {
         Orders orders = ordersService.selectOrdersById(orderid);
         //查询洗车人状态
         List<Carwashperson> list = carwashpersonService.selectCarwashpersonStatus();
+        ordersService.updateOrdersGoing(orderid);
         model.addAttribute("carwashpersonList", list);
 
         mmap.put("orders", orders);
@@ -203,6 +204,9 @@ public class OrdersController extends BaseController {
 
         return toAjax(ordersService.updateOrdersStatus(orderid));
     }
+
+
+
 
     /**
      * 拒收订单
