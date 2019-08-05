@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.keycabinet.mapper.KeycabinetMapper">
+    
+    <resultMap type="Keycabinet" id="KeycabinetResult">
+        <result property="keycabinetid"    column="keycabinetid"    />
+        <result property="keycabinetname"    column="keycabinetname"    />
+        <result property="keycabinetcity"    column="keycabinetcity"    />
+        <result property="keycabinettime"    column="keycabinettime"    />
+        <result property="longLot"    column="long_lot"    />
+    </resultMap>
+	
+	<sql id="selectKeycabinetVo">
+        select keycabinetid, keycabinetname, keycabinetcity, keycabinettime, long_lot from keycabinet
+    </sql>
+	
+    <select id="selectKeycabinetList" parameterType="Keycabinet" resultMap="KeycabinetResult">
+        <include refid="selectKeycabinetVo"/>
+        <where>  
+            <if test="keycabinetid != null "> and keycabinetid = #{keycabinetid}</if>
+             <if test="keycabinetname != null  and keycabinetname != '' "> and keycabinetname = #{keycabinetname}</if>
+             <if test="keycabinetcity != null  and keycabinetcity != '' "> and keycabinetcity = #{keycabinetcity}</if>
+             <if test="keycabinettime != null "> and keycabinettime = #{keycabinettime}</if>
+             <if test="longLot != null  and longLot != '' "> and long_lot = #{longLot}</if>
+         </where>
+    </select>
+    
+    <select id="selectKeycabinetById" parameterType="Integer" resultMap="KeycabinetResult">
+        <include refid="selectKeycabinetVo"/>
+        where keycabinetid = #{keycabinetid}
+    </select>
+        
+    <insert id="insertKeycabinet" parameterType="Keycabinet">
+        insert into keycabinet
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="keycabinetid != null  ">keycabinetid,</if>
+			<if test="keycabinetname != null  and keycabinetname != ''  ">keycabinetname,</if>
+			<if test="keycabinetcity != null  and keycabinetcity != ''  ">keycabinetcity,</if>
+			<if test="keycabinettime != null  ">keycabinettime,</if>
+			<if test="longLot != null  and longLot != ''  ">long_lot,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="keycabinetid != null  ">#{keycabinetid},</if>
+			<if test="keycabinetname != null  and keycabinetname != ''  ">#{keycabinetname},</if>
+			<if test="keycabinetcity != null  and keycabinetcity != ''  ">#{keycabinetcity},</if>
+			<if test="keycabinettime != null  ">#{keycabinettime},</if>
+			<if test="longLot != null  and longLot != ''  ">#{longLot},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateKeycabinet" parameterType="Keycabinet">
+        update keycabinet
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="keycabinetname != null  and keycabinetname != ''  ">keycabinetname = #{keycabinetname},</if>
+            <if test="keycabinetcity != null  and keycabinetcity != ''  ">keycabinetcity = #{keycabinetcity},</if>
+            <if test="keycabinettime != null  ">keycabinettime = #{keycabinettime},</if>
+            <if test="longLot != null  and longLot != ''  ">long_lot = #{longLot},</if>
+        </trim>
+        where keycabinetid = #{keycabinetid}
+    </update>
+
+	<delete id="deleteKeycabinetById" parameterType="Integer">
+        delete from keycabinet where keycabinetid = #{keycabinetid}
+    </delete>
+	
+    <delete id="deleteKeycabinetByIds" parameterType="String">
+        delete from keycabinet where keycabinetid in 
+        <foreach item="keycabinetid" collection="array" open="(" separator="," close=")">
+            #{keycabinetid}
+        </foreach>
+    </delete>
+    
+</mapper>
