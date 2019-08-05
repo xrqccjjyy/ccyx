@@ -79,5 +79,28 @@ public class CustomerServiceImpl implements ICustomerService
 	{
 		return customerMapper.deleteCustomerByIds(Convert.toStrArray(ids));
 	}
-	
+	/**
+	 * 根据手机号查询用户数据
+	 * */
+	@Override
+	public List<Customer> selectCustomer(String userphone) {
+		Customer customer=new Customer();
+		customer.setUserphone(userphone);
+		List<Customer> list = customerMapper.selectCustomer(userphone);
+		if (list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean addCustomer(Customer customer) {
+		return customerMapper.addCustomer(customer);
+	}
+
+	@Override
+	public Boolean updateCustomers(Customer customer) {
+		return customerMapper.updateCustomers(customer);
+	}
+
 }
