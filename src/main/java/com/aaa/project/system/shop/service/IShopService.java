@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商家 服务层
@@ -16,6 +17,11 @@ import java.util.List;
  */
 public interface IShopService 
 {
+	//    全部商家
+	List<Map<String,Object>> selectAllShop();
+	//    模糊搜索
+	List<Map<String,Object>> selectSearch(String shopname);
+
 	/**
      * 查询商家信息
      * 

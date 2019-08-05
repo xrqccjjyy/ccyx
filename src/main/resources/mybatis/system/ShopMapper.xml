@@ -76,5 +76,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{shopid}
         </foreach>
     </delete>
-    
+
+    <!--全部商家-->
+    <select id="selectAllShop" resultType="map">
+        select shopname,shopaddress from shop
+    </select>
+
+    <!--搜索-->
+    <select id="selectSearch" parameterType="java.lang.String" resultType="map">
+        select * from shop where shopname =#{shopname,jdbcType=VARCHAR}
+    </select>
+
+
 </mapper>

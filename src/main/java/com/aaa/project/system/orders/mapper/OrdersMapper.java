@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 订单 数据层
@@ -98,5 +99,32 @@ public interface OrdersMapper
 	 * 更该订单状态信息为‘已完成’
 	 * */
     public int updateOrdersStatusComfirm(Integer orderid);
-	
+
+	/**
+	 *  微信端顾客查看所有订单
+	 */
+	List<Map<String,Object>> selectAllOrderByPhone(String userphone);
+
+
+	//    顾客获取待接单
+	List<Map<String,Object>> selectAllWaitingOrder(String userphone);
+
+	//    顾客进行中
+	List<Map<String,Object>> ingOrder(String userphone);
+
+	//    顾客已完成
+	List<Map<String,Object>> finishOrder(String userphone);
+
+	//   顾客 已取消
+	List<Map<String,Object>> cancelledOrder(String userphone);
+
+	//    顾客根据订单编号取消订单
+	int updateByOrdernumber(String ordernumber);
+
+//	根据订单编号查询
+	List<Map<String,Object>> selectByOrderNumber(String ordernumber);
+
+
+
+
 }

@@ -1,7 +1,8 @@
 package com.aaa.project.system.shop.mapper;
 
 import com.aaa.project.system.shop.domain.Shop;
-import java.util.List;	
+import java.util.List;
+import java.util.Map;
 
 /**
  * 商家 数据层
@@ -11,6 +12,12 @@ import java.util.List;
  */
 public interface ShopMapper 
 {
+
+	//    全部商家
+	List<Map<String,Object>> selectAllShop();
+	//    模糊搜索
+	List<Map<String,Object>> selectSearch(String shopname);
+
 	/**
      * 查询商家信息
      * 

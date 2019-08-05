@@ -222,5 +222,83 @@ AND carwashperson.washpersonname=#{washpersonname}
             #{orderid}
         </foreach>
     </delete>
-    
+
+
+    <!--微信端顾客查看所有订单-->
+    <!--全部订单-->
+    <select id="selectAllOrderByPhone" parameterType="String" resultType="map">
+        SELECT * FROM orders,customer,usercar,shop,carservice
+        where orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
+        and customer.userphone=#{userphone}
+        ORDER BY orders.ordertime DESC
+    </select>
+
+
+    <!--待接单-->
+    <select id="selectAllWaitingOrder" resultType="map">
+        SELECT *
+        FROM orders, usercar, customer,  carservice, shop
+        WHERE orders.usercarid = usercar.usercarid
+        AND customer.userid = orders.userid
+        AND carservice.carserviceid = orders.carserviceid
+        AND orders.orderstatus="待接单"
+        AND shop.shopid=orders.shopid
+        AND customer.userphone=#{userphone}
+        ORDER BY orders.ordertime DESC
+    </select>
+
+    <!--进行中-->
+    <select id="ingOrder" resultType="map">
+        SELECT * FROM orders,customer,usercar,shop,carservice
+        where orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
+        and orders.orderstatus="进行中"
+        and customer.userphone=#{userphone}
+        ORDER BY orders.ordertime DESC
+    </select>
+
+    <!--已完成-->
+    <select id="finishOrder" resultType="map">
+        SELECT * FROM orders,customer,usercar,shop,carservice
+        where orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
+        and orders.orderstatus="已完成"
+        and customer.userphone=#{userphone}
+        ORDER BY orders.ordertime DESC
+    </select>
+
+    <!--已取消-->
+    <select id="cancelledOrder" resultType="map">
+        SELECT * FROM orders,customer,usercar,shop,carservice
+        where orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
+        and orders.orderstatus="已取消"
+        and customer.userphone=#{userphone}
+        ORDER BY orders.ordertime DESC
+    </select>
+
+    <!--取消订单-->
+    <update id="updateByOrdernumber" >
+        update orders set orderstatus='已取消',ordertime=now()  where ordernumber=#{ordernumber} and orderstatus='待接单'
+    </update>
+
+    <!--根据订单编号查询-->
+    <select id="selectByOrderNumber" resultType="map">
+        SELECT * FROM orders,customer,usercar,shop,carservice
+        where orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
+        and orders.ordernumber= #{ordernumber}
+    </select>
+
 </mapper>

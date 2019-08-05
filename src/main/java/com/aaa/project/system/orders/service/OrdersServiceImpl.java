@@ -1,6 +1,8 @@
 package com.aaa.project.system.orders.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -150,6 +152,64 @@ public class OrdersServiceImpl implements IOrdersService
 	@Override
 	public int updateOrdersStatusComfirm(Integer orderid) {
 		return ordersMapper.updateOrdersStatusComfirm(orderid);
+	}
+
+	/**
+	 * 微信端 顾客查看所有订单
+	 */
+	@Override
+	public List<Map<String, Object>> selectAllOrderByPhone(String userphone) {
+		return ordersMapper.selectAllOrderByPhone(userphone);
+	}
+
+	/**
+	 * 微信端 顾客查看待接单订单
+	 */
+	@Override
+	public List<Map<String, Object>> selectAllWaitingOrder(String userphone) {
+		return ordersMapper.selectAllWaitingOrder(userphone);
+	}
+
+	/**
+	 * 微信端 顾客查看所有进行中订单
+	 */
+	@Override
+	public List<Map<String, Object>> ingOrder(String userphone) {
+		return ordersMapper.ingOrder(userphone);
+	}
+
+	/**
+	 * 微信端 顾客查看已完成订单
+	 */
+	@Override
+	public List<Map<String, Object>> finishOrder(String userphone) {
+		return ordersMapper.finishOrder(userphone);
+	}
+
+	/**
+	 * 微信端 顾客查看已取消订单
+	 */
+	@Override
+	public List<Map<String, Object>> cancelledOrder(String userphone) {
+		return ordersMapper.cancelledOrder(userphone);
+	}
+
+	/**
+	 * 微信端 顾客取消订单
+	 */
+	@Override
+	public int updateByOrdernumber(String ordernumber) {
+		return ordersMapper.updateByOrdernumber(ordernumber);
+	}
+
+	/**
+	 * 根据订单编号查询
+	 * @param ordernumber
+	 * @return
+	 */
+	@Override
+	public List<Map<String, Object>> selectByOrderNumber(String ordernumber) {
+		return ordersMapper.selectByOrderNumber(ordernumber);
 	}
 
 
