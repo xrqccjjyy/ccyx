@@ -2,6 +2,7 @@ package com.aaa.project.system.shop.service;
 
 import com.aaa.project.system.shop.domain.Shop;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商家 服务层
@@ -11,6 +12,11 @@ import java.util.List;
  */
 public interface IShopService 
 {
+	//    全部商家
+	List<Map<String,Object>> selectAllShop();
+	//    模糊搜索
+	List<Map<String,Object>> selectSearch(String shopname);
+
 	/**
      * 查询商家信息
      * 
