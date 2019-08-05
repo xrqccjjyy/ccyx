@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * 商家 服务层
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-03
  */
 public interface IShopService 
 {

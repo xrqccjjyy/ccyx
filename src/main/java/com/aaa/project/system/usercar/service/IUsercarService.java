@@ -50,5 +50,8 @@ public interface IUsercarService
      * @return 结果
      */
 	public int deleteUsercarByIds(String ids);
-	
+	/**
+	 * 修改车辆信息
+	 * */
+	public Boolean updateUsercars(Usercar usercar);
 }

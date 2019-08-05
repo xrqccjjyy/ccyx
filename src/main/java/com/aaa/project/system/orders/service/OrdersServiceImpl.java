@@ -2,6 +2,7 @@ package com.aaa.project.system.orders.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.orders.mapper.OrdersMapper;
 import com.aaa.project.system.orders.domain.Orders;
@@ -18,6 +19,48 @@ public class OrdersServiceImpl implements IOrdersService
 {
 	@Autowired
 	private OrdersMapper ordersMapper;
+
+	/**
+	 * 洗车人员归还车辆
+	 * @param washpersonname
+	 * @return
+	 */
+	@Override
+	public int  updateWx(String washpersonname) {
+        System.out.println(washpersonname);
+		Orders orders = new Orders();
+		orders.setWashpersonname(washpersonname);
+        int i = ordersMapper.updateWx(washpersonname);
+        System.out.println(i);
+        return i;
+	}
+
+	@Override
+	public List<Orders> selectWxByid(String ordernumber) {
+		Orders orders = new Orders();
+		orders.setOrdernumber(ordernumber);
+		Orders selectWxByid = ordersMapper.selectWxByid(ordernumber);
+		return (List<Orders>) selectWxByid;
+	}
+
+	/**
+	 * 洗车人员订单列表
+	 * @param washpersonname
+	 * @return
+	 */
+	@Override
+	public List<Orders> findAll(String washpersonname) {
+		Orders orders = new Orders();
+		orders.setWashpersonname(washpersonname);
+		List<Orders> list = ordersMapper.findAll(washpersonname);
+		if(list!=null){
+			System.out.println(list);
+			return list;
+		}
+		return null;
+	}
+
+
 
 	/**
      * 查询订单信息
@@ -54,7 +97,15 @@ public class OrdersServiceImpl implements IOrdersService
 	{
 	    return ordersMapper.insertOrders(orders);
 	}
-	
+
+	/**
+	 * 更改状态信息为'进行中'
+	 * */
+	@Override
+	public int updateOrdersGoing(Integer orderid) {
+		return ordersMapper.updateOrdersGoing(orderid);
+	}
+
 	/**
      * 修改订单
      * 
@@ -86,6 +137,7 @@ public class OrdersServiceImpl implements IOrdersService
 	public int updateOrdersStatus(Integer orderid) {
 		return ordersMapper.updateOrdersStatus(orderid);
 	}
+
 
 	/**
 	 * 更改状态信息为'已拒单'

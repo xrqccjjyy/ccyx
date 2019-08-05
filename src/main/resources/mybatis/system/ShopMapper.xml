@@ -7,15 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="Shop" id="ShopResult">
         <result property="shopid"    column="shopid"    />
         <result property="shopname"    column="shopname"    />
-        <result property="shoplongitude"    column="shoplongitude"    />
-        <result property="shoplatitude"    column="shoplatitude"    />
         <result property="shoplicense"    column="shoplicense"    />
         <result property="shopidno"    column="shopidno"    />
         <result property="shopaddress"    column="shopaddress"    />
+        <result property="longLot"    column="long_lot"    />
     </resultMap>
 	
 	<sql id="selectShopVo">
-        select shopid, shopname, shoplongitude, shoplatitude, shoplicense, shopidno, shopaddress from shop
+        select shopid, shopname, shoplicense, shopidno, shopaddress, long_lot from shop
     </sql>
 	
     <select id="selectShopList" parameterType="Shop" resultMap="ShopResult">
@@ -23,11 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="shopid != null "> and shopid = #{shopid}</if>
              <if test="shopname != null  and shopname != '' "> and shopname = #{shopname}</if>
-             <if test="shoplongitude != null "> and shoplongitude = #{shoplongitude}</if>
-             <if test="shoplatitude != null "> and shoplatitude = #{shoplatitude}</if>
              <if test="shoplicense != null  and shoplicense != '' "> and shoplicense = #{shoplicense}</if>
              <if test="shopidno != null  and shopidno != '' "> and shopidno = #{shopidno}</if>
              <if test="shopaddress != null  and shopaddress != '' "> and shopaddress = #{shopaddress}</if>
+             <if test="longLot != null  and longLot != '' "> and long_lot = #{longLot}</if>
          </where>
     </select>
     
@@ -41,20 +39,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="shopid != null  ">shopid,</if>
 			<if test="shopname != null  and shopname != ''  ">shopname,</if>
-			<if test="shoplongitude != null  ">shoplongitude,</if>
-			<if test="shoplatitude != null  ">shoplatitude,</if>
 			<if test="shoplicense != null  and shoplicense != ''  ">shoplicense,</if>
 			<if test="shopidno != null  and shopidno != ''  ">shopidno,</if>
 			<if test="shopaddress != null  and shopaddress != ''  ">shopaddress,</if>
+			<if test="longLot != null  and longLot != ''  ">long_lot,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="shopid != null  ">#{shopid},</if>
 			<if test="shopname != null  and shopname != ''  ">#{shopname},</if>
-			<if test="shoplongitude != null  ">#{shoplongitude},</if>
-			<if test="shoplatitude != null  ">#{shoplatitude},</if>
 			<if test="shoplicense != null  and shoplicense != ''  ">#{shoplicense},</if>
 			<if test="shopidno != null  and shopidno != ''  ">#{shopidno},</if>
 			<if test="shopaddress != null  and shopaddress != ''  ">#{shopaddress},</if>
+			<if test="longLot != null  and longLot != ''  ">#{longLot},</if>
          </trim>
     </insert>
 	 
@@ -62,11 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update shop
         <trim prefix="SET" suffixOverrides=",">
             <if test="shopname != null  and shopname != ''  ">shopname = #{shopname},</if>
-            <if test="shoplongitude != null  ">shoplongitude = #{shoplongitude},</if>
-            <if test="shoplatitude != null  ">shoplatitude = #{shoplatitude},</if>
             <if test="shoplicense != null  and shoplicense != ''  ">shoplicense = #{shoplicense},</if>
             <if test="shopidno != null  and shopidno != ''  ">shopidno = #{shopidno},</if>
             <if test="shopaddress != null  and shopaddress != ''  ">shopaddress = #{shopaddress},</if>
+            <if test="longLot != null  and longLot != ''  ">long_lot = #{longLot},</if>
         </trim>
         where shopid = #{shopid}
     </update>

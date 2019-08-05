@@ -28,6 +28,8 @@ public class Orders extends BaseEntity
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date ordertime;
 	/** 洗车时间 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "GMT+8")
 	private Date washtime;
 	/** 钥匙柜取件码 */
 	private String cabinetcode;
@@ -66,6 +68,20 @@ public class Orders extends BaseEntity
 	private String washpersonname;
 
 	private String carsereviceprice;
+
+	public String getOrderevaluation() {
+		return orderevaluation;
+	}
+
+	public void setOrderevaluation(String orderevaluation) {
+		this.orderevaluation = orderevaluation;
+	}
+
+	/**
+	 * 订单评价
+
+	 */
+	private String orderevaluation;
 
 	public String getCarsereviceprice() {
 		return carsereviceprice;

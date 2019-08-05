@@ -1,7 +1,10 @@
 package com.aaa.project.system.orders.mapper;
 
 import com.aaa.project.system.orders.domain.Orders;
-import java.util.List;	
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 订单 数据层
@@ -9,8 +12,25 @@ import java.util.List;
  * @author teacherChen
  * @date 2019-07-29
  */
-public interface OrdersMapper 
+@Component
+@Mapper
+public interface OrdersMapper
 {
+	/**
+	 * 洗车人员归还车辆
+	 */
+	public int  updateWx(String washpersonname);
+	/**
+	 * 微信端查看订单详情
+	 */
+	public Orders selectWxByid(String ordernumber);
+
+	/**
+	 * 微信端查看订单
+	 */
+	List<Orders> findAll(String washpersonname);
+
+
 	/**
      * 查询订单信息
      * 
@@ -64,6 +84,11 @@ public interface OrdersMapper
 	 * */
 	public int updateOrdersStatus(Integer orderid);
 
+	/**
+	 *
+	 *更改订单状态信息‘进行中’
+	 */
+	public int updateOrdersGoing(Integer orderid);
 	/**
 	 * 更改订单状态信息为‘已拒单’
 	 * */

@@ -1,5 +1,6 @@
 package com.aaa.project.system.usercar.mapper;
 
+import com.aaa.project.system.user.domain.User;
 import com.aaa.project.system.usercar.domain.Usercar;
 import java.util.List;	
 
@@ -58,5 +59,8 @@ public interface UsercarMapper
      * @return 结果
      */
 	public int deleteUsercarByIds(String[] usercarids);
-	
+	/**
+	 * 修改车辆信息
+	 * */
+	public Boolean updateUsercars(Usercar usercar);
 }

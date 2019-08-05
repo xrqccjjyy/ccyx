@@ -79,5 +79,10 @@ public class UsercarServiceImpl implements IUsercarService
 	{
 		return usercarMapper.deleteUsercarByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public Boolean updateUsercars(Usercar usercar) {
+		return usercarMapper.updateUsercars(usercar);
+	}
+
 }

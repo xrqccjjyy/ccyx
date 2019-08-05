@@ -11,8 +11,8 @@ import com.aaa.common.support.Convert;
 /**
  * 商家 服务层实现
  * 
- * @author teacherChen
- * @date 2019-07-29
+ * @author CCYX-SZ34-02
+ * @date 2019-08-03
  */
 @Service
 public class ShopServiceImpl implements IShopService 

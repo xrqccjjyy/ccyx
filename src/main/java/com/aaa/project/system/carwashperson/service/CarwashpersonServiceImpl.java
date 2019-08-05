@@ -21,6 +21,25 @@ public class CarwashpersonServiceImpl implements ICarwashpersonService
 	@Autowired
 	private CarwashpersonMapper carwashpersonMapper;
 
+
+	/**
+	 * 微信登录
+	 * @param washpersonphone
+	 * @return
+	 */
+	@Override
+	public Carwashperson login(String washpersonphone) {
+		Carwashperson carwashperson = new Carwashperson();
+		carwashperson.setWashpersonphone(washpersonphone);
+		Carwashperson login = carwashpersonMapper.login(washpersonphone);
+		if (login!=null){
+			System.out.println(login);
+			return login;
+
+		}
+		return null;
+	}
+
 	/**
      * 查询洗车人员信息
      * 

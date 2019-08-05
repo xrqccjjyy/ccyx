@@ -11,6 +11,11 @@ import java.util.List;
  */
 public interface ICarwashpersonService 
 {
+
+	/**
+	 * 微信登录验证
+	 */
+	Carwashperson login(String washpersonphone);
 	/**
      * 查询洗车人员信息
      * 

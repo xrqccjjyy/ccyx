@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         carservicename,
         carsereviceprice,
         shopaddress,
-        orderstatus
+        orderstatus,
+        orderevaluation
         FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
         AND customer.userid = orders.userid
@@ -91,7 +92,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
     </select>
 
-        
+
+    <select id="findAll" resultType="com.aaa.project.system.orders.domain.Orders">
+SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,
+carservicename,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation,carsereviceprice
+FROM orders,carservice,usercar,carwashperson,customer
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND orders.carserviceid=carservice.carserviceid
+AND orders.userid = customer.userid
+AND orders.usercarid = usercar.usercarid
+AND orders.orderstatus='进行中'
+AND carwashperson.washpersonname=#{washpersonname}
+
+    </select>
+    <select id="selectWxByid" resultType="com.aaa.project.system.orders.domain.Orders">
+                 SELECT o.*, washpersonname FROM
+        (SELECT orderid,
+        washpersonpid,
+        ordernumber ,
+        username ,
+        userphone ,
+        ordertime ,
+        washtime ,
+        cabinetcode,
+        usercarnumber ,
+        usercarbrandname ,
+        usercarcolor ,
+        usercarlocation ,
+        chestsite ,
+        carservicename,
+        carsereviceprice,
+        shopaddress,
+        orderstatus
+        FROM orders, usercar, customer,  carservice, shop
+        WHERE orders.usercarid = usercar.usercarid
+        AND customer.userid = orders.userid
+        AND carservice.carserviceid = orders.carserviceid
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE ordernumber = #{ordernumber}
+    </select>
+
+
     <insert id="insertOrders" parameterType="Orders">
         insert into orders
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -147,6 +187,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where orderid = #{orderid}
     </update>
 
+    <update id="updateOrdersGoing" parameterType="Integer">
+        update orders SET orderstatus = '进行中'
+        where orderid = #{orderid}
+    </update>
+
+
     <update id="updateOrdersStatusReject" parameterType="Integer">
         update orders SET orderstatus = '已拒单'
         where orderid = #{orderid}
@@ -157,7 +203,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where orderid = #{orderid}
     </update>
 
-	<delete id="deleteOrdersById" parameterType="Integer">
+
+    <update id="updateWx"  >
+        UPDATE carwashperson,orders
+SET washpersonstatus='空闲',orderstatus='已完成',orders.washpersonpid=NULL
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND carwashperson.washpersonname=#{washpersonname}
+    </update>
+
+
+    <delete id="deleteOrdersById" parameterType="Integer">
         delete from orders where orderid = #{orderid}
     </delete>
 	

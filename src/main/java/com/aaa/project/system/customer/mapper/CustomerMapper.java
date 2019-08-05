@@ -1,7 +1,7 @@
 package com.aaa.project.system.customer.mapper;
 
 import com.aaa.project.system.customer.domain.Customer;
-import java.util.List;	
+import java.util.List;
 
 /**
  * 用户 数据层
@@ -58,5 +58,18 @@ public interface CustomerMapper
      * @return 结果
      */
 	public int deleteCustomerByIds(String[] userids);
-	
+	/**
+	 * 根据手机号查询用户数据
+	 * */
+	List<Customer> selectCustomer(String userphone);
+
+	/**
+	 * 注册手机号
+	 * */
+	public Boolean addCustomer(Customer customer);
+	/**
+	 * 修改个人信息
+	 * */
+	public Boolean updateCustomers(Customer customer);
+
 }
