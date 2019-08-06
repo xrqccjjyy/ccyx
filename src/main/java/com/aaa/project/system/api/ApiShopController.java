@@ -33,7 +33,10 @@ public class ApiShopController {
     public List<Map<String,Object>> toSearch(String shopname){
         System.out.println(shopname);
         System.out.println("调用成功");
-//        System.out.println(shopname+shopaddress);
+        //System.out.println(shopname+shopaddress);
+        if(shopname==null){
+            return null;
+        }
         List<Map<String,Object>> mapList = shopService.selectSearch(shopname);
         System.out.println(mapList);
 

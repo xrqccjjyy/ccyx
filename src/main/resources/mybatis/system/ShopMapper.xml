@@ -82,9 +82,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select shopname,shopaddress from shop
     </select>
 
-    <!--搜索-->
-    <select id="selectSearch" parameterType="java.lang.String" resultType="map">
-        select * from shop where shopname =#{shopname,jdbcType=VARCHAR}
+    <!--模糊搜索-->
+    <select id="selectSearch" parameterType="String" resultType="map">
+        select * from shop where shopname like "%${_parameter}%"
     </select>
 
 
