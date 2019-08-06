@@ -24,18 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectUsercarList" parameterType="Usercar" resultMap="UsercarResult">
         SELECT usercarid,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation,o.username FROM usercar RIGHT JOIN
         (select customer.userid,username from usercar INNER JOIN customer ON usercar.userid = customer.userid ) as o ON o.userid = usercar.userid GROUP BY usercarnumber
-        <where>  
-            <if test="usercarid != null "> and usercarid = #{usercarid}</if>
-             <if test="usercarnumber != null  and usercarnumber != '' "> and usercarnumber = #{usercarnumber}</if>
-             <if test="usercarbrandname != null  and usercarbrandname != '' "> and usercarbrandname = #{usercarbrandname}</if>
-             <if test="usercarphoto != null  and usercarphoto != '' "> and usercarphoto = #{usercarphoto}</if>
-             <if test="usercarcolor != null  and usercarcolor != '' "> and usercarcolor = #{usercarcolor}</if>
-             <if test="usercarlocation != null  and usercarlocation != '' "> and usercarlocation = #{usercarlocation}</if>
-            <if test="userid != null "> and userid = #{userid}</if>
-            <if test="longitude != null  and longitude != '' "> and longitude = #{longitude}</if>
-            <if test="latitude != null  and latitude != '' "> and latitude = #{latitude}</if>
-            <if test="usercardefault != null "> and usercardefault = #{usercardefault}</if>
-         </where>
+
     </select>
     
     <select id="selectUsercarById" parameterType="Integer" resultMap="UsercarResult">
