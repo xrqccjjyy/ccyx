@@ -27,7 +27,29 @@ public class Usercar extends BaseEntity
 	/** 车辆停放位置 */
 	private String usercarlocation;
 
-	public void setUsercarid(Integer usercarid) 
+	/**用户id*/
+	private Integer userid;
+
+	/**用户名*/
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public void setUsercarid(Integer usercarid)
 	{
 		this.usercarid = usercarid;
 	}

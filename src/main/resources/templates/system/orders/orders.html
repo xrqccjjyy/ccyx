@@ -91,11 +91,6 @@
         var confirmFlag = [[${@permission.hasPermi('system:orders:confirm')}]];
         var rejectFlag = [[${@permission.hasPermi('system:orders:reject')}]];
         var prefix = ctx + "system/orders";
-        var status = [[${a}]];
-
-        //var status = [[${a}]];
-
-
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -189,20 +184,22 @@
         		    }else{
         		    }*/
           // $.modal.open("接单", url, '300', '150');
-           console.log(status);
           $.modal.confirm("确认接收该" + $.table._option.modalName + "吗？", function() {
           				$.ajax({
           					type : 'post',
           					url: prefix + "/receive/" + orderid,
+          					data:'json',
           					success : function(result) {
           						if (result.code == web_status.SUCCESS) {
           		                	$.modal.msgSuccess(result.msg);
           		                	//刷新表格
           		                	$.table.refresh();
+
           		                } else {
           		                	$.modal.msgError(result.msg);
           		                }
           					}
+
           				});
           			});
 

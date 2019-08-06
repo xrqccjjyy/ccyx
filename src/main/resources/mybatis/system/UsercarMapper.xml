@@ -14,11 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectUsercarVo">
-        select usercarid, usercarnumber, usercarbrandname, usercarphoto, usercarcolor, usercarlocation from usercar
+        select usercarid, usercarnumber, usercarbrandname, usercarphoto, usercarcolor, usercarlocation,userid from usercar
     </sql>
 	
     <select id="selectUsercarList" parameterType="Usercar" resultMap="UsercarResult">
-        <include refid="selectUsercarVo"/>
+        SELECT usercarid,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation,o.username FROM usercar RIGHT JOIN
+        (select customer.userid,username from usercar INNER JOIN customer ON usercar.userid = customer.userid ) as o ON o.userid = usercar.userid GROUP BY usercarnumber
         <where>  
             <if test="usercarid != null "> and usercarid = #{usercarid}</if>
              <if test="usercarnumber != null  and usercarnumber != '' "> and usercarnumber = #{usercarnumber}</if>
@@ -26,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="usercarphoto != null  and usercarphoto != '' "> and usercarphoto = #{usercarphoto}</if>
              <if test="usercarcolor != null  and usercarcolor != '' "> and usercarcolor = #{usercarcolor}</if>
              <if test="usercarlocation != null  and usercarlocation != '' "> and usercarlocation = #{usercarlocation}</if>
+            <if test="userid != null "> and userid = #{userid}</if>
          </where>
     </select>
     
@@ -43,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="usercarphoto != null  and usercarphoto != ''  ">usercarphoto,</if>
 			<if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor,</if>
 			<if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation,</if>
+            <if test="userid != null ">userid,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="usercarid != null  ">#{usercarid},</if>
@@ -51,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="usercarphoto != null  and usercarphoto != ''  ">#{usercarphoto},</if>
 			<if test="usercarcolor != null  and usercarcolor != ''  ">#{usercarcolor},</if>
 			<if test="usercarlocation != null  and usercarlocation != ''  ">#{usercarlocation},</if>
+            <if test="userid != null "> #{userid},</if>
          </trim>
     </insert>
 	 
@@ -62,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="usercarphoto != null  and usercarphoto != ''  ">usercarphoto = #{usercarphoto},</if>
             <if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor = #{usercarcolor},</if>
             <if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation = #{usercarlocation},</if>
+            <if test="userid != null ">userid = #{userid},</if>
         </trim>
         where usercarid = #{usercarid}
     </update>
@@ -73,6 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="usercarbrandname != null  and usercarbrandname != ''  ">usercarbrandname = #{usercarbrandname},</if>
             <if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor = #{usercarcolor},</if>
             <if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation = #{usercarlocation},</if>
+            <if test="userid != null ">userid = #{userid},</if>
         </trim>
         where usercarid = #{usercarid}
     </update>
