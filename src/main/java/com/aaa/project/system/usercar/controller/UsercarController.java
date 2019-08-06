@@ -122,7 +122,7 @@ public class UsercarController extends BaseController
 		usercar.setUsercarbrandname(usercarbrandname);
 		usercar.setUsercarnumber(usercarnumber);
 		usercar.setUsercarcolor(usercarcolor);
-		usercar.setUsercarcolor(usercarlocation);
+		usercar.setUsercarlocation(usercarlocation);
 		usercar.setUserid(userid);
 
 		//图片上传
