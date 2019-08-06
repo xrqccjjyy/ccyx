@@ -11,10 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="usercarphoto"    column="usercarphoto"    />
         <result property="usercarcolor"    column="usercarcolor"    />
         <result property="usercarlocation"    column="usercarlocation"    />
+        <result property="userid"    column="userid"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="usercardefault"    column="usercardefault"    />
     </resultMap>
 	
 	<sql id="selectUsercarVo">
-        select usercarid, usercarnumber, usercarbrandname, usercarphoto, usercarcolor, usercarlocation,userid from usercar
+         select usercarid, usercarnumber, usercarbrandname, usercarphoto, usercarcolor, usercarlocation, userid, longitude, latitude, usercardefault from usercar
     </sql>
 	
     <select id="selectUsercarList" parameterType="Usercar" resultMap="UsercarResult">
@@ -28,6 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="usercarcolor != null  and usercarcolor != '' "> and usercarcolor = #{usercarcolor}</if>
              <if test="usercarlocation != null  and usercarlocation != '' "> and usercarlocation = #{usercarlocation}</if>
             <if test="userid != null "> and userid = #{userid}</if>
+            <if test="longitude != null  and longitude != '' "> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != '' "> and latitude = #{latitude}</if>
+            <if test="usercardefault != null "> and usercardefault = #{usercardefault}</if>
          </where>
     </select>
     
@@ -46,6 +53,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor,</if>
 			<if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation,</if>
             <if test="userid != null ">userid,</if>
+            <if test="longitude != null  and longitude != ''  ">longitude,</if>
+            <if test="latitude != null  and latitude != ''  ">latitude,</if>
+            <if test="usercardefault != null  ">usercardefault,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="usercarid != null  ">#{usercarid},</if>
@@ -55,6 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="usercarcolor != null  and usercarcolor != ''  ">#{usercarcolor},</if>
 			<if test="usercarlocation != null  and usercarlocation != ''  ">#{usercarlocation},</if>
             <if test="userid != null "> #{userid},</if>
+            <if test="longitude != null  and longitude != ''  ">#{longitude},</if>
+            <if test="latitude != null  and latitude != ''  ">#{latitude},</if>
+            <if test="usercardefault != null  ">#{usercardefault},</if>
          </trim>
     </insert>
 	 
@@ -67,6 +80,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor = #{usercarcolor},</if>
             <if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation = #{usercarlocation},</if>
             <if test="userid != null ">userid = #{userid},</if>
+            <if test="longitude != null  and longitude != ''  ">longitude = #{longitude},</if>
+            <if test="latitude != null  and latitude != ''  ">latitude = #{latitude},</if>
+            <if test="usercardefault != null  ">usercardefault = #{usercardefault},</if>
         </trim>
         where usercarid = #{usercarid}
     </update>
@@ -79,6 +95,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="usercarcolor != null  and usercarcolor != ''  ">usercarcolor = #{usercarcolor},</if>
             <if test="usercarlocation != null  and usercarlocation != ''  ">usercarlocation = #{usercarlocation},</if>
             <if test="userid != null ">userid = #{userid},</if>
+            <if test="longitude != null  and longitude != ''  ">longitude = #{longitude},</if>
+            <if test="latitude != null  and latitude != ''  ">latitude = #{latitude},</if>
+            <if test="usercardefault != null  ">usercardefault = #{usercardefault},</if>
         </trim>
         where usercarid = #{usercarid}
     </update>

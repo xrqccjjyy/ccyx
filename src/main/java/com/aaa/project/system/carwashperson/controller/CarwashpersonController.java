@@ -98,7 +98,6 @@ public class CarwashpersonController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Carwashperson carwashperson, Model model)
 	{
-
 		return toAjax(carwashpersonService.insertCarwashperson(carwashperson));
 	}
 

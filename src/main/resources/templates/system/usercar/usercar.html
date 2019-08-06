@@ -40,9 +40,9 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:usercar:add">
+				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:usercar:add">
 					<i class="fa fa-plus"></i> 添加
-				</a>
+				</a>-->
 				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:usercar:edit">
 					<i class="fa fa-edit"></i> 修改
 				</a>
@@ -95,7 +95,10 @@
 				{
 					field : 'usercarphoto', 
 					title : '车辆照片',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+                      return '<a href="javascript:downloadFile(' + row.usercarid + ')"><img style="width:30;height:30px;"  src="/profile/' + row.usercarphoto + '"/></a>';
+                    }
 				},
 				{
 					field : 'usercarcolor', 
