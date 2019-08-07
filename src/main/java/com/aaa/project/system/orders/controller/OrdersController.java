@@ -266,7 +266,7 @@ public class OrdersController extends BaseController {
         String orderstatus = "签收了订单";
         orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
 
-        //完成订单式，修改订单财务表金额
+        //完成订单，修改订单财务表金额
         debtyService.updateDebtyMoney(debty);
         return toAjax(ordersService.updateOrdersStatusComfirm(orderid));
     }

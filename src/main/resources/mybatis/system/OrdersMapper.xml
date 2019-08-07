@@ -25,10 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
-        SELECT o.*, washpersonname FROM
-        (SELECT orderid,
+        SELECT  o.*, washpersonname FROM
+        (SELECT  orderid,
         washpersonpid,
-        ordernumber ,
+        orders.ordernumber ,
         username ,
         userphone ,
         ordertime ,
@@ -39,38 +39,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
-        carservicename,
-        carsereviceprice,
         shopaddress,
         orderstatus,
-        orderevaluation
-        FROM orders, usercar, customer,  carservice, shop
+        orderevaluation,
+        GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal,
+        orderprice
+        FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
         WHERE orders.usercarid = usercar.usercarid
+        AND shop.shopid = orders.orderid
+        AND orders.ordernumber = ordernumberserviceid.ordernumber
+        AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-        AND carservice.carserviceid = orders.carserviceid
         GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
-        <where>  
-            <if test="orderid != null "> and orderid = #{orderid}</if>
-             <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
-             <if test="ordertime != null "> and ordertime = #{ordertime}</if>
-             <if test="washtime != null "> and washtime = #{washtime}</if>
-             <if test="cabinetcode != null  and cabinetcode != '' "> and cabinetcode = #{cabinetcode}</if>
-             <if test="chestsite != null  and chestsite != '' "> and chestsite = #{chestsite}</if>
-             <if test="orderstatus != null  and orderstatus != '' "> and orderstatus = #{orderstatus}</if>
-             <if test="usercarid != null "> and usercarid = #{usercarid}</if>
-             <if test="shopid != null "> and shopid = #{shopid}</if>
-             <if test="userid != null "> and userid = #{userid}</if>
-             <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
-             <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
-         </where>
+
     </select>
 
 
     <select id="selectOrdersById" parameterType="Integer" resultMap="OrdersResult">
-         SELECT o.*, washpersonname FROM
-        (SELECT orderid,
+         SELECT  o.*, washpersonname FROM
+        (SELECT  orderid,
         washpersonpid,
-        ordernumber ,
+        orders.ordernumber ,
         username ,
         userphone ,
         ordertime ,
@@ -81,15 +70,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
-        carservicename,
-        carsereviceprice,
         shopaddress,
-        orderstatus
-        FROM orders, usercar, customer,  carservice, shop
+        orderstatus,
+        orderevaluation,
+        GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal,
+        orderprice
+        FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
         WHERE orders.usercarid = usercar.usercarid
+        AND shop.shopid = orders.orderid
+        AND orders.ordernumber = ordernumberserviceid.ordernumber
+        AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-        AND carservice.carserviceid = orders.carserviceid
-        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
     </select>
 
 

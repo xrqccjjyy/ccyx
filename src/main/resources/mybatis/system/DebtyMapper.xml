@@ -62,10 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <update id="updateDebtyMoney" parameterType="Debty">
-        UPDATE debty SET income = income +(SELECT SUM(carsereviceprice) FROM shop,carservice,orders
-        where shop.shopid = carservice.shopid
-        AND orders.carserviceid = carservice.carserviceid
-        AND orders.orderid = #{orderid})
+       UPDATE debty SET income = income +(SELECT IFNULL(orderprice,0) from orders WHERE orderid = #{orderid})
     </update>
 
 
