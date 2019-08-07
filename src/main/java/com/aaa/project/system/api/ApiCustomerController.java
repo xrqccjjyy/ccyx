@@ -23,6 +23,10 @@ public class ApiCustomerController {
         }
         return null;
     }
+    @RequestMapping("/selectCustomerByUserid")
+    public Customer selectCustomerByUserid(Customer customer) {
+        return customerService.selectCustomerByUserid(customer);
+    }
     @RequestMapping("/addCustomer")
     public Boolean addCustomer(String userphone) {
         Customer customer=new Customer();

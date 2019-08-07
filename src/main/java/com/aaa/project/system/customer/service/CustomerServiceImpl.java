@@ -112,4 +112,9 @@ public class CustomerServiceImpl implements ICustomerService
 		return customerMapper.updateCustomers(customer);
 	}
 
+	@Override
+	public Customer selectCustomerByUserid(Customer customer) {
+		return customerMapper.selectCustomerByUserid(customer);
+	}
+
 }

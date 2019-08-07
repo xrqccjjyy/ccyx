@@ -79,5 +79,8 @@ public interface CustomerMapper
 	 * 修改个人信息
 	 * */
 	public Boolean updateCustomers(Customer customer);
-
+	/**
+	 * 查询用户个人信息
+	 * */
+	public Customer selectCustomerByUserid(Customer customer);
 }
