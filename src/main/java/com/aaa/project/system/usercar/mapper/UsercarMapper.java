@@ -2,7 +2,9 @@ package com.aaa.project.system.usercar.mapper;
 
 import com.aaa.project.system.user.domain.User;
 import com.aaa.project.system.usercar.domain.Usercar;
-import java.util.List;	
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 用户车辆 数据层
@@ -19,7 +21,14 @@ public interface UsercarMapper
      * @return 用户车辆信息
      */
 	public Usercar selectUsercarById(Integer usercarid);
-	
+	/**
+	 * 查询用户车辆信息
+	 *
+	 * @param userid 用户车辆ID
+	 * @return 用户车辆信息
+	 */
+
+	public List<Usercar> selectUsercarByUserId(Integer userid);
 	/**
      * 查询用户车辆列表
      * 

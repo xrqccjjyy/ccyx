@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.code.mapper.CodeMapper">
+    
+    <resultMap type="Code" id="CodeResult">
+        <result property="codeid"    column="codeid"    />
+        <result property="userphone"    column="userphone"    />
+        <result property="codenum"    column="codenum"    />
+    </resultMap>
+	
+	<sql id="selectCodeVo">
+        select codeid, userphone, codenum from code
+    </sql>
+	
+    <select id="selectCodeList" parameterType="Code" resultMap="CodeResult">
+        <include refid="selectCodeVo"/>
+        <where>  
+            <if test="codeid != null "> and codeid = #{codeid}</if>
+             <if test="userphone != null  and userphone != '' "> and userphone = #{userphone}</if>
+             <if test="codenum != null "> and codenum = #{codenum}</if>
+         </where>
+    </select>
+    
+    <select id="selectCodeById" parameterType="Integer" resultMap="CodeResult">
+        <include refid="selectCodeVo"/>
+        where codeid = #{codeid}
+    </select>
+        
+    <insert id="insertCode" parameterType="Code">
+        insert into code
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="codeid != null  ">codeid,</if>
+			<if test="userphone != null  and userphone != ''  ">userphone,</if>
+			<if test="codenum != null  ">codenum,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="codeid != null  ">#{codeid},</if>
+			<if test="userphone != null  and userphone != ''  ">#{userphone},</if>
+			<if test="codenum != null  ">#{codenum},</if>
+         </trim>
+    </insert>
+
+    <insert id="addUserVerify">
+        INSERT INTO code(userphone,codenum) VALUES (#{userphone},#{codenum})
+    </insert>
+
+    <update id="updateCode" parameterType="Code">
+        update code
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userphone != null  and userphone != ''  ">userphone = #{userphone},</if>
+            <if test="codenum != null  ">codenum = #{codenum},</if>
+        </trim>
+        where codeid = #{codeid}
+    </update>
+
+	<delete id="deleteCodeById" parameterType="Integer">
+        delete from code where codeid = #{codeid}
+    </delete>
+	
+    <delete id="deleteCodeByIds" parameterType="String">
+        delete from code where codeid in 
+        <foreach item="codeid" collection="array" open="(" separator="," close=")">
+            #{codeid}
+        </foreach>
+    </delete>
+    
+</mapper>

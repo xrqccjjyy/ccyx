@@ -27,7 +27,17 @@ public class Usercar extends BaseEntity
 	/** 车辆停放位置 */
 	private String usercarlocation;
 
-	public void setUsercarid(Integer usercarid) 
+	private Integer userid;
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public void setUsercarid(Integer usercarid)
 	{
 		this.usercarid = usercarid;
 	}
@@ -82,14 +92,16 @@ public class Usercar extends BaseEntity
 		return usercarlocation;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("usercarid", getUsercarid())
-            .append("usercarnumber", getUsercarnumber())
-            .append("usercarbrandname", getUsercarbrandname())
-            .append("usercarphoto", getUsercarphoto())
-            .append("usercarcolor", getUsercarcolor())
-            .append("usercarlocation", getUsercarlocation())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "Usercar{" +
+				"usercarid=" + usercarid +
+				", usercarnumber='" + usercarnumber + '\'' +
+				", usercarbrandname='" + usercarbrandname + '\'' +
+				", usercarphoto='" + usercarphoto + '\'' +
+				", usercarcolor='" + usercarcolor + '\'' +
+				", usercarlocation='" + usercarlocation + '\'' +
+				", userid=" + userid +
+				'}';
+	}
 }

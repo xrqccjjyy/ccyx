@@ -75,7 +75,6 @@
             formData.append('file', $('#shoplicense')[0].files[0]);
             formData.append('shopaddress', $('#shopaddress').val());
             formData.append('longLot', $('#longLot').val());
-
             $.ajax({
                 url: prefix + "/add",
                 type: 'post',

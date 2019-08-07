@@ -198,6 +198,8 @@ public class OrdersController extends BaseController {
          * 将操作加入到历史记录表中
          * */
         Orders orders  = ordersService.selectOrdersById(orderid);
+        System.out.println(orders.getOrderstatus()+"==================================================");
+        model.addAttribute("a",orders.getOrderstatus());
         String ordernumber =  orders.getOrdernumber();
         String orderstatus = "接收了订单";
         orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
