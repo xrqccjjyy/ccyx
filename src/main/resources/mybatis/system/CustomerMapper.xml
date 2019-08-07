@@ -48,6 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       from customer LEFT JOIN usercar ON customer.userid=usercar.userid where userphone=#{userphone}
     </select>
 
+    <select id="selectCustomerByUserid" resultType="com.aaa.project.system.customer.domain.Customer">
+          SELECT * FROM customer where userphone=#{userphone}
+    </select>
+
     <insert id="insertCustomer" parameterType="Customer">
         insert into customer
 		<trim prefix="(" suffix=")" suffixOverrides=",">
