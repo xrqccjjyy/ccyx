@@ -29,6 +29,37 @@ public class Usercar extends BaseEntity
 
 	private Integer userid;
 
+	/** 经度 */
+	private String longitude;
+	/** 纬度 */
+	private String latitude;
+	/** 默认车辆 */
+	private Boolean usercardefault;
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public Boolean getUsercardefault() {
+		return usercardefault;
+	}
+
+	public void setUsercardefault(Boolean usercardefault) {
+		this.usercardefault = usercardefault;
+	}
+
 	public Integer getUserid() {
 		return userid;
 	}
