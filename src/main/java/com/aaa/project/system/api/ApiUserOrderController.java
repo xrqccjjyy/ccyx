@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -78,11 +79,11 @@ public class ApiUserOrderController {
     public List<Map<String,Object>> cancelledOrder(String userphone){
         List<Map<String,Object>> ordersList =  ordersService.cancelledOrder(userphone);
         System.out.println(ordersList);
-        System.out.println("获进行中订单成功。。。。。。。");
+        System.out.println("获取已取消的订单成功。。。。。。。");
         return ordersList;
     }
 
-    //    取消订单
+    //  取消订单
     @RequestMapping("/cancellBtnOrder")
     public Integer updateByOrdernumber(String ordernumber){
         int i = ordersService.updateByOrdernumber(ordernumber);
@@ -109,13 +110,22 @@ public class ApiUserOrderController {
                                 @RequestParam(name = "usercarid", required = true) Integer usercarid,
                                 @RequestParam(name = "shopid", required = true) Integer shopid,
                                 @RequestParam(name = "userid", required = true) Integer userid,
-                                @RequestParam(name = "orderprice", required = true) long orderprice){
+                                @RequestParam(name = "orderprice", required = true) long orderprice,
+                                @RequestParam(name = "carserviceidList", required = true) String carserviceidList){
 
         System.out.println("送洗时间 "+washtime+" ,车辆id："+usercarid+",商家id："+shopid+",顾客id"+userid);
-        //订单号
+
+        //订单服务
+//        String[] serviceList = serviceIdList.substring(1, serviceIdList.length() - 1).split(",");
+//        List<String> list = Arrays.asList(serviceList);
+//        orderServiceService.insertOrder(orderId, list);
+
+        List<String> list = Arrays.asList(carserviceidList);
+        System.out.println(carserviceidList);
+
+        //自动生成订单编号
         String ordernumber=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         //将String类型转换成date格式
-
         java.sql.Date date = java.sql.Date.valueOf(washtime);
         System.out.println(date);
 
