@@ -10,10 +10,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="carservicename"    column="carservicename"    />
         <result property="shopid"    column="shopid"    />
     </resultMap>
-	
+
+
 	<sql id="selectCarserviceVo">
         select carserviceid, carsereviceprice, carservicename, shopid from carservice
     </sql>
+
+    <!--查询所有汽车服务-->
+    <select id="selectAllCarService" resultType="map">
+       select carserviceid, carsereviceprice, carservicename, shopid from carservice
+
+    </select>
+
 	
     <select id="selectCarserviceList" parameterType="Carservice" resultMap="CarserviceResult">
         <include refid="selectCarserviceVo"/>

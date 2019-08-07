@@ -1,6 +1,8 @@
 package com.aaa.project.system.customer.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.customer.mapper.CustomerMapper;
@@ -17,8 +19,15 @@ import com.aaa.common.support.Convert;
 @Service
 public class CustomerServiceImpl implements ICustomerService 
 {
+
 	@Autowired
 	private CustomerMapper customerMapper;
+
+	@Override
+	public List<Map<String, Object>> slectCustomerCar() {
+        List<Map<String, Object>> mapList = customerMapper.slectCustomerCar();
+		return mapList;
+	}
 
 	/**
      * 查询用户信息
@@ -101,6 +110,11 @@ public class CustomerServiceImpl implements ICustomerService
 	@Override
 	public Boolean updateCustomers(Customer customer) {
 		return customerMapper.updateCustomers(customer);
+	}
+
+	@Override
+	public Customer selectCustomerByUserid(Customer customer) {
+		return customerMapper.selectCustomerByUserid(customer);
 	}
 
 }

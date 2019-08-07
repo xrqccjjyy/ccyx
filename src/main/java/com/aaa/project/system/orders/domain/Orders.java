@@ -69,6 +69,17 @@ public class Orders extends BaseEntity
 
 	private String carsereviceprice;
 
+	/**总金额*/
+	private Long orderprice;
+
+	public Long getOrderprice() {
+		return orderprice;
+	}
+
+	public void setOrderprice(Long orderprice) {
+		this.orderprice = orderprice;
+	}
+
 	public String getOrderevaluation() {
 		return orderevaluation;
 	}
@@ -278,20 +289,33 @@ public class Orders extends BaseEntity
 		return carserviceid;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("orderid", getOrderid())
-            .append("ordernumber", getOrdernumber())
-            .append("ordertime", getOrdertime())
-            .append("washtime", getWashtime())
-            .append("cabinetcode", getCabinetcode())
-            .append("chestsite", getChestsite())
-            .append("orderstatus", getOrderstatus())
-            .append("usercarid", getUsercarid())
-            .append("shopid", getShopid())
-            .append("userid", getUserid())
-            .append("washpersonpid", getWashpersonpid())
-            .append("carserviceid", getCarserviceid())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "Orders{" +
+				"orderid=" + orderid +
+				", ordernumber='" + ordernumber + '\'' +
+				", ordertime=" + ordertime +
+				", washtime=" + washtime +
+				", cabinetcode='" + cabinetcode + '\'' +
+				", chestsite='" + chestsite + '\'' +
+				", orderstatus='" + orderstatus + '\'' +
+				", usercarid=" + usercarid +
+				", shopid=" + shopid +
+				", userid=" + userid +
+				", washpersonpid=" + washpersonpid +
+				", carserviceid=" + carserviceid +
+				", username='" + username + '\'' +
+				", userphone='" + userphone + '\'' +
+				", usercarnumber='" + usercarnumber + '\'' +
+				", usercarbrandname='" + usercarbrandname + '\'' +
+				", usercarcolor='" + usercarcolor + '\'' +
+				", usercarlocation='" + usercarlocation + '\'' +
+				", carservicename='" + carservicename + '\'' +
+				", shopaddress='" + shopaddress + '\'' +
+				", washpersonname='" + washpersonname + '\'' +
+				", carsereviceprice='" + carsereviceprice + '\'' +
+				", orderprice=" + orderprice +
+				", orderevaluation='" + orderevaluation + '\'' +
+				'}';
+	}
 }

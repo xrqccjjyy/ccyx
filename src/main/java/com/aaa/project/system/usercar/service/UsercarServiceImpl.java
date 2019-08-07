@@ -27,9 +27,13 @@ public class UsercarServiceImpl implements IUsercarService
      * @return 用户车辆信息
      */
     @Override
-	public Usercar selectUsercarById(Integer usercarid)
-	{
-	    return usercarMapper.selectUsercarById(usercarid);
+	public Usercar selectUsercarById(Integer usercarid){
+		 return usercarMapper.selectUsercarById(usercarid);
+	}
+
+	@Override
+	public List<Usercar> selectUsercarByUserId(Integer userid){
+		return usercarMapper.selectUsercarByUserId(userid);
 	}
 	
 	/**

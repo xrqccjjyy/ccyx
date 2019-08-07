@@ -16,13 +16,16 @@ public class ApiCustomerController {
     private CustomerServiceImpl customerService;
     @RequestMapping("/selectCustomer")
     public List<Customer> selectCustomer(String userphone){
-        System.out.println(userphone);
         List<Customer> list = customerService.selectCustomer(userphone);
         System.out.println(list);
         if (list.size()>0){
             return list;
         }
         return null;
+    }
+    @RequestMapping("/selectCustomerByUserid")
+    public Customer selectCustomerByUserid(Customer customer) {
+        return customerService.selectCustomerByUserid(customer);
     }
     @RequestMapping("/addCustomer")
     public Boolean addCustomer(String userphone) {

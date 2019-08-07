@@ -2,6 +2,7 @@ package com.aaa.project.system.carservice.service;
 
 import com.aaa.project.system.carservice.domain.Carservice;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 车辆服务套餐 服务层
@@ -11,6 +12,12 @@ import java.util.List;
  */
 public interface ICarserviceService 
 {
+	/**
+	 * 查询所有汽车服务
+	 * @return
+	 */
+	List<Map<String,Object>> selectAllCarService();
+
 	/**
      * 查询车辆服务套餐信息
      * 

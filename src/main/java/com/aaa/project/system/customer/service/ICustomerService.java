@@ -2,6 +2,7 @@ package com.aaa.project.system.customer.service;
 
 import com.aaa.project.system.customer.domain.Customer;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户 服务层
@@ -11,6 +12,12 @@ import java.util.List;
  */
 public interface ICustomerService 
 {
+	/**
+	 * 获取顾客信息和对应的车辆(默认)
+	 * @return
+	 */
+	List<Map<String,Object>> slectCustomerCar();
+
 	/**
      * 查询用户信息
      * 
@@ -62,5 +69,8 @@ public interface ICustomerService
 	 * 修改个人信息
 	 * */
 	public Boolean updateCustomers(Customer customer);
-
+	/**
+	 * 查询用户个人信息
+	 * */
+	public Customer selectCustomerByUserid(Customer customer);
 }
