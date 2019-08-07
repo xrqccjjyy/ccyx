@@ -26,48 +26,8 @@ public class Usercar extends BaseEntity
 	private String usercarcolor;
 	/** 车辆停放位置 */
 	private String usercarlocation;
-	/**用户id*/
+
 	private Integer userid;
-	/**用户名*/
-	private String username;
-	/**经度*/
-	private String longitude;
-	/**纬度*/
-	private String latitude;
-	/**默认车辆*/
-	private boolean usercardefault;
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public boolean isUsercardefault() {
-		return usercardefault;
-	}
-
-	public void setUsercardefault(boolean usercardefault) {
-		this.usercardefault = usercardefault;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public Integer getUserid() {
 		return userid;
@@ -132,14 +92,16 @@ public class Usercar extends BaseEntity
 		return usercarlocation;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("usercarid", getUsercarid())
-            .append("usercarnumber", getUsercarnumber())
-            .append("usercarbrandname", getUsercarbrandname())
-            .append("usercarphoto", getUsercarphoto())
-            .append("usercarcolor", getUsercarcolor())
-            .append("usercarlocation", getUsercarlocation())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "Usercar{" +
+				"usercarid=" + usercarid +
+				", usercarnumber='" + usercarnumber + '\'' +
+				", usercarbrandname='" + usercarbrandname + '\'' +
+				", usercarphoto='" + usercarphoto + '\'' +
+				", usercarcolor='" + usercarcolor + '\'' +
+				", usercarlocation='" + usercarlocation + '\'' +
+				", userid=" + userid +
+				'}';
+	}
 }

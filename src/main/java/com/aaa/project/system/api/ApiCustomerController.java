@@ -16,7 +16,6 @@ public class ApiCustomerController {
     private CustomerServiceImpl customerService;
     @RequestMapping("/selectCustomer")
     public List<Customer> selectCustomer(String userphone){
-        System.out.println(userphone);
         List<Customer> list = customerService.selectCustomer(userphone);
         System.out.println(list);
         if (list.size()>0){

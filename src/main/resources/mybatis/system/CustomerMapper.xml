@@ -35,8 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectCustomer" resultType="com.aaa.project.system.customer.domain.Customer">
-        SELECT userid,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation,usercar.usercarid
-      from customer LEFT JOIN usercar ON customer.usercarid=usercar.usercarid where userphone=#{userphone}
+        SELECT customer.userid,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation,usercarid
+      from customer LEFT JOIN usercar ON customer.userid=usercar.userid where userphone=#{userphone}
     </select>
 
     <insert id="insertCustomer" parameterType="Customer">
