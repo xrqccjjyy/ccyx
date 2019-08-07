@@ -171,6 +171,9 @@ public class OrdersController extends BaseController {
         String ordernumber =  orders.getOrdernumber();
         String orderstatus = "查看了订单详情";
         orderhistoryService.insertOrderhistoryTable(ordernumber, orderstatus);
+        //很据id查询所选套餐
+        Orders orderService = ordersService.selectCarServiceName(orderid);
+        mmap.put("orderService", orderService);
 
         mmap.put("orderList", ordersService.selectOrdersById(orderid));
         return prefix + "/detail";

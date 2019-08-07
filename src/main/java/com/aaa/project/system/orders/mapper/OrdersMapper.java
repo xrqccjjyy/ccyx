@@ -39,6 +39,11 @@ public interface OrdersMapper
      * @return 订单信息
      */
 	public Orders selectOrdersById(Integer orderid);
+
+    /**
+	 *很据id查询套餐
+	 **/
+	public Orders selectCarServiceName(Integer orderid);
 	
 	/**
      * 查询订单列表

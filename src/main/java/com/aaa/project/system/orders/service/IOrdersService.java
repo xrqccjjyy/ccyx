@@ -44,6 +44,12 @@ public interface IOrdersService
      * @return 订单集合
      */
 	public List<Orders> selectOrdersList(Orders orders);
+
+
+	/**
+	 *很据id查询套餐
+	 **/
+	public Orders selectCarServiceName(Integer orderid);
 	
 	/**
      * 新增订单

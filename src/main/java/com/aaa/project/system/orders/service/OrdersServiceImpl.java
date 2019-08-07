@@ -87,8 +87,17 @@ public class OrdersServiceImpl implements IOrdersService
 	{
 	    return ordersMapper.selectOrdersList(orders);
 	}
-	
-    /**
+
+
+	/**
+	 *很据id查询套餐
+	 **/
+	@Override
+	public Orders selectCarServiceName(Integer orderid) {
+		return ordersMapper.selectCarServiceName(orderid);
+	}
+
+	/**
      * 新增订单
      * 
      * @param orders 订单信息
@@ -149,6 +158,9 @@ public class OrdersServiceImpl implements IOrdersService
 		return ordersMapper.updateOrdersStatusReject(orderid);
 	}
 
+	/**
+	 * 将订单状态更改为已完成
+	 * */
 	@Override
 	public int updateOrdersStatusComfirm(Integer orderid) {
 		return ordersMapper.updateOrdersStatusComfirm(orderid);

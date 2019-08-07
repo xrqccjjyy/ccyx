@@ -42,15 +42,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         shopaddress,
         orderstatus,
         orderevaluation,
-        GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal,
+       -- GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS service,
         orderprice
         FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
         WHERE orders.usercarid = usercar.usercarid
-        AND shop.shopid = orders.orderid
-        AND orders.ordernumber = ordernumberserviceid.ordernumber
-        AND ordernumberserviceid.carserviceid = carservice.carserviceid
+      --  AND orders.ordernumber = ordernumberserviceid.ordernumber
+      --  AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
+      GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
 
     </select>
 
@@ -73,15 +72,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         shopaddress,
         orderstatus,
         orderevaluation,
-        GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal,
+       -- GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS service,
         orderprice
         FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
         WHERE orders.usercarid = usercar.usercarid
-        AND shop.shopid = orders.orderid
-        AND orders.ordernumber = ordernumberserviceid.ordernumber
-        AND ordernumberserviceid.carserviceid = carservice.carserviceid
+      --  AND orders.ordernumber = ordernumberserviceid.ordernumber
+      --  AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
+      GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
+    </select>
+
+    <select id="selectCarServiceName" parameterType="Integer" resultMap="OrdersResult">
+       SELECT GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal FROM ordernumberserviceid,carservice,orders WHERE   orders.ordernumber = ordernumberserviceid.ordernumber  AND ordernumberserviceid.carserviceid = carservice.carserviceid AND orderid = #{orderid}
     </select>
 
 
@@ -98,7 +100,7 @@ AND carwashperson.washpersonname=#{washpersonname}
 
     </select>
     <select id="selectWxByid" resultType="com.aaa.project.system.orders.domain.Orders">
-                 SELECT o.*, washpersonname FROM
+        SELECT o.*, washpersonname FROM
         (SELECT orderid,
         washpersonpid,
         ordernumber ,
