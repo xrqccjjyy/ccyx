@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectCustomerVo">
-        select userid, username, userphone, usercarid ,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation from customer
+        select userid,  usercarid ,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation from customer
     </sql>
 	
     <select id="selectCustomerList" parameterType="Customer" resultMap="CustomerResult">

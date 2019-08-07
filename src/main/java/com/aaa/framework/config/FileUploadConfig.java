@@ -14,30 +14,14 @@ public class FileUploadConfig {
     private String uploadWashCarImage;
     //洗车照片请求路径
     private String washCarImageDir;
-    //门店营业执照上传路径
-    private String uploadShopLicenseImg;
-    //门店营业执照请求路径
-    private String uploadShopLicenseImgDir;
+    //新增门店图标上传路径
+    private String uploadStoreIcon;
+    //store图标请求路径
+    private String storeIconImageDir;
     //用户驾驶证照片上传路径
     private String drivingLicenceImg;
     //用户驾驶证照片请求路径
     private String drivingLicenceImgDir;
-
-    public String getUploadShopLicenseImg() {
-        return uploadShopLicenseImg;
-    }
-
-    public void setUploadShopLicenseImg(String uploadShopLicenseImg) {
-        this.uploadShopLicenseImg = uploadShopLicenseImg;
-    }
-
-    public String getUploadShopLicenseImgDir() {
-        return uploadShopLicenseImgDir;
-    }
-
-    public void setUploadShopLicenseImgDir(String uploadShopLicenseImgDir) {
-        this.uploadShopLicenseImgDir = uploadShopLicenseImgDir;
-    }
 
     public String getUploadCarImage() {
         return uploadCarImage;
@@ -71,6 +55,21 @@ public class FileUploadConfig {
         this.washCarImageDir = washCarImageDir;
     }
 
+    public String getUploadStoreIcon() {
+        return uploadStoreIcon;
+    }
+
+    public void setUploadStoreIcon(String uploadStoreIcon) {
+        this.uploadStoreIcon = uploadStoreIcon;
+    }
+
+    public String getStoreIconImageDir() {
+        return storeIconImageDir;
+    }
+
+    public void setStoreIconImageDir(String storeIconImageDir) {
+        this.storeIconImageDir = storeIconImageDir;
+    }
 
     public String getDrivingLicenceImg() {
         return drivingLicenceImg;
