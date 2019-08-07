@@ -18,7 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="selectCustomerVo">
         select userid, username, userphone, usercarid ,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation from customer
     </sql>
-	
+
+    <!--获取顾客信息和对应的车辆(默认)-->
+	<select id="slectCustomerCar" resultType="map">
+        SELECT * FROM customer,usercar
+        where customer.userid=usercar.userid
+        and customer.userphone=13249516670
+        and usercar.usercarbrandname="保时捷"
+    </select>
+
+
     <select id="selectCustomerList" parameterType="Customer" resultMap="CustomerResult">
         SELECT userid,username,userphone,usercarnumber,usercarbrandname,usercarphoto,usercarcolor,usercarlocation
         from customer LEFT JOIN usercar ON customer.usercarid=usercar.usercarid

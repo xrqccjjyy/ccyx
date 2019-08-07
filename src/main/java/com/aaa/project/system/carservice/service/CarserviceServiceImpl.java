@@ -1,6 +1,8 @@
 package com.aaa.project.system.carservice.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aaa.project.system.carservice.mapper.CarserviceMapper;
@@ -19,6 +21,15 @@ public class CarserviceServiceImpl implements ICarserviceService
 {
 	@Autowired
 	private CarserviceMapper carserviceMapper;
+
+	/**
+	 * 查询所有汽车服务
+	 * @return
+	 */
+	@Override
+	public List<Map<String, Object>> selectAllCarService() {
+		return carserviceMapper.selectAllCarService();
+	}
 
 	/**
      * 查询车辆服务套餐信息

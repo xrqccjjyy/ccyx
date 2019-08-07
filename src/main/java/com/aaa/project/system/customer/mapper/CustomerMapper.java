@@ -2,6 +2,7 @@ package com.aaa.project.system.customer.mapper;
 
 import com.aaa.project.system.customer.domain.Customer;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户 数据层
@@ -11,6 +12,13 @@ import java.util.List;
  */
 public interface CustomerMapper 
 {
+
+	/**
+	 * 获取顾客信息和对应的车辆(默认)
+	 * @return
+	 */
+	List<Map<String,Object>> slectCustomerCar();
+
 	/**
      * 查询用户信息
      * 

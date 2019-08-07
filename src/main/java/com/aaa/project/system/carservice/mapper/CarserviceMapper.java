@@ -1,7 +1,10 @@
 package com.aaa.project.system.carservice.mapper;
 
 import com.aaa.project.system.carservice.domain.Carservice;
-import java.util.List;	
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 车辆服务套餐 数据层
@@ -9,8 +12,15 @@ import java.util.List;
  * @author teacherChen
  * @date 2019-07-29
  */
+@Component
 public interface CarserviceMapper 
 {
+	/**
+	 * 查询所有汽车服务
+	 * @return
+	 */
+	List<Map<String,Object>> selectAllCarService();
+
 	/**
      * 查询车辆服务套餐信息
      * 

@@ -147,6 +147,7 @@ AND carwashperson.washpersonname=#{washpersonname}
 			<if test="userid != null  ">userid,</if>
 			<if test="washpersonpid != null  ">washpersonpid,</if>
 			<if test="carserviceid != null  ">carserviceid,</if>
+            <if test="orderprice!= null  ">orderprice,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="orderid != null  ">#{orderid},</if>
@@ -161,7 +162,9 @@ AND carwashperson.washpersonname=#{washpersonname}
 			<if test="userid != null  ">#{userid},</if>
 			<if test="washpersonpid != null  ">#{washpersonpid},</if>
 			<if test="carserviceid != null  ">#{carserviceid},</if>
+            <if test="orderprice != null  ">#{orderprice},</if>
          </trim>
+
     </insert>
 	 
     <update id="updateOrders" parameterType="Orders">
@@ -237,7 +240,7 @@ AND carwashperson.washpersonname=#{washpersonname}
     </select>
 
 
-    <!--待接单-->
+    <!--微信端待接单-->
     <select id="selectAllWaitingOrder" resultType="map">
         SELECT *
         FROM orders, usercar, customer,  carservice, shop
@@ -250,7 +253,7 @@ AND carwashperson.washpersonname=#{washpersonname}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--进行中-->
+    <!--微信端进行中-->
     <select id="ingOrder" resultType="map">
         SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
@@ -262,7 +265,7 @@ AND carwashperson.washpersonname=#{washpersonname}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--已完成-->
+    <!--微信端已完成-->
     <select id="finishOrder" resultType="map">
         SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
@@ -274,7 +277,7 @@ AND carwashperson.washpersonname=#{washpersonname}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--已取消-->
+    <!--微信端已取消-->
     <select id="cancelledOrder" resultType="map">
         SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
@@ -286,12 +289,12 @@ AND carwashperson.washpersonname=#{washpersonname}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--取消订单-->
+    <!--微信端取消订单-->
     <update id="updateByOrdernumber" >
         update orders set orderstatus='已取消',ordertime=now()  where ordernumber=#{ordernumber} and orderstatus='待接单'
     </update>
 
-    <!--根据订单编号查询-->
+    <!--微信端根据订单编号查询-->
     <select id="selectByOrderNumber" resultType="map">
         SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
@@ -300,5 +303,7 @@ AND carwashperson.washpersonname=#{washpersonname}
         and orders.carserviceid=carservice.carserviceid
         and orders.ordernumber= #{ordernumber}
     </select>
+
+
 
 </mapper>
