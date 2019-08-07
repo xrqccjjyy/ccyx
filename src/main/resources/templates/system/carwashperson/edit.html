@@ -46,6 +46,7 @@
 		});
 		
 		function submitHandler() {
+		    var phone = document.getElementById('washpersonphone').value;
 	        if ($.validate.form()&&(/^1[3456789]\d{9}$/.test(phone))) {
 	            $.operate.save(prefix + "/edit", $('#form-carwashperson-edit').serialize());
 	        }else{

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.ordernumberserviceid.mapper.OrdernumberserviceidMapper">
+    
+    <resultMap type="Ordernumberserviceid" id="OrdernumberserviceidResult">
+        <result property="ordernumber"    column="ordernumber"    />
+        <result property="carserviceid"    column="carserviceid"    />
+    </resultMap>
+	
+	<sql id="selectOrdernumberserviceidVo">
+        select ordernumber, carserviceid from ordernumberserviceid
+    </sql>
+	
+    <select id="selectOrdernumberserviceidList" parameterType="Ordernumberserviceid" resultMap="OrdernumberserviceidResult">
+        <include refid="selectOrdernumberserviceidVo"/>
+        <where>  
+            <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
+             <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
+         </where>
+    </select>
+    
+    <select id="selectOrdernumberserviceidById" parameterType="String" resultMap="OrdernumberserviceidResult">
+        <include refid="selectOrdernumberserviceidVo"/>
+        where ordernumber = #{ordernumber}
+    </select>
+        
+    <insert id="insertOrdernumberserviceid" parameterType="Ordernumberserviceid">
+        insert into ordernumberserviceid
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ordernumber != null  and ordernumber != ''  ">ordernumber,</if>
+			<if test="carserviceid != null  ">carserviceid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ordernumber != null  and ordernumber != ''  ">#{ordernumber},</if>
+			<if test="carserviceid != null  ">#{carserviceid},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateOrdernumberserviceid" parameterType="Ordernumberserviceid">
+        update ordernumberserviceid
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="carserviceid != null  ">carserviceid = #{carserviceid},</if>
+        </trim>
+        where ordernumber = #{ordernumber}
+    </update>
+
+	<delete id="deleteOrdernumberserviceidById" parameterType="String">
+        delete from ordernumberserviceid where ordernumber = #{ordernumber}
+    </delete>
+	
+    <delete id="deleteOrdernumberserviceidByIds" parameterType="String">
+        delete from ordernumberserviceid where ordernumber in 
+        <foreach item="ordernumber" collection="array" open="(" separator="," close=")">
+            #{ordernumber}
+        </foreach>
+    </delete>
+    
+</mapper>

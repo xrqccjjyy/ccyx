@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.aaa.framework.web.domain.BaseEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -62,15 +63,26 @@ public class Orders extends BaseEntity
 	private String  usercarlocation;
 	/**套餐*/
 	private String carservicename;
+	/**总套餐*/
+	private String carservicenametotal;
 	/**商家地址*/
 	private String shopaddress;
 	/**洗车人*/
 	private String washpersonname;
-
+    /**套餐价格*/
 	private String carsereviceprice;
-
 	/**总金额*/
 	private Long orderprice;
+
+
+
+	public String getCarservicenametotal() {
+		return carservicenametotal;
+	}
+
+	public void setCarservicenametotal(String carservicenametotal) {
+		this.carservicenametotal = carservicenametotal;
+	}
 
 	public Long getOrderprice() {
 		return orderprice;
