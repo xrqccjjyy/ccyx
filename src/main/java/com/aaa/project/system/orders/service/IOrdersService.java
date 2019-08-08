@@ -16,6 +16,16 @@ public interface IOrdersService
 {
 
 	/**
+	 * 洗车人员历史订单
+	 */
+	List<Orders> history(Orders orders);
+
+	/**
+	 * 洗车人员取到车辆
+	 */
+	int updateCar(String ordernumber);
+
+	/**
 	 * 洗车人员归还车辆
 	 */
 	public int  updateWx(String washpersonname);

@@ -19,6 +19,27 @@ public class ApiOrderController {
 
 
     /**
+     * 洗车人员取到车辆
+     */
+    @RequestMapping("/updateCar")
+    @ResponseBody
+    public int  updateCar(String ordernumber){
+        int i = ordersServiceImpl.updateCar(ordernumber);
+        return i;
+    }
+
+    /**
+     * 洗车人员历史订单
+     */
+    @RequestMapping("/history")
+    @ResponseBody
+    public List<Orders> history(Orders orders){
+        List<Orders> list = ordersServiceImpl.history( orders );
+        return list;
+    }
+
+
+    /**
      * 洗车人员归还车辆
      */
     @RequestMapping("/updateWx")

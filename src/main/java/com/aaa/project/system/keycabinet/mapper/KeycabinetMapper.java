@@ -1,7 +1,9 @@
 package com.aaa.project.system.keycabinet.mapper;
 
 import com.aaa.project.system.keycabinet.domain.Keycabinet;
-import java.util.List;	
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 钥匙柜 数据层
@@ -9,6 +11,7 @@ import java.util.List;
  * @author CCYX-SZ34-02
  * @date 2019-08-02
  */
+@Component
 public interface KeycabinetMapper 
 {
 	/**
