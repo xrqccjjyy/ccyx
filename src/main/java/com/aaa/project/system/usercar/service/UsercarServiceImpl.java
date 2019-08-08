@@ -72,6 +72,11 @@ public class UsercarServiceImpl implements IUsercarService
 	    return usercarMapper.updateUsercar(usercar);
 	}
 
+	@Override
+	public int deleteUsercarById(Integer usercarid) {
+		return usercarMapper.deleteUsercarById(usercarid);
+	}
+
 	/**
      * 删除用户车辆对象
      * 

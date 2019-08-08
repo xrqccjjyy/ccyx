@@ -43,4 +43,10 @@ public class ApiUsercarController extends BaseController {
         Usercar usercar = usercarService.selectUsercarById(usercarid);
         return usercar;
     }
+
+    @RequestMapping("/deleteUsercarById")
+    public int deleteUsercarById(Integer usercarid){
+        int i = usercarService.deleteUsercarById(usercarid);
+        return i;
+    }
 }
