@@ -29,9 +29,7 @@ public class Orders extends BaseEntity
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date ordertime;
 	/** 洗车时间 */
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	private Date washtime;
+	private String washtime;
 	/** 钥匙柜取件码 */
 	private String cabinetcode;
 	/** 柜子位置信息 */
@@ -219,16 +217,16 @@ public class Orders extends BaseEntity
 	{
 		return ordertime;
 	}
-	public void setWashtime(Date washtime) 
-	{
+
+	public String getWashtime() {
+		return washtime;
+	}
+
+	public void setWashtime(String washtime) {
 		this.washtime = washtime;
 	}
 
-	public Date getWashtime() 
-	{
-		return washtime;
-	}
-	public void setCabinetcode(String cabinetcode) 
+	public void setCabinetcode(String cabinetcode)
 	{
 		this.cabinetcode = cabinetcode;
 	}
