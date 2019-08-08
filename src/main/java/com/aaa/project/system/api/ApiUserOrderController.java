@@ -172,17 +172,7 @@ public class ApiUserOrderController {
     @RequestMapping("/nowTime")
     public int nowTime(){
         Calendar calendar =  Calendar.getInstance();
-//        int year  = calendar.get(Calendar.YEAR);
-//        int mm  = calendar.get(Calendar.MARCH);
         int hour = calendar.get(Calendar.HOUR);
-//        int minute = calendar.get(Calendar.MINUTE);
-//        int second = calendar.get(Calendar.SECOND);
-//        System.out.println(calendar);
-//        System.out.println("月"+mm);
-//        System.out.println(year);
-//        System.out.println(hour);
-//        System.out.println(minute);
-//        System.out.println(second);
 
         // 格式化
         SimpleDateFormat sim = new SimpleDateFormat("yyy-MM-dd");
