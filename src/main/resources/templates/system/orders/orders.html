@@ -64,14 +64,14 @@
 				</a>
 				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:orders:edit">
 					<i class="fa fa-edit"></i> 修改订单
-				</a>-->
-
-				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:orders:remove">
-					<i class="fa fa-remove"></i> 删除
 				</a>
+
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:orders:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>-->
 				<a class="btn btn-danger btn-del btn-del disabled"  onclick="'javascript:reject('+${ordersr.orderid}+');'" shiro:hasPermission="system:orders:reject">
                 					<i class="fa fa-remove"></i> 拒单
-                </a>-->
+                </a>
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:orders:export">
 						<i class="fa fa-download"></i> 导出
 				 </a>
