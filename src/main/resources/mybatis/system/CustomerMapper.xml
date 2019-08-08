@@ -20,11 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <!--获取顾客信息和对应的车辆(默认)-->
-	<select id="slectCustomerCar" resultType="map">
+	<select id="slectCustomerCar" parameterType="String"  resultType="map">
         SELECT * FROM customer,usercar
         where customer.userid=usercar.userid
-        and customer.userphone=13249516670
-        and usercar.usercarbrandname="保时捷"
+        and customer.userphone=#{userphone}
+        and usercar.usercardefault=0
     </select>
 
 
@@ -49,7 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectCustomerByUserid" resultType="com.aaa.project.system.customer.domain.Customer">
-          SELECT * FROM customer where userphone=#{userphone}
+          SELECT * FROM customer
+        <where>
+        <if test="userid != null "> and userid = #{userid}</if>
+        <if test="userphone != null  and userphone != '' "> and userphone = #{userphone}</if>
+        </where>
     </select>
 
     <insert id="insertCustomer" parameterType="Customer">

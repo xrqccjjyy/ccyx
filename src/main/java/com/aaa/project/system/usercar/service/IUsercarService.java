@@ -51,7 +51,13 @@ public interface IUsercarService {
 	 * @return 结果
 	 */
 	public int updateUsercar(Usercar usercar);
-
+	/**
+	 * 删除用户车辆
+	 *
+	 * @param usercarid 用户车辆ID
+	 * @return 结果
+	 */
+	public int deleteUsercarById(Integer usercarid);
 	/**
 	 * 删除用户车辆信息
 	 *
