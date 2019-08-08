@@ -12,7 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectOrderhistoryVo">
-        select orderhistoryid, ordernumber, historytime, orderstatus from orderhistory
+        /*select orderhistoryid, ordernumber, historytime, orderstatus from orderhistory*/
+
+        select orderhistoryid, ordernumber, historytime, orderstatus from orderhistory ORDER BY orderhistoryid DESC
     </sql>
 	
     <select id="selectOrderhistoryList" parameterType="Orderhistory" resultMap="OrderhistoryResult">
