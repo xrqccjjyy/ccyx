@@ -13,6 +13,7 @@ import com.aaa.project.system.user.domain.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.avro.Schema;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.velocity.runtime.directive.Break;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
@@ -174,7 +175,6 @@ public class OrdersController extends BaseController {
         //很据id查询所选套餐
         Orders orderService = ordersService.selectCarServiceName(orderid);
         mmap.put("orderService", orderService);
-
         mmap.put("orderList", ordersService.selectOrdersById(orderid));
         return prefix + "/detail";
     }

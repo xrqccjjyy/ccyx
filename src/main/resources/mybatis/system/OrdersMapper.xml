@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectCarServiceName" parameterType="Integer" resultMap="OrdersResult">
-       SELECT GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS carservicenametotal FROM ordernumberserviceid,carservice,orders WHERE   orders.ordernumber = ordernumberserviceid.ordernumber  AND ordernumberserviceid.carserviceid = carservice.carserviceid AND orderid = #{orderid}
+       SELECT GROUP_CONCAT(CONCAT('\'',(IFNULL(carservicename,'空')),'\'')) AS carservicenametotal FROM ordernumberserviceid,carservice,orders WHERE   orders.ordernumber = ordernumberserviceid.ordernumber  AND ordernumberserviceid.carserviceid = carservice.carserviceid AND orderid = #{orderid}
     </select>
 
 

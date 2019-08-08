@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectStatisticalTable" parameterType="Debty" resultMap="DebtyResult">
 
-        SELECT COUNT(ordernumber) AS total, income, loss FROM orders,debty,shop WHERE orders.shopid = shop.shopid
+        SELECT COUNT(ordernumber) AS total, income FROM orders,debty,shop WHERE orders.shopid = shop.shopid
     </select>
         
     <insert id="insertDebty" parameterType="Debty">
