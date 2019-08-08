@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.shopnamecountprice.mapper.ShopnamecountpriceMapper">
+    
+    <resultMap type="Shopnamecountprice" id="ShopnamecountpriceResult">
+        <result property="shopname"    column="shopname"    />
+        <result property="countprice"    column="countprice"    />
+    </resultMap>
+	
+	<sql id="selectShopnamecountpriceVo">
+        select shopname, countprice from shopnamecountprice
+    </sql>
+
+    <!-- 各商家总收入-->
+    <select id="selectOrdersCountPrice" resultType="map">
+        SELECT  shopname,SUM(orderprice) as countprice
+        from shop s,orders o
+        where o.shopid=s.shopid
+        GROUP BY shopname
+    </select>
+	
+    <select id="selectShopnamecountpriceList" parameterType="Shopnamecountprice" resultMap="ShopnamecountpriceResult">
+        <include refid="selectShopnamecountpriceVo"/>
+        <where>  
+            <if test="shopname != null  and shopname != '' "> and shopname = #{shopname}</if>
+             <if test="countprice != null "> and countprice = #{countprice}</if>
+         </where>
+    </select>
+    
+    <select id="selectShopnamecountpriceById" parameterType="String" resultMap="ShopnamecountpriceResult">
+        <include refid="selectShopnamecountpriceVo"/>
+        where shopname = #{shopname}
+    </select>
+        
+    <insert id="insertShopnamecountprice" parameterType="Shopnamecountprice">
+        insert into shopnamecountprice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="shopname != null  and shopname != ''  ">shopname,</if>
+			<if test="countprice != null  ">countprice,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="shopname != null  and shopname != ''  ">#{shopname},</if>
+			<if test="countprice != null  ">#{countprice},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateShopnamecountprice" parameterType="Shopnamecountprice">
+        update shopnamecountprice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="countprice != null  ">countprice = #{countprice},</if>
+        </trim>
+        where shopname = #{shopname}
+    </update>
+
+	<delete id="deleteShopnamecountpriceById" parameterType="String">
+        delete from shopnamecountprice where shopname = #{shopname}
+    </delete>
+	
+    <delete id="deleteShopnamecountpriceByIds" parameterType="String">
+        delete from shopnamecountprice where shopname in 
+        <foreach item="shopname" collection="array" open="(" separator="," close=")">
+            #{shopname}
+        </foreach>
+    </delete>
+    
+</mapper>

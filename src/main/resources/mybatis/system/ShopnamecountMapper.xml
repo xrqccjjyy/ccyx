@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.shopnamecount.mapper.ShopnamecountMapper">
+    
+    <resultMap type="Shopnamecount" id="ShopnamecountResult">
+        <result property="shopname"    column="shopname"    />
+        <result property="count"    column="count"    />
+    </resultMap>
+	
+	<sql id="selectShopnamecountVo">
+        select shopname, count from shopnamecount
+    </sql>
+
+    <!-- 根据门店名计算订单总数量-->
+    <select id="selectOrdersCount" resultType="map">
+        select shopname,count(shopname) as count
+        from shop s,orders o
+        where o.shopid=s.shopid
+        GROUP BY shopname
+    </select>
+
+    <select id="selectShopnamecountList" parameterType="Shopnamecount" resultMap="ShopnamecountResult">
+        <include refid="selectShopnamecountVo"/>
+        <where>  
+            <if test="shopname != null  and shopname != '' "> and shopname = #{shopname}</if>
+             <if test="count != null "> and count = #{count}</if>
+         </where>
+    </select>
+    
+    <select id="selectShopnamecountById" parameterType="String" resultMap="ShopnamecountResult">
+        <include refid="selectShopnamecountVo"/>
+        where shopname = #{shopname}
+    </select>
+        
+    <insert id="insertShopnamecount" parameterType="Shopnamecount">
+        insert into shopnamecount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="shopname != null  and shopname != ''  ">shopname,</if>
+			<if test="count != null  ">count,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="shopname != null  and shopname != ''  ">#{shopname},</if>
+			<if test="count != null  ">#{count},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateShopnamecount" parameterType="Shopnamecount">
+        update shopnamecount
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="count != null  ">count = #{count},</if>
+        </trim>
+        where shopname = #{shopname}
+    </update>
+
+	<delete id="deleteShopnamecountById" parameterType="String">
+        delete from shopnamecount where shopname = #{shopname}
+    </delete>
+	
+    <delete id="deleteShopnamecountByIds" parameterType="String">
+        delete from shopnamecount where shopname in 
+        <foreach item="shopname" collection="array" open="(" separator="," close=")">
+            #{shopname}
+        </foreach>
+    </delete>
+    
+</mapper>
