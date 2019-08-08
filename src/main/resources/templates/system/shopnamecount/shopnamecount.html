@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<script th:src="@{/js/echarts.js}"></script>
+<div id="main" style="height: 100%;width: 100%">
+
+</div>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<div th:include="include :: footer"></div>
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
+    //定义arrayY是Y轴
+    var arrayY = [];
+    //定义arrayX是X轴
+    var arrayX = [];
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '商家订单统计图'
+        },
+        tooltip: {},
+        legend: {
+            data:['订单数']
+        },
+        xAxis: {
+            data: []
+
+        },
+        yAxis: {
+
+		},
+        series: [{
+            name: '销量',
+            barWidth: 120, //设置柱状图粗细
+            type: 'bar',
+            data: []
+        }]
+    };
+    var prefix = ctx + "system/shopnamecount";
+    $.ajax({    //使用JQuery内置的Ajax方法
+        type: "post",        //post请求方式
+        async: true,        //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url: prefix+"/selectOrdersCount",    //请求发送到ShowInfoIndexServlet处
+
+        dataType: "json",        //返回数据形式为json
+        success: function (result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result != null && result.length > 0) {
+                for (var i = 0; i < result.length; i++) {
+                    arrayY.push(result[i].count);
+                    arrayX.push(result[i].shopname);
+                }
+                //myechart.hideLoading();    //隐藏加载动画
+                myChart.setOption({//载入数据
+                    xAxis:{
+                        data:arrayX
+                    },
+                    series:[
+                        {
+                            name:'订单数',
+                            data:arrayY
+                        }
+
+                    ]
+
+                });
+            }else {
+                alert("请求数据为空，可能服务器暂未录入，请稍后再试");
+                myechart.hideLoading();
+            }
+        }
+
+    });
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>
