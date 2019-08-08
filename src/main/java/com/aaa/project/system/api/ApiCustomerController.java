@@ -2,18 +2,24 @@ package com.aaa.project.system.api;
 
 import com.aaa.project.system.customer.domain.Customer;
 import com.aaa.project.system.customer.service.CustomerServiceImpl;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
 public class ApiCustomerController {
+
     @Autowired
     private CustomerServiceImpl customerService;
+
     @RequestMapping("/selectCustomer")
     public List<Customer> selectCustomer(String userphone){
         List<Customer> list = customerService.selectCustomer(userphone);

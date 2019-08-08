@@ -23,9 +23,13 @@ public class CustomerServiceImpl implements ICustomerService
 	@Autowired
 	private CustomerMapper customerMapper;
 
+	/**
+	 * 获取顾客信息和对应的车辆(默认)
+	 * @return
+	 */
 	@Override
-	public List<Map<String, Object>> slectCustomerCar() {
-        List<Map<String, Object>> mapList = customerMapper.slectCustomerCar();
+	public List<Map<String, Object>> slectCustomerCar(String userphone) {
+        List<Map<String, Object>> mapList = customerMapper.slectCustomerCar(userphone);
 		return mapList;
 	}
 

@@ -20,11 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <!--获取顾客信息和对应的车辆(默认)-->
-	<select id="slectCustomerCar" resultType="map">
+	<select id="slectCustomerCar" parameterType="String"  resultType="map">
         SELECT * FROM customer,usercar
         where customer.userid=usercar.userid
-        and customer.userphone=13249516670
-        and usercar.usercarbrandname="保时捷"
+        and customer.userphone=#{userphone}
+        and usercar.usercardefault=0
     </select>
 
 

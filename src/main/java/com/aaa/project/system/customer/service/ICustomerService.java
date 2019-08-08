@@ -16,7 +16,7 @@ public interface ICustomerService
 	 * 获取顾客信息和对应的车辆(默认)
 	 * @return
 	 */
-	List<Map<String,Object>> slectCustomerCar();
+	List<Map<String,Object>> slectCustomerCar(String userphone);
 
 	/**
      * 查询用户信息

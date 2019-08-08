@@ -1,6 +1,9 @@
 package com.aaa.project.system.customer.mapper;
 
 import com.aaa.project.system.customer.domain.Customer;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +13,8 @@ import java.util.Map;
  * @author teacherChen
  * @date 2019-07-29
  */
+@Component
+@Mapper
 public interface CustomerMapper 
 {
 
@@ -17,7 +22,7 @@ public interface CustomerMapper
 	 * 获取顾客信息和对应的车辆(默认)
 	 * @return
 	 */
-	List<Map<String,Object>> slectCustomerCar();
+	List<Map<String,Object>> slectCustomerCar(String userphone);
 
 	/**
      * 查询用户信息
