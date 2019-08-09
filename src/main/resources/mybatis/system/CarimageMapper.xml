@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.project.system.carimage.mapper.CarimageMapper">
+    
+    <resultMap type="Carimage" id="CarimageResult">
+        <result property="id"    column="id"    />
+        <result property="carinfoid"    column="carinfoid"    />
+        <result property="imageurl"    column="imageurl"    />
+    </resultMap>
+	
+	<sql id="selectCarimageVo">
+        select id, carinfoid, imageurl from carimage
+    </sql>
+	
+    <select id="selectCarimageList" parameterType="Carimage" resultMap="CarimageResult">
+        <include refid="selectCarimageVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="carinfoid != null "> and carinfoid = #{carinfoid}</if>
+             <if test="imageurl != null  and imageurl != '' "> and imageurl = #{imageurl}</if>
+         </where>
+    </select>
+    
+    <select id="selectCarimageById" parameterType="Integer" resultMap="CarimageResult">
+        <include refid="selectCarimageVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectCarImageListByCarInfoId" parameterType="integer" resultMap="CarimageResult">
+        <include refid="selectCarimageVo"/>
+        where carinfoid = #{carinfoid}
+    </select>
+        
+    <insert id="insertCarimage" parameterType="Carimage">
+        insert into carimage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="carinfoid != null  ">carinfoid,</if>
+			<if test="imageurl != null  and imageurl != ''  ">imageurl,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="carinfoid != null  ">#{carinfoid},</if>
+			<if test="imageurl != null  and imageurl != ''  ">#{imageurl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCarimage" parameterType="Carimage">
+        update carimage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="carinfoid != null  ">carinfoid = #{carinfoid},</if>
+            <if test="imageurl != null  and imageurl != ''  ">imageurl = #{imageurl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateCarImageByCarInfoId" parameterType="Carimage">
+        update carimage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="imageurl != null  and imageurl != ''  ">imageurl = #{imageurl},</if>
+        </trim>
+        where carinfoid = #{carinfoid}
+    </update>
+
+	<delete id="deleteCarimageById" parameterType="Integer">
+        delete from carimage where id = #{id}
+    </delete>
+	
+    <delete id="deleteCarimageByIds" parameterType="String">
+        delete from carimage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
