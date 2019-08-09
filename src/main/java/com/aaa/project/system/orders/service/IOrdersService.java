@@ -16,6 +16,11 @@ public interface IOrdersService
 {
 
 	/**
+	 * 洗车人员存放钥匙，返回柜子信息与取件码
+	 */
+	int updateKey(Orders orders);
+
+	/**
 	 * 洗车人员历史订单
 	 */
 	List<Orders> history(Orders orders);

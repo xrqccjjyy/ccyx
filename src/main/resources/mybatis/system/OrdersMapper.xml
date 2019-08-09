@@ -291,6 +291,9 @@ AND carwashperson.washpersonname=#{washpersonname}
     <update id="updateCar">
         UPDATE orders SET orderstatus='已取车' WHERE ordernumber=#{ordernumber}
     </update>
+    <update id="updateKey">
+        UPDATE orders SET cabinetcode=#{cabinetcode} where ordernumber=#{ordernumber}
+    </update>
 
     <!--根据订单编号查询-->
     <select id="selectByOrderNumber" resultType="map">

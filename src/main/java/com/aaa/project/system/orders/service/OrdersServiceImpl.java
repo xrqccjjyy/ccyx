@@ -2,6 +2,7 @@ package com.aaa.project.system.orders.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -22,6 +23,22 @@ public class OrdersServiceImpl implements IOrdersService
 	@Autowired
 	private OrdersMapper ordersMapper;
 
+	/**
+	 * 洗车人员存放钥匙，返回柜子信息与取件码
+	 */
+	@Override
+	public int updateKey(Orders orders) {
+		Orders orders1 = new Orders();
+		int q = (int) (Math.random()*1000000);
+		orders1.setCabinetcode( String.valueOf( q ) );
+		orders1.setOrdernumber( orders.getOrdernumber() );
+		int i=ordersMapper.updateKey( orders1 );
+		return i;
+	}
+
+	/**
+	 * 洗车人员历史订单
+	 */
 	@Override
 	public List <Orders> history(Orders orders) {
 		Orders orders1  = new Orders();
@@ -30,6 +47,9 @@ public class OrdersServiceImpl implements IOrdersService
 		return list;
 	}
 
+	/**
+	 * 洗车人员取到车辆，修改订单状态
+	 */
 	@Override
 	public int updateCar(String ordernumber) {
 		Orders orders = new Orders();
@@ -53,6 +73,9 @@ public class OrdersServiceImpl implements IOrdersService
         return i;
 	}
 
+	/**
+	 * 微信端查看订单详情
+	 */
 	@Override
 	public List<Orders> selectWxByid(String ordernumber) {
 		Orders orders = new Orders();
