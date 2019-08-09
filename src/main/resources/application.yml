@@ -132,6 +132,18 @@ gen:
   # 表前缀(类名不会包含表前缀)
   tablePrefix: sys_
 
+#配置文件上传的路径
+upload:
+  #uploadCarImage: /Users/roy/project/DouDou/src/main/resources/static/fileupload/car/                    #车辆照片保存路径
+  uploadCarImage: D:\车辆图片\car\                  #车辆照片保存路径
+  carImageDir: \car\                                                                                     #车辆照片请求路径
+  uploadWashCarImage: D:\车辆图片\washcar\            #取车洗车换车照片保存路径
+  washCarImageDir: \washcar\                                                                              #取车洗车换车照片请求路径
+  uploadStoreIcon: D:\work\AAA带班\QY87\workspace\carwash\src\main\resources\static\store\logo\           #门店logo保存路径
+  storeIconImageDir: \store/logo\                                                                         #门店logo请求路径
+  drivingLicenceImg: D:\work\AAA带班\QY87\workspace\carwash\src\main\resources\static\fileupload\user\drivingLicence\ #驾驶证图片保存路径
+  drivingLicenceImgDir: \user\drivingLicence\                                                       #驾驶证图片请求路径
+
 
 
   #配置文件上传的路径

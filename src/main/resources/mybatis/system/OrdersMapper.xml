@@ -248,11 +248,24 @@ AND carwashperson.washpersonname=#{washpersonname}
     <!--微信端进行中-->
     <select id="ingOrder" resultType="map">
         SELECT * FROM orders,customer,usercar,shop
-        where orders.userid=customer.userid
+        where
+		(orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
-        and orders.orderstatus="进行中"
         and customer.userphone=#{userphone}
+		and orders.orderstatus="已接单")
+				 or
+		(orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and customer.userphone=#{userphone}
+		and orders.orderstatus="进行中")
+		          or
+		(orders.userid=customer.userid
+        and orders.usercarid=usercar.usercarid
+        and orders.shopid=shop.shopid
+        and customer.userphone=#{userphone}
+		and orders.orderstatus="已取车")
         ORDER BY orders.ordertime DESC
     </select>
 

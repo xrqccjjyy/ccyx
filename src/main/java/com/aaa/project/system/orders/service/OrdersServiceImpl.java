@@ -22,6 +22,22 @@ public class OrdersServiceImpl implements IOrdersService
 	@Autowired
 	private OrdersMapper ordersMapper;
 
+	@Override
+	public List <Orders> history(Orders orders) {
+		Orders orders1  = new Orders();
+		orders1.setWashpersonname( orders.getWashpersonname() );
+		List <Orders> list=ordersMapper.history( orders );
+		return list;
+	}
+
+	@Override
+	public int updateCar(String ordernumber) {
+		Orders orders = new Orders();
+		orders.setOrdernumber( ordernumber );
+		int i=ordersMapper.updateCar( ordernumber );
+		return i;
+	}
+
 	/**
 	 * 洗车人员归还车辆
 	 * @param washpersonname

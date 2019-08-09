@@ -59,7 +59,7 @@ public class ApiUserOrderController {
      */
     @RequestMapping("/ingOrder")
     public List<Map<String,Object>> ingOrder(String userphone){
-        List<Map<String,Object>> ordersList =  ordersService.ingOrder("13249517780");
+        List<Map<String,Object>> ordersList =  ordersService.ingOrder(userphone);
         System.out.println(ordersList);
         System.out.println("获进行中订单成功。。。。。。。");
         return ordersList;
@@ -115,26 +115,25 @@ public class ApiUserOrderController {
                                 @RequestParam(name = "shopid", required = true) Integer shopid,
                                 @RequestParam(name = "userid", required = true) Integer userid,
                                 @RequestParam(name = "orderprice", required = true) long orderprice,
-                                @RequestParam(name = "carserviceidList", required = true) String carserviceidList){
+                                @RequestParam(name = "carserviceidList", required = true) String carserviceidList,
+                                @RequestParam(name = "chestsite", required = true) String chestsite){
 
         System.out.println("送洗时间 "+hours+" ,车辆id："+usercarid+",商家id："+shopid+",顾客id"+userid+hours);
-
+        System.out.println("柜子位置"+chestsite);
         Calendar calendar =  Calendar.getInstance();
         SimpleDateFormat sim = new SimpleDateFormat("yyy-MM-dd");
         String nowtime = sim.format(calendar.getTime());
+        //预约时间
         String washtime=nowtime+" "+hours;
         System.out.println(washtime);
 
+        Random random = new Random();
         //自动生成订单编号
         String ordernumber=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        //订单服务
+
         String[] serviceList = carserviceidList.substring(1, carserviceidList.length() - 1).split(",");
+
         Ordernumberserviceid ordernumberserviceid = new Ordernumberserviceid();
-
-        //将String类型转换成date格式
-//        java.sql.Date date = java.sql.Date.valueOf(hours);
-//        System.out.println(date);
-
         Orders orders =  new Orders();
        // 下单时间
         orders.setOrdertime(new Date());
@@ -150,8 +149,13 @@ public class ApiUserOrderController {
         orders.setUserid(userid);
         //总金额
         orders.setOrderprice(orderprice);
+        //柜子位置
+        orders.setChestsite(chestsite);
+        //钥匙柜取件码
+        orders.setCabinetcode(String.valueOf(random.nextInt()));
         int t = ordersService.insertOrders(orders);
-        
+
+        //订单服务
         for(int i=0;i<serviceList.length;i++){
             String id = serviceList[i];
             System.out.println(id);
@@ -159,7 +163,6 @@ public class ApiUserOrderController {
             ordernumberserviceid.setCarserviceid(Integer.parseInt(id));
             ordernumberserviceidService.insertOrdernumberserviceid(ordernumberserviceid);
         }
-
         System.out.println("新增订单成功。。"+t);
         return t;
 
@@ -173,13 +176,24 @@ public class ApiUserOrderController {
     public int nowTime(){
         Calendar calendar =  Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR);
+        Date d = new Date();
+        int dd = d.getHours();
+        System.out.println(dd);
 
         // 格式化
         SimpleDateFormat sim = new SimpleDateFormat("yyy-MM-dd");
         String nowtime = sim.format(calendar.getTime());
-        System.out.println(nowtime+" "+"8:00-9:00");
         //时
-        return hour;
+        return dd;
+    }
+    @Test
+    public void test01(){
+       Random random = new Random();
+       System.out.println(String.valueOf(random.nextInt()));
+
+        //将String类型转换成date格式
+//        java.sql.Date date = java.sql.Date.valueOf(hours);
+//        System.out.println(date);
     }
 
 }
