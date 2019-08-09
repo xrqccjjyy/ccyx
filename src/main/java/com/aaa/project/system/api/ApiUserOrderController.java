@@ -189,12 +189,7 @@ public class ApiUserOrderController {
     }
     @Test
     public void test01(){
-       Random random = new Random();
-       //System.out.println(String.valueOf(random.nextInt()));
-        System.out.println(String.valueOf((int)(Math.random() * 1000000)));
-        //将String类型转换成date格式
-//        java.sql.Date date = java.sql.Date.valueOf(hours);
-//        System.out.println(date);
+
     }
 
 }

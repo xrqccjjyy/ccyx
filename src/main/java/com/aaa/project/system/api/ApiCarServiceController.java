@@ -23,6 +23,17 @@ public class ApiCarServiceController {
     public List<Map<String,Object>> selectAllCarService(){
         List<Map<String,Object>> mapList = carserviceService.selectAllCarService();
         return mapList;
-
     }
+
+    /**
+     * 根据订单号查询已选套餐服务
+     */
+    @RequestMapping("/selectCarServiceByOrdernumber")
+    public List<Map<String,Object>> selectCarServiceByOrdernumber(String ordernumber){
+        List<Map<String,Object>> mapList = carserviceService.selectCarServiceByOrdernumber(ordernumber);
+        System.out.println(mapList);
+
+        return mapList;
+    }
+
 }

@@ -22,6 +22,11 @@ public interface CarserviceMapper
 	List<Map<String,Object>> selectAllCarService();
 
 	/**
+	 * 根据订单号查询已选套餐服务
+	 */
+	List<Map<String,Object>> selectCarServiceByOrdernumber(String ordernumber);
+
+	/**
      * 查询车辆服务套餐信息
      * 
      * @param carserviceid 车辆服务套餐ID

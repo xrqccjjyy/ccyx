@@ -32,6 +32,14 @@ public class CarserviceServiceImpl implements ICarserviceService
 	}
 
 	/**
+	 * 根据订单号查询已选套餐服务
+	 */
+	@Override
+	public List<Map<String, Object>> selectCarServiceByOrdernumber(String ordernumber) {
+		return carserviceMapper.selectCarServiceByOrdernumber(ordernumber);
+	}
+
+	/**
      * 查询车辆服务套餐信息
      * 
      * @param carserviceid 车辆服务套餐ID
