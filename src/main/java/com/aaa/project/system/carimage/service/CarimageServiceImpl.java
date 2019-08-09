@@ -59,16 +59,9 @@ public class CarimageServiceImpl implements ICarimageService
      * @return 结果
      */
 	@Override
-	public int insertCarimage(Carimage carimage,MultipartFile file) throws FileUploadBase.FileSizeLimitExceededException, FileNameLengthLimitExceededException, IOException   {
-		System.out.println(carimage.getImageurl()+"++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(carimage.getCarinfoid()+"88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
-		String url = config.getCarImageDir()+upload( config.getUploadCarImage(),file,".jpg" );
-		Carimage carimage1 = new Carimage();
-		carimage1.setCarinfoid( carimage.getCarinfoid() );
-		carimage1.setImageurl( url );
-		System.out.println(url+"+++++++++++++++++++++++++++++++++++++++++++++");
-		int i=carimageMapper.insertCarimage( carimage );
-		return i;
+	public int insertCarimage(Carimage carimage) {
+		return  carimageMapper.insertCarimage( carimage );
+
 	}
 	
 	/**

@@ -38,7 +38,7 @@ public interface ICarimageService
      * @param carimage 车辆图片信息
      * @return 结果
      */
-	public int insertCarimage(Carimage carimage,MultipartFile file) throws org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException, FileNameLengthLimitExceededException, IOException;
+	public int insertCarimage(Carimage carimage) ;
 	/**
      * 修改车辆图片
      * 

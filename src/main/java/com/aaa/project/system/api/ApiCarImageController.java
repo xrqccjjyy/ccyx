@@ -29,11 +29,13 @@ public class ApiCarImageController  {
      * @return 结果
      */
     @RequestMapping(value = "/setCarInfo", method = RequestMethod.POST)
-    public AjaxResult setCarInfo(@RequestBody Carimage carimage,@RequestParam(value = "file") MultipartFile file) throws FileUploadBase.FileSizeLimitExceededException, FileNameLengthLimitExceededException, IOException {
-        AjaxResult ajaxResult = new AjaxResult();
-        carimageServiceImpl.insertCarimage(carimage,file);
-        ajaxResult.put("code",0);
-        return ajaxResult;
+    public AjaxResult setCarInfo(Carimage carimage,@RequestParam(value = "file") MultipartFile file) throws FileUploadBase.FileSizeLimitExceededException, FileNameLengthLimitExceededException, IOException {
+        Carimage carimage1 = new Carimage();
+        carimage1.setCarinfoid( carimage.getCarinfoid() );
+        String url = config.getWashCarImageDir()+upload( config.getUploadWashCarImage(),file,".jpg" );
+        carimage1.setImageurl( url );
+        carimageServiceImpl.insertCarimage(carimage1);
+        return AjaxResult.success(  );
     }
 
 

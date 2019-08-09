@@ -89,8 +89,8 @@ public class CarimageController extends BaseController
 	@Log(title = "车辆图片", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Carimage carimage, MultipartFile file) throws FileUploadBase.FileSizeLimitExceededException, FileNameLengthLimitExceededException, IOException {
-		return toAjax(carimageService.insertCarimage(carimage,file));
+	public AjaxResult addSave(Carimage carimage) {
+		return toAjax(carimageService.insertCarimage(carimage));
 	}
 
 	/**
