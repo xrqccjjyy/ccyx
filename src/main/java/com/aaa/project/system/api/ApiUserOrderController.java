@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -152,7 +152,8 @@ public class ApiUserOrderController {
         //柜子位置
         orders.setChestsite(chestsite);
         //钥匙柜取件码
-        orders.setCabinetcode(String.valueOf(random.nextInt()));
+        //orders.setCabinetcode(String.valueOf(random.nextInt()));
+        orders.setCabinetcode(String.valueOf((int)(Math.random() * 1000000)));
         int t = ordersService.insertOrders(orders);
 
         //订单服务
@@ -189,8 +190,8 @@ public class ApiUserOrderController {
     @Test
     public void test01(){
        Random random = new Random();
-       System.out.println(String.valueOf(random.nextInt()));
-
+       //System.out.println(String.valueOf(random.nextInt()));
+        System.out.println(String.valueOf((int)(Math.random() * 1000000)));
         //将String类型转换成date格式
 //        java.sql.Date date = java.sql.Date.valueOf(hours);
 //        System.out.println(date);
