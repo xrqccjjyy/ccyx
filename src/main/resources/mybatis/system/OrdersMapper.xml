@@ -305,7 +305,13 @@ AND carwashperson.washpersonname=#{washpersonname}
         and orders.ordernumber= #{ordernumber}
     </select>
     <select id="history" resultType="com.aaa.project.system.orders.domain.Orders">
-
+        SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation
+FROM orders,usercar,carwashperson,customer
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND orders.userid = customer.userid
+AND orders.usercarid = usercar.usercarid
+AND orders.orderstatus='已完成'
+AND carwashperson.washpersonname=#{washpersonname}
     </select>
 
 </mapper>
