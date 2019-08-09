@@ -1,14 +1,17 @@
 package com.aaa.project.system.carimage.mapper;
 
 import com.aaa.project.system.carimage.domain.Carimage;
-import java.util.List;	
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 车辆图片 数据层
  * 
  * @author CCYX-SZ34-02
- * @date 2019-08-08
+ * @date 2019-08-06
  */
+@Component
 public interface CarimageMapper 
 {
 	/**
@@ -26,13 +29,6 @@ public interface CarimageMapper
      * @return 车辆图片集合
      */
 	public List<Carimage> selectCarimageList(Carimage carimage);
-
-
-	/**
-	 * 按照carid查询结
-	 * @return 汽车图片集合
-	 */
-	public List<Carimage> selectCarImageListByCarInfoId(int carinfoId);
 	
 	/**
      * 新增车辆图片
@@ -49,13 +45,6 @@ public interface CarimageMapper
      * @return 结果
      */
 	public int updateCarimage(Carimage carimage);
-
-
-	/**
-	 * 根据carInfoId更新信息
-	 * @return 结果
-	 */
-	public int updateCarImageByCarInfoId(Carimage carimage);
 	
 	/**
      * 删除车辆图片

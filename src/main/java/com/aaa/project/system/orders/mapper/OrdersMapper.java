@@ -17,6 +17,22 @@ import java.util.Map;
 @Mapper
 public interface OrdersMapper
 {
+
+	/**
+	 * 洗车人员存放钥匙，返回柜子信息与取件码
+	 */
+	int updateKey(Orders orders);
+
+	/**
+	 * 洗车人员取到车辆，修改订单状态
+	 */
+	int updateCar(String ordernumber);
+
+	/**
+	 * 洗车人员的历史订单
+	 */
+	List<Orders> history(Orders orders);
+
 	/**
 	 * 洗车人员归还车辆
 	 */

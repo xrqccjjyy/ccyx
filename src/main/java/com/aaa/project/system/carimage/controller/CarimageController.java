@@ -1,7 +1,11 @@
 package com.aaa.project.system.carimage.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.aaa.common.exception.file.FileNameLengthLimitExceededException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,12 +22,13 @@ import com.aaa.framework.web.controller.BaseController;
 import com.aaa.framework.web.page.TableDataInfo;
 import com.aaa.framework.web.domain.AjaxResult;
 import com.aaa.common.utils.poi.ExcelUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 车辆图片 信息操作处理
  * 
  * @author CCYX-SZ34-02
- * @date 2019-08-08
+ * @date 2019-08-06
  */
 @Controller
 @RequestMapping("/system/carimage")
@@ -84,8 +89,7 @@ public class CarimageController extends BaseController
 	@Log(title = "车辆图片", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Carimage carimage)
-	{		
+	public AjaxResult addSave(Carimage carimage) {
 		return toAjax(carimageService.insertCarimage(carimage));
 	}
 

@@ -8,7 +8,7 @@ import com.aaa.framework.web.domain.BaseEntity;
  * 车辆图片表 carimage
  * 
  * @author CCYX-SZ34-02
- * @date 2019-08-08
+ * @date 2019-08-06
  */
 public class Carimage extends BaseEntity
 {
@@ -21,7 +21,12 @@ public class Carimage extends BaseEntity
 	/** 图片url */
 	private String imageurl;
 
-	public void setId(Integer id) 
+	@Override
+	public String getSearchValue() {
+		return super.getSearchValue();
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -56,4 +61,5 @@ public class Carimage extends BaseEntity
             .append("imageurl", getImageurl())
             .toString();
     }
+
 }

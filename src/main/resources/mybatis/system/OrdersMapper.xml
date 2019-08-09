@@ -25,10 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
-        SELECT  o.*, washpersonname FROM
-        (SELECT  orderid,
+        SELECT o.*, washpersonname FROM
+        (SELECT orderid,
         washpersonpid,
-        orders.ordernumber ,
+        ordernumber ,
         username ,
         userphone ,
         ordertime ,
@@ -39,26 +39,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
+        carservicename,
+        carsereviceprice,
         shopaddress,
         orderstatus,
-        orderevaluation,
-       -- GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS service,
-        orderprice
-        FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
+        orderevaluation
+        FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
-      --  AND orders.ordernumber = ordernumberserviceid.ordernumber
-      --  AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-      GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
-
+        AND carservice.carserviceid = orders.carserviceid
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid
+        <where>  
+            <if test="orderid != null "> and orderid = #{orderid}</if>
+             <if test="ordernumber != null  and ordernumber != '' "> and ordernumber = #{ordernumber}</if>
+             <if test="ordertime != null "> and ordertime = #{ordertime}</if>
+             <if test="washtime != null "> and washtime = #{washtime}</if>
+             <if test="cabinetcode != null  and cabinetcode != '' "> and cabinetcode = #{cabinetcode}</if>
+             <if test="chestsite != null  and chestsite != '' "> and chestsite = #{chestsite}</if>
+             <if test="orderstatus != null  and orderstatus != '' "> and orderstatus = #{orderstatus}</if>
+             <if test="usercarid != null "> and usercarid = #{usercarid}</if>
+             <if test="shopid != null "> and shopid = #{shopid}</if>
+             <if test="userid != null "> and userid = #{userid}</if>
+             <if test="washpersonpid != null "> and washpersonpid = #{washpersonpid}</if>
+             <if test="carserviceid != null "> and carserviceid = #{carserviceid}</if>
+         </where>
     </select>
 
 
     <select id="selectOrdersById" parameterType="Integer" resultMap="OrdersResult">
-         SELECT  o.*, washpersonname FROM
-        (SELECT  orderid,
+         SELECT o.*, washpersonname FROM
+        (SELECT orderid,
         washpersonpid,
-        orders.ordernumber ,
+        ordernumber ,
         username ,
         userphone ,
         ordertime ,
@@ -69,38 +81,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         usercarcolor ,
         usercarlocation ,
         chestsite ,
+        carservicename,
+        carsereviceprice,
         shopaddress,
-        orderstatus,
-        orderevaluation,
-       -- GROUP_CONCAT(CONCAT('\'',carservicename,'\'')) AS service,
-        orderprice
-        FROM orders, usercar, customer, shop,ordernumberserviceid,carservice
+        orderstatus
+        FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
-      --  AND orders.ordernumber = ordernumberserviceid.ordernumber
-      --  AND ordernumberserviceid.carserviceid = carservice.carserviceid
         AND customer.userid = orders.userid
-      GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
-    </select>
-
-    <select id="selectCarServiceName" parameterType="Integer" resultMap="OrdersResult">
-       SELECT GROUP_CONCAT(CONCAT('\'',(IFNULL(carservicename,'空')),'\'')) AS carservicenametotal FROM ordernumberserviceid,carservice,orders WHERE   orders.ordernumber = ordernumberserviceid.ordernumber  AND ordernumberserviceid.carserviceid = carservice.carserviceid AND orderid = #{orderid}
+        AND carservice.carserviceid = orders.carserviceid
+        GROUP BY orderid DESC) as o LEFT JOIN carwashperson ON o.washpersonpid = carwashperson.washpersonpid WHERE orderid = #{orderid}
     </select>
 
 
     <select id="findAll" resultType="com.aaa.project.system.orders.domain.Orders">
-SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,
-carservicename,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation,carsereviceprice
-FROM orders,carservice,usercar,carwashperson,customer
+SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation
+FROM orders,usercar,carwashperson,customer
 WHERE carwashperson.washpersonpid=orders.washpersonpid
-AND orders.carserviceid=carservice.carserviceid
 AND orders.userid = customer.userid
 AND orders.usercarid = usercar.usercarid
-AND orders.orderstatus='进行中'
+AND (orders.orderstatus='进行中' OR orders.orderstatus='已取车')
 AND carwashperson.washpersonname=#{washpersonname}
 
     </select>
     <select id="selectWxByid" resultType="com.aaa.project.system.orders.domain.Orders">
-        SELECT o.*, washpersonname FROM
+                 SELECT o.*, washpersonname FROM
         (SELECT orderid,
         washpersonpid,
         ordernumber ,
@@ -141,7 +145,6 @@ AND carwashperson.washpersonname=#{washpersonname}
 			<if test="userid != null  ">userid,</if>
 			<if test="washpersonpid != null  ">washpersonpid,</if>
 			<if test="carserviceid != null  ">carserviceid,</if>
-            <if test="orderprice!= null  ">orderprice,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="orderid != null  ">#{orderid},</if>
@@ -156,9 +159,7 @@ AND carwashperson.washpersonname=#{washpersonname}
 			<if test="userid != null  ">#{userid},</if>
 			<if test="washpersonpid != null  ">#{washpersonpid},</if>
 			<if test="carserviceid != null  ">#{carserviceid},</if>
-            <if test="orderprice != null  ">#{orderprice},</if>
          </trim>
-
     </insert>
 	 
     <update id="updateOrders" parameterType="Orders">
@@ -203,7 +204,7 @@ AND carwashperson.washpersonname=#{washpersonname}
 
     <update id="updateWx"  >
         UPDATE carwashperson,orders
-SET washpersonstatus='空闲',orderstatus='已完成',orders.washpersonpid=NULL
+SET washpersonstatus='空闲',orderstatus='已完成'
 WHERE carwashperson.washpersonpid=orders.washpersonpid
 AND carwashperson.washpersonname=#{washpersonname}
     </update>
@@ -224,75 +225,93 @@ AND carwashperson.washpersonname=#{washpersonname}
     <!--微信端顾客查看所有订单-->
     <!--全部订单-->
     <select id="selectAllOrderByPhone" parameterType="String" resultType="map">
-        SELECT * FROM orders,customer,usercar,shop
+        SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
         and customer.userphone=#{userphone}
         ORDER BY orders.ordertime DESC
     </select>
 
 
-    <!--微信端待接单-->
+    <!--待接单-->
     <select id="selectAllWaitingOrder" resultType="map">
         SELECT *
-        FROM orders, usercar, customer, shop
+        FROM orders, usercar, customer,  carservice, shop
         WHERE orders.usercarid = usercar.usercarid
         AND customer.userid = orders.userid
-		AND orders.orderstatus="待接单"
+        AND carservice.carserviceid = orders.carserviceid
+        AND orders.orderstatus="待接单"
         AND shop.shopid=orders.shopid
         AND customer.userphone=#{userphone}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--微信端进行中-->
+    <!--进行中-->
     <select id="ingOrder" resultType="map">
-        SELECT * FROM orders,customer,usercar,shop
+        SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
         and orders.orderstatus="进行中"
         and customer.userphone=#{userphone}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--微信端已完成-->
+    <!--已完成-->
     <select id="finishOrder" resultType="map">
-        SELECT * FROM orders,customer,usercar,shop
+        SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
-
+        and orders.carserviceid=carservice.carserviceid
         and orders.orderstatus="已完成"
         and customer.userphone=#{userphone}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--微信端已取消-->
+    <!--已取消-->
     <select id="cancelledOrder" resultType="map">
-        SELECT * FROM orders,customer,usercar,shop
+        SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
         and orders.orderstatus="已取消"
         and customer.userphone=#{userphone}
         ORDER BY orders.ordertime DESC
     </select>
 
-    <!--微信端取消订单-->
+    <!--取消订单-->
     <update id="updateByOrdernumber" >
         update orders set orderstatus='已取消',ordertime=now()  where ordernumber=#{ordernumber} and orderstatus='待接单'
     </update>
+    <update id="updateCar">
+        UPDATE orders SET orderstatus='已取车' WHERE ordernumber=#{ordernumber}
+    </update>
+    <update id="updateKey">
+        UPDATE orders SET cabinetcode=#{cabinetcode} where ordernumber=#{ordernumber}
+    </update>
 
-    <!--微信端根据订单编号查询-->
+    <!--根据订单编号查询-->
     <select id="selectByOrderNumber" resultType="map">
-        SELECT * FROM orders,customer,usercar,shop
+        SELECT * FROM orders,customer,usercar,shop,carservice
         where orders.userid=customer.userid
         and orders.usercarid=usercar.usercarid
         and orders.shopid=shop.shopid
+        and orders.carserviceid=carservice.carserviceid
         and orders.ordernumber= #{ordernumber}
     </select>
-
-
+    <select id="history" resultType="com.aaa.project.system.orders.domain.Orders">
+        SELECT ordernumber,username,ordertime,washtime,cabinetcode,chestsite,orderstatus,washpersonstatus,usercar.usercarnumber,usercarbrandname,usercarcolor,usercarlocation
+FROM orders,usercar,carwashperson,customer
+WHERE carwashperson.washpersonpid=orders.washpersonpid
+AND orders.userid = customer.userid
+AND orders.usercarid = usercar.usercarid
+AND orders.orderstatus='已完成'
+AND carwashperson.washpersonname=#{washpersonname}
+    </select>
 
 </mapper>

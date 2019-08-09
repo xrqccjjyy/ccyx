@@ -134,6 +134,8 @@ gen:
 
 
 
+
+
   #配置文件上传的路径
   upload:
     #uploadCarImage: /Users/roy/project/DouDou/src/main/resources/static/fileupload/car/                    #车辆照片保存路径

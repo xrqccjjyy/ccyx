@@ -27,13 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectCarimageVo"/>
         where id = #{id}
     </select>
-
-    <select id="selectCarImageListByCarInfoId" parameterType="integer" resultMap="CarimageResult">
-        <include refid="selectCarimageVo"/>
-        where carinfoid = #{carinfoid}
-    </select>
         
-    <insert id="insertCarimage" parameterType="Carimage">
+    <insert id="insertCarimage" parameterType="String">
         insert into carimage
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">id,</if>
@@ -46,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="imageurl != null  and imageurl != ''  ">#{imageurl},</if>
          </trim>
     </insert>
-
+	 
     <update id="updateCarimage" parameterType="Carimage">
         update carimage
         <trim prefix="SET" suffixOverrides=",">
@@ -54,14 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="imageurl != null  and imageurl != ''  ">imageurl = #{imageurl},</if>
         </trim>
         where id = #{id}
-    </update>
-
-    <update id="updateCarImageByCarInfoId" parameterType="Carimage">
-        update carimage
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="imageurl != null  and imageurl != ''  ">imageurl = #{imageurl},</if>
-        </trim>
-        where carinfoid = #{carinfoid}
     </update>
 
 	<delete id="deleteCarimageById" parameterType="Integer">
